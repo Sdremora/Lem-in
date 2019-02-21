@@ -4,11 +4,11 @@
 
 # include "general.h"
 
-typedef	struct	t_resolve
+typedef	struct	s_resolve
 {
 	int			nb;
 	t_list		*path;
-}				s_resolve;
+}				t_resolve;
 
 t_resolve	*way_finder(t_farm *farm);
 
