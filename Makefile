@@ -6,7 +6,7 @@
 #    By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/14 14:51:35 by hharvey           #+#    #+#              #
-#    Updated: 2019/02/21 12:01:23 by hharvey          ###   ########.fr        #
+#    Updated: 2019/02/21 15:29:08 by sdremora         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ add_dflags:
 	$(eval FLAGS = $(DEBUG_FLAGS))
 
 run:
-	./lem-in < maps/1.map
+	./lem-in < maps/2.map
 
 clean:
 	/bin/rm -f $(OBJ)
