@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:22:05 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/21 11:37:03 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/02/21 11:57:44 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,7 @@ int main(int argc, char **argv)
 	return (0);
 }
 
+/*
 int main(int argc, char **argv)
 {
 	s_farm	*farm;
@@ -268,3 +269,4 @@ int main(int argc, char **argv)
 	ft_putnbr(128);
 	return (0);
 }
+*/

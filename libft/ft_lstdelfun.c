@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arrstrprnt.c                                    :+:      :+:    :+:   */
+/*   ft_lstdelfun.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/14 14:45:31 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/20 20:18:33 by hharvey          ###   ########.fr       */
+/*   Created: 2019/02/20 18:16:59 by hharvey           #+#    #+#             */
+/*   Updated: 2019/02/20 18:20:01 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_arrstrprnt(char **arr)
+void	ft_lstdelfun(void *content, size_t size)
 {
-	if (!arr)
-		return ;
-	while (*arr)
-	{
-		ft_putendl(*arr);
-		arr++;
-	}
+	if (content)
+		free(content);
+	size = 0;
 }

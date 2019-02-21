@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arrstrprnt.c                                    :+:      :+:    :+:   */
+/*   ft_min.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/14 14:45:31 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/20 20:18:33 by hharvey          ###   ########.fr       */
+/*   Created: 2019/02/20 19:49:59 by hharvey           #+#    #+#             */
+/*   Updated: 2019/02/20 19:50:21 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_arrstrprnt(char **arr)
+int	ft_min(int a, int b)
 {
-	if (!arr)
-		return ;
-	while (*arr)
-	{
-		ft_putendl(*arr);
-		arr++;
-	}
+	if (a < b)
+		return (a);
+	else
+		return (b);
 }

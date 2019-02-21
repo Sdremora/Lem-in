@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 16:36:10 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/18 20:08:13 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/20 20:17:55 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct		s_mlx
 	int				endian;
 }					t_mlx;
 
-void				ft_arrstrprnt(char **arr, int cnt);
+void				ft_arrstrprnt(char **arr);
 
 int					ft_atoi_base(char *str, int base);
 
@@ -111,7 +111,11 @@ char				*ft_itoa_base_unsgn(unsigned long long int nb,
 					int base, int isbig);
 char				*ft_strdelchr(char *str);
 char				*ft_strjdelfst(char *str, const char *str2);
+
 int					ft_max(int a, int b);
+int					ft_min(int a, int b);
+
+char				*ft_strndup(const char *s, size_t maxlen);
 char				*ft_addr_char(char *str, char c);
 int					ft_printf(const char *str, ...);
 char				*ft_itoa_base(long long int nb, int base, int isbig);
@@ -194,5 +198,9 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstfold(t_list *lst, t_list *(*f)(t_list *, t_list *));
 void				ft_lstprint(t_list *lst);
+
+void				ft_lstdelfun(void *content, size_t size);
+char				**ft_ltas(t_list *lst);
+int					ft_lstcontfnd(t_list *lst, t_list req, int (*f)());
 
 #endif
