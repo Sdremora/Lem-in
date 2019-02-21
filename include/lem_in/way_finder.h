@@ -10,6 +10,6 @@ typedef	struct	t_resolve
 	t_list		*path;
 }				s_resolve;
 
-//t_resolve	*way_finder(t_farm);
+t_resolve	*way_finder(t_farm *farm);
 
 #endif
