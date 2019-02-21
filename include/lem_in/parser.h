@@ -4,6 +4,12 @@
 
 # include "general.h"
 
-s_farm	*parser(int argc, char **argv);
+typedef struct	s_temp
+{
+	t_list		*conn;
+	t_room		*room;
+}				t_temp;
+
+t_farm	*parser(void);
 
 #endif

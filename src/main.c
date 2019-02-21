@@ -6,13 +6,14 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:22:05 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/21 11:57:44 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/21 17:34:44 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "lem_in.h"
 
+/*
 int		read_commands(char *str)
 {
 	if (ft_strequ(str, "##start"))
@@ -200,7 +201,8 @@ void	backtrack(s_room *start, s_room *prev, t_list **res, t_list *farm)
 	return ;
 }
 
-
+*/
+/*
 int main(int argc, char **argv)
 {
 	char	*str;;
@@ -256,10 +258,14 @@ int main(int argc, char **argv)
 	ft_arrstrprnt(arr_names);
 	return (0);
 }
+*/
 
-/*
 int main(int argc, char **argv)
 {
+	t_farm *farm;
+
+	farm = parser();
+	/*
 	s_farm	*farm;
 
 	farm = parser(argc, argv);
@@ -267,6 +273,7 @@ int main(int argc, char **argv)
 	solver();
 	printer();
 	ft_putnbr(128);
+	*/
 	return (0);
 }
-*/
+
