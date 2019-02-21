@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:22:05 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/21 11:57:44 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/21 15:39:43 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ void	backtrack(s_room *start, s_room *prev, t_list **res, t_list *farm)
 			ft_lstadd(res, temp);
 			backtrack(next, start, res, farm);
 
+
 //			restemp = res;
 			*res = (*res)->next;
 //			ft_lstdelone(restemp, ft_lstdelfun);
@@ -257,16 +258,16 @@ int main(int argc, char **argv)
 	return (0);
 }
 
-/*
 int main(int argc, char **argv)
 {
-	s_farm	*farm;
+	s_farm		*farm;
+	s_resolve	*resolve;
 
 	farm = parser(argc, argv);
-	way_finder();
+	resolve = way_finder(farm);
 	solver();
 	printer();
 	ft_putnbr(128);
+	//"sdfsdgsdfgdfghdfghdsfhgdfsh"
 	return (0);
 }
-*/
