@@ -1,0 +1,8 @@
+*.o
+*.a
+.DS_Store
+.vscode/
+*.dSYM/
+*.out
+lem-in
+out/*
