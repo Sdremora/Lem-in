@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 12:11:19 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/21 18:12:25 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/21 18:46:59 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ t_room  *get_room(t_list *farm)
 	return (farm->content);
 }
 
+
+/*
 void	read_connection(t_list **farm, char *str)
 {
 	char	**temp;
@@ -88,7 +90,7 @@ void	read_connection(t_list **farm, char *str)
 	ft_lstadd(&(((t_temp*)lst->content)->conn), ft_lstnew(temp[0], sizeof(char*)));
 	free(temp);
 }
-
+*/
 void	temp_init(t_temp *temp, t_room *room, t_list *conn)
 {
 	temp->room = room;
@@ -116,6 +118,7 @@ void    read_room(t_list **farm, char *str, int *type)
 //		ft_error();
 //	temp_init(temp, room, 0);
 	temp_list = ft_lstnew(room, sizeof(*room));
+	free(room);
 //	free(temp);
 	ft_lstadd(farm, temp_list);
 	*type = 0;
@@ -143,6 +146,31 @@ void	temp_to_array(t_list *farm, t_farm *res)
 	res->room = room;
 }
 
+/*
+void	read_connections(t_farm *res, char *str, t_list *temp)
+{
+	char	**split;
+	t_list	temp_lst;
+
+	split = ft_strsplit(str);
+	int i;
+	i = 0;
+	int j = 0;
+	while (!ft_strequ(res->room[i]->name, split[0]))
+	{
+		i++;
+		if (i >= res->size)
+			ft_error();
+	}
+	while (!ft_strequ(res->room[j]->name, split[1]))
+	{
+		j++;
+		if (j >= res->size)
+			ft_error();
+	}
+}
+*/
+
 t_farm	*parser()
 {
 	char	*str;
@@ -167,7 +195,10 @@ t_farm	*parser()
 //		else if (*str != 'L' && ft_strwrdcnt(str, '-') == 2 && farm)
 //			read_connection(&farm, str);
 		else
+		{
+			free(str);
 			break ;
+		}
 		free(str);
 	}
 	temp_to_array(farm,res);
@@ -177,8 +208,9 @@ t_farm	*parser()
 		printf("name: %s\n", res->room[i]->name);
 		i++;
 	}
+	farm = 0;
+//	read_connection(res, str, farm);
 	/*
-	read_connection(res, str);
 	while (get_next_line(0, &str))
 	{
 		if (*str == '#' && !ft_strnequ(str, "##", 2));
@@ -188,31 +220,5 @@ t_farm	*parser()
 			break ;
 	}
 */
-//	printf("%p", ((t_temp*)(farm->content))->room->name);
-//	while (farm)
-//	{
-//		printf("name %s\n", get_room(farm)->name);
-	//	ft_lstprint(((t_temp*)farm->content)->conn);
-//		farm = farm->next;
-//	}
-//	temp_to_array(farm,res);
-
-	/*
-	while (farm)
-	{
-		printf("name %s\n", get_room(farm)->name);
-		if (get_room(farm)->type == 1)
-			printf("start\n");
-		if (get_room(farm)->type == 2)
-			printf("end\n");
-		test = get_room(farm)->conn;
-		while (test)
-		{
-			printf("%s-%s\n", get_room(farm)->name, (char*)test->content);
-			test = test->next;
-		}
-		farm = farm->next;
-	}
-	*/
 	return (res);
 }
