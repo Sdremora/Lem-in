@@ -4,12 +4,11 @@
 
 # include "general.h"
 
-typedef struct			t_clst
+typedef struct	t_temp
 {
-	char				*name;
-	t_list				*conn;
-	struct t_clst		*next;
-}						s_clst;
+	t_list		*conn;
+	s_room		*room;
+}				s_temp;
 
 s_farm	*parser(void);
 
