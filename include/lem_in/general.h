@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 17:21:40 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/21 18:01:58 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/21 18:43:48 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct	s_room
 	int 		x;
 	int			y;
 	int			is_empty;
-	int			*conn;
+	t_arrnum	*conn;
 	int			type;
 }				t_room;
 
