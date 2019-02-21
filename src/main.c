@@ -6,14 +6,13 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:22:05 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/21 10:47:39 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/02/21 11:37:03 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "lem_in.h"
 
-/*
 int		read_commands(char *str)
 {
 	if (ft_strequ(str, "##start"))
@@ -258,11 +257,11 @@ int main(int argc, char **argv)
 	return (0);
 }
 
-*/
-
 int main(int argc, char **argv)
 {
-	parser(argc, argv);
+	s_farm	*farm;
+
+	farm = parser(argc, argv);
 	way_finder();
 	solver();
 	printer();

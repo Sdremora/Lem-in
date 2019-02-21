@@ -14,14 +14,12 @@ typedef struct	t_room
 	int			type;
 }				s_room;
 
-
-/*
 typedef struct		t_farm
 {
 	s_room			*room;
+	int				ant_count;
 	struct t_farm	*next;
 }					s_farm;
-*/
 
 typedef struct	t_ant
 {
@@ -29,12 +27,6 @@ typedef struct	t_ant
 	char		*path;
 	int			has_path;
 }				s_ant;
-
-typedef	struct	t_path
-{
-	int			nb;
-	t_list		*path;
-}				s_path;
 
 void	printer(void);
 

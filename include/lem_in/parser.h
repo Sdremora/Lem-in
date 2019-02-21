@@ -4,6 +4,6 @@
 
 # include "general.h"
 
-void	parser(int argc, char **argv);
+s_farm	*parser(int argc, char **argv);
 
 #endif

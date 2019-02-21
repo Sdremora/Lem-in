@@ -4,6 +4,12 @@
 
 # include "general.h"
 
-void	way_finder(void);
+typedef	struct	t_resolve
+{
+	int			nb;
+	t_list		*path;
+}				s_resolve;
+
+t_resolve	*way_finder(t_farm);
 
 #endif
