@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:22:05 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/21 13:45:35 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/21 17:34:44 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ int main(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	s_farm *farm;
+	t_farm *farm;
 
 	farm = parser();
 	/*

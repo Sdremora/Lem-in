@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 17:21:40 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/21 17:21:42 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/21 17:32:39 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ typedef struct	s_room
 
 typedef struct		s_farm
 {
-	s_room			*room;
+	t_room			*room;
 	int				ant_count;
 	int				size;
 }					t_farm;
 
 typedef struct	s_ant
 {
-	s_room		room;
+	t_room		room;
 	char		*path;
 	int			has_path;
 }				t_ant;
