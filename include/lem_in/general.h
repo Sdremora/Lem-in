@@ -18,7 +18,6 @@ typedef struct		t_farm
 {
 	s_room			*room;
 	int				ant_count;
-	struct t_farm	*next;
 }					s_farm;
 
 typedef struct	t_ant
