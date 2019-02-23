@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 16:22:16 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/23 18:18:18 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/23 19:11:44 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,21 @@ int		id_in_lst(t_list *lst, int id)
 	return (0);
 }
 
-void	add_res(t_list *res, t_list *path, int nb)
+void	add_res(t_list **res, t_list *path, int nb)
 {
 	t_resolve	*temp;
+	t_list		*lst;
 
-	while (res)
-	{
-		res = res->next;
-	}
 	temp = (t_resolve*)malloc(sizeof(t_resolve));
 	temp->nb = nb;
 	temp->path = ft_ltan(path);
-	res->content = temp;
-	res->content_size = sizeof(*temp);
+	lst = (t_list*)malloc(sizeof(t_list));
+	lst->content = temp;
+	lst->content_size = sizeof(*temp);
+	ft_lstadd(res, lst);
 }
 
-void	way_finder(t_farm *farm, t_list *res, int start, int prev)
+void	way_finder(t_farm *farm, t_list **res, int start, int prev)
 {
 	static t_list	*path = 0;
 	int				i;
@@ -51,8 +50,7 @@ void	way_finder(t_farm *farm, t_list *res, int start, int prev)
 
 	if (start == farm->size - 1)
 	{
-		ft_lstprintnb(path);
-//		add_res(res, path, nb);
+		add_res(res, path, nb);
 		nb++;
 		return ;
 	}
@@ -60,13 +58,11 @@ void	way_finder(t_farm *farm, t_list *res, int start, int prev)
 	while (i < farm->room[start]->conn->size)
 	{
 		next = farm->room[start]->conn->arr[i];
-//		printf("%d\n", i);
-
 		if (next != prev && !id_in_lst(path, next))
 		{
 			temp = ft_lstnew(&next, sizeof(next));
 			ft_lstadd(&path, temp);
-			way_finder(farm, temp, next, start);
+			way_finder(farm, res, next, start);
 		}
 		else
 		{
@@ -79,8 +75,7 @@ void	way_finder(t_farm *farm, t_list *res, int start, int prev)
 			path = path->next;
 			free(back->content);
 			free(back);
-		}
-		
+		}		
 		i++;
 	}	
 }

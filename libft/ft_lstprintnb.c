@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/27 17:00:58 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/23 18:16:13 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/23 18:21:12 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	sub_print(t_list *lst)
 {
 	ft_putnbr(*((int *)lst->content));
+	ft_putchar(' ');
 //	ft_putendl("");
 }
 

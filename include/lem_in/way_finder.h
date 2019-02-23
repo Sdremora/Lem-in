@@ -10,6 +10,6 @@ typedef	struct	s_resolve
 	t_arrnum	*path;
 }				t_resolve;
 
-void    way_finder(t_farm *farm, t_list *res, int start, int prev);
+void    way_finder(t_farm *farm, t_list **res, int start, int prev);
 
 #endif
