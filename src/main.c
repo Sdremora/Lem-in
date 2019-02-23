@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:22:05 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/21 17:34:44 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/23 15:25:31 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,11 +260,27 @@ int main(int argc, char **argv)
 }
 */
 
+void	room_del(t_room *room)
+{
+	free(room->name);
+	free(room->conn->arr);
+	free(room->conn);
+}
+
 int main(int argc, char **argv)
 {
 	t_farm *farm;
 
 	farm = parser();
+
+	int i = 0;
+	while (i < farm->size)
+	{
+		room_del(farm->room[i]);
+		i++;
+	}
+	free(farm->room);
+	free(farm);
 	/*
 	s_farm	*farm;
 
