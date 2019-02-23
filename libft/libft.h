@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 16:36:10 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/20 20:17:55 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/23 14:00:46 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,9 @@ void				ft_lstprint(t_list *lst);
 
 void				ft_lstdelfun(void *content, size_t size);
 char				**ft_ltas(t_list *lst);
+t_arrnum			*ft_ltan(t_list *lst);
 int					ft_lstcontfnd(t_list *lst, t_list req, int (*f)());
+
+void				ft_lstsetnb(t_list *lst, int nb);
 
 #endif

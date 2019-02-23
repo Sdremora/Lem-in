@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ft_lstsetnb.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/22 15:07:19 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/22 15:26:48 by hharvey          ###   ########.fr       */
+/*   Created: 2019/02/22 18:06:21 by hharvey           #+#    #+#             */
+/*   Updated: 2019/02/22 18:13:41 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "libft.h"
 
-# include "general.h"
-
-typedef struct	s_connlst
+void	ft_lstsetnb(t_list *lst, int nb)
 {
-	t_list		*conn;
-	int			id;
-	char		*name;
-}				t_connlst;
+	int *p;
 
-t_farm	*parser(void);
-
-#endif
+	p = (int*)malloc(sizeof(int));
+	*p = nb;
+	lst->content = p;
+}
