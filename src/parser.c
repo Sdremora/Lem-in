@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 12:11:19 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/23 15:58:55 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/23 16:19:29 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,8 @@ void    read_room(t_list **farm, char *str, int *type)
 	room->conn = 0;
 	if (ft_check_duplication(room->name, *farm))
 		ft_error();
-//	temp_list = (t_list*)malloc(sizeof(t_list));
-//	temp_list->content = room;
-//	temp_list->content_size = 12;
-	temp_list = ft_lstnew(room, sizeof(*room));
-	free(room);
+	temp_list = (t_list*)malloc(sizeof(t_list));
+	temp_list->content = room;
 	ft_lstadd(farm, temp_list);
 	*type = 0;
 }
@@ -113,10 +110,7 @@ void	swap_rooms(t_room **room, int i, int type, int len)
 		room[i] = temp;
 	}
 	else if (type == 2)
-	{
 		room[len - 1] = room[i];
-	}
-
 }
 
 void	temp_to_array(t_list *farm, t_farm *res)
@@ -188,6 +182,7 @@ void	read_connection(char *str, t_list *farm, t_farm *res)
 	ft_lstsetnb(temp_lst, id1);
 	ft_lstadd(&((t_connlst*)lst->content)->conn, temp_lst);
 	ft_arrstrdel(split);
+	free(str);
 }
 
 void	s_connlst_set(t_connlst *connlst, int id, char *name, t_list *conn)
@@ -257,6 +252,7 @@ t_farm	*parser()
 		free(str);
 	}
 	temp_to_array(farm,res);
+	
 	farm = 0;
 	temp_conn_init(&farm, res);
 	read_connection(str, farm, res);
@@ -271,10 +267,9 @@ t_farm	*parser()
 			free(str);
 			break ;
 		}
-		free(str);
 	}
 	temp_conn_to_arr(farm, res);
-
+	;
 	int i = 0;
 	while (i < res->size)
 	{

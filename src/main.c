@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:22:05 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/23 15:25:31 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/23 16:18:26 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,8 +263,12 @@ int main(int argc, char **argv)
 void	room_del(t_room *room)
 {
 	free(room->name);
-	free(room->conn->arr);
-	free(room->conn);
+	if (room->conn)
+	{
+		free(room->conn->arr);
+		free(room->conn);
+	}
+	free(room);
 }
 
 int main(int argc, char **argv)
@@ -281,6 +285,8 @@ int main(int argc, char **argv)
 	}
 	free(farm->room);
 	free(farm);
+
+
 	/*
 	s_farm	*farm;
 
