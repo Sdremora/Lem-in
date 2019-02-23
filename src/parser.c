@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 12:11:19 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/23 16:19:29 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/23 18:09:04 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ void	temp_conn_to_arr(t_list *farm, t_farm *res)
 
 	while (farm)
 	{
-		arr = ft_ltan(((t_connlst*)farm->content)->conn);
+		arr = ft_ltan_free(((t_connlst*)farm->content)->conn);
 		res->room[((t_connlst*)farm->content)->id]->conn = arr;
 		lst = farm;
 		farm = farm->next;

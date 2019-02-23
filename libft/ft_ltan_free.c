@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ltan.c                                          :+:      :+:    :+:   */
+/*   ft_ltan_free.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/23 13:52:56 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/23 17:33:21 by hharvey          ###   ########.fr       */
+/*   Created: 2019/02/23 17:29:25 by hharvey           #+#    #+#             */
+/*   Updated: 2019/02/23 17:30:10 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_arrnum	*ft_ltan(t_list *lst)
+t_arrnum	*ft_ltan_free(t_list *lst)
 {
 	t_arrnum	*res;
 	int			len;
@@ -30,6 +30,7 @@ t_arrnum	*ft_ltan(t_list *lst)
 		arr[i] = ft_lstgetnb(lst);
 		temp = lst;
 		lst = lst->next;
+		ft_lstdelone(&temp, ft_lstdelfun);
 		i++;
 	}
 	res->arr = arr;

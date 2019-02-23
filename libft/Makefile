@@ -6,7 +6,7 @@
 #    By: hharvey <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/20 12:13:03 by hharvey           #+#    #+#              #
-#    Updated: 2019/02/23 14:00:13 by hharvey          ###   ########.fr        #
+#    Updated: 2019/02/23 17:33:38 by hharvey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ ft_memmalcpy.c ft_atoi_base.c ft_arrnumprint.c ft_arrnumset.c \
 ft_arrnumbblsrt.c ft_arrnumgetmed.c ft_arrnumissrt.c ft_arrnumdup.c \
 ft_arrnumfndposnb.c ft_arrnumdel.c ft_arrstrprnt.c ft_isnumber.c \
 ft_arrstrlen.c ft_arrstradd.c ft_lstdelfun.c ft_ltas.c ft_lstcontfnd.c \
-ft_min.c ft_strndup.c ft_lstsetnb.c ft_ltan.c \
+ft_min.c ft_strndup.c ft_lstsetnb.c ft_ltan.c ft_ltan_free.c \
 
 OBJECTS = $(SRCS:.c=.o)
 

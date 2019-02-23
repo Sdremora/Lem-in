@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:22:05 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/23 16:18:26 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/23 18:08:25 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,8 +274,12 @@ void	room_del(t_room *room)
 int main(int argc, char **argv)
 {
 	t_farm *farm;
+	t_list *lst;
 
 	farm = parser();
+	lst = 0;
+
+	way_finder(farm, lst, 0, -1);
 
 	int i = 0;
 	while (i < farm->size)
