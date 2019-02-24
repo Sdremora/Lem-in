@@ -33,7 +33,7 @@ typedef struct	s_ant
 	int			has_path;
 }				t_ant;
 
-void	printer(void);
+void	printer(char *result);
 void	error_handle(int error_index, char *error_str);
 
 #endif

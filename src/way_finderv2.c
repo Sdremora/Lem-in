@@ -6,76 +6,75 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 16:22:16 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/24 12:39:30 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/02/24 13:35:46 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft.h"
 
-// int		id_in_lst(t_list *lst, int id)
+// void		add_pre_room(t_room *room, t_room *pre_room)
 // {
-// 	while (lst)
+// 	t_list	*node;
+
+// 	node = ft_lstput(pre_room, sizeof(*pre_room));
+// 	if (!node)
+// 		error_handle(E_NOMEM, E_NOMEM_STR);
+// 	ft_lstadd(&room->pre_list, node);
+// }
+
+// t_list		*add_link(t_list **rooms, t_room *room)
+// {
+// 	t_list	*node;
+// 	t_list	*new_node;
+// 	t_room	*next_room;
+
+// 	node = room->link_list;
+// 	while (node != NULL)
 // 	{
-// 		if (ft_lstgetnb(lst) == id)
-// 			return (1);
-// 		lst = lst->next;
+// 		next_room = (t_room *)node->content;
+// 		add_pre_room(next_room, room);
+// 		new_node = ft_lstput(room, sizeof(t_room));
+// 		if (new_node == NULL)
+// 			error_handle(E_NOMEM, E_NOMEM_STR);
+// 		ft_lstadd(rooms, new_node);
+// 		node = node->next;
 // 	}
-// 	return (0);
 // }
 
-// void	add_res(t_list **res, t_list *path, int nb)
+// void		marker(t_list *cur_rooms_list)
 // {
-// 	t_resolve	*temp;
-// 	t_list		*lst;
+// 	t_list	*next_rooms;
+// 	t_list	*cur_room;
 
-// 	temp = (t_resolve*)malloc(sizeof(t_resolve));
-// 	temp->nb = nb;
-// 	temp->path = ft_ltan(path);
-// 	lst = (t_list*)malloc(sizeof(t_list));
-// 	lst->content = temp;
-// 	lst->content_size = sizeof(*temp);
-// 	ft_lstadd(res, lst);
-// }
-
-// void	way_finder(t_farm *farm, t_list **res, int start, int prev)
-// {
-// 	static t_list	*path = 0;
-// 	int				i;
-// 	t_list			*temp;
-// 	static int		nb = 0;
-// 	int				next;
-// 	t_list			*back;
-
-
-// 	if (start == farm->size - 1)
-// 	{
-// 		add_res(res, path, nb);
-// 		nb++;
+// 	if (!cur_rooms_list)
 // 		return ;
-// 	}
-// 	i = 0;
-// 	while (i < farm->room[start]->conn->size)
+// 	cur_room = cur_rooms_list;
+// 	while (cur_room)
 // 	{
-// 		next = farm->room[start]->conn->arr[i];
-// 		if (next != prev && !id_in_lst(path, next))
-// 		{
-// 			temp = ft_lstnew(&next, sizeof(next));
-// 			ft_lstadd(&path, temp);
-// 			way_finder(farm, res, next, start);
-// 		}
-// 		else
-// 		{
-// 			i++;
-// 			continue ;
-// 		}
-// 		if (path)
-// 		{
-// 			back = path;
-// 			path = path->next;
-// 			free(back->content);
-// 			free(back);
-// 		}
-// 		i++;
+// 		add_link(&next_rooms, cur_room);
+
+// 		cur_room = cur_room->next;
 // 	}
+
+// 	marker(next_rooms);
 // }
+
+// t_resolve *way_finder(t_farm *farm)
+// {
+// 	t_list	*cur_rooms_list;
+
+// 	cur_rooms_list = ft_lstput(farm->room[0], sizeof(t_room));
+// 	if (!cur_rooms_list)
+// 		error_handle(E_NOMEM, E_NOMEM_STR);
+// 	marker(cur_rooms_list);
+
+// }
+
+t_list *way_finder(t_farm *farm)
+{
+	t_resolve	*resolve;
+
+
+
+}

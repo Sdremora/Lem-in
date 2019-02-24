@@ -260,46 +260,58 @@ void	room_del(t_room *room)
 	free(room);
 }
 
-int main(int argc, char **argv)
+// int main()
+// {
+// 	t_farm *farm;
+// 	t_list *lst;
+// 	t_list *temp;
+
+// 	farm = parser();
+// 	lst = 0;
+
+// 	ft_putendl("paths(id):");
+// 	// way_finder(farm, &lst, 0, -1);
+// 	 while (lst)
+// 	// {
+// 	// 	temp = lst;
+// 	// 	ft_arrnumprint(*((t_resolve*)lst->content)->path);
+// 	// 	free(((t_resolve*)lst->content)->path);
+// 	// 	free(lst->content);
+// 	// 	lst = lst->next;
+// 	// 	free(temp);
+// 	// }
+
+// 	// int i = 0;
+// 	// while (i < farm->size)
+// 	// {
+// 	// 	room_del(farm->room[i]);
+// 	// 	i++;
+// 	// }
+// 	// free(farm->room);
+// 	// free(farm);
+
+
+// 	/*
+// 	s_farm	*farm;
+
+// 	farm = parser(argc, argv);
+// 	way_finder();
+// 	solver();
+// 	printer();
+// 	ft_putnbr(128);
+// 	*/
+// 	return (0);
+// }
+
+int main()
 {
-	t_farm *farm;
-	t_list *lst;
-	t_list *temp;
+	t_farm	*farm;
+	t_list	*resolve;
+	char	*result;
 
 	farm = parser();
-	lst = 0;
-
-	ft_putendl("paths(id):");
-	way_finder(farm, &lst, 0, -1);
-	while (lst)
-	{
-		temp = lst;
-		ft_arrnumprint(*((t_resolve*)lst->content)->path);
-		free(((t_resolve*)lst->content)->path);
-		free(lst->content);
-		lst = lst->next;
-		free(temp);
-	}
-
-	int i = 0;
-	while (i < farm->size)
-	{
-		room_del(farm->room[i]);
-		i++;
-	}
-	free(farm->room);
-	free(farm);
-
-
-	/*
-	s_farm	*farm;
-
-	farm = parser(argc, argv);
-	way_finder();
-	solver();
-	printer();
-	ft_putnbr(128);
-	*/
+	resolve = way_finder(farm);
+	result = solver(resolve);
+	printer(result);
 	return (0);
 }
-

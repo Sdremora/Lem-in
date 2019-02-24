@@ -4,6 +4,6 @@
 
 # include "general.h"
 
-void	solver(void);
+char	*solver(t_list *resolve);
 
 #endif
