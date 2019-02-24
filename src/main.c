@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:22:05 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/24 13:51:18 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/24 15:53:48 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,7 +279,7 @@ int main(int argc, char **argv)
 
 	farm = parser();
 	lst = 0;
-/*
+
 	ft_putendl("paths(id):");
 	
 	way_finder(farm, &lst, 0, -1);
@@ -292,7 +292,7 @@ int main(int argc, char **argv)
 		lst = lst->next;
 		free(temp);
 	}	
-*/
+
 	int i = 0;
 	while (i < farm->size)
 	{

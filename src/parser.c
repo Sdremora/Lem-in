@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 12:11:19 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/23 18:09:04 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/24 15:58:04 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,7 @@ void	temp_to_array(t_list *farm, t_farm *res)
 	t_list	*temp;
 	int i;
 
-	i = 0;
-	
+	i = 0;	
 	len = ft_lstlen(farm);
 	room = (t_room**)malloc(sizeof(t_room*) * len);
 	res->size = len;
@@ -252,11 +251,9 @@ t_farm	*parser()
 		free(str);
 	}
 	temp_to_array(farm,res);
-	
 	farm = 0;
 	temp_conn_init(&farm, res);
 	read_connection(str, farm, res);
-
 	while (get_next_line(0, &str))
 	{
 		if (*str == '#' && !ft_strnequ(str, "##", 2));
@@ -269,7 +266,6 @@ t_farm	*parser()
 		}
 	}
 	temp_conn_to_arr(farm, res);
-	;
 	int i = 0;
 	while (i < res->size)
 	{
@@ -277,6 +273,5 @@ t_farm	*parser()
 		ft_arrnumprint(*res->room[i]->conn);
 		i++;
 	}
-
 	return (res);
 }
