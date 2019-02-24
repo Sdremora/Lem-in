@@ -34,6 +34,9 @@ add_dflags:
 run:
 	./lem-in < maps/1.map
 
+val:
+	valgrind --leak-check=full ./lem-in < maps/1.map
+
 clean:
 	/bin/rm -f $(OBJ)
 

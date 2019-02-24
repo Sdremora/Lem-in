@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstprintnb.c                                    :+:      :+:    :+:   */
+/*   ft_ltan_free.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/27 17:00:58 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/23 18:21:12 by hharvey          ###   ########.fr       */
+/*   Created: 2019/02/23 17:29:25 by hharvey           #+#    #+#             */
+/*   Updated: 2019/02/23 17:30:10 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	sub_print(t_list *lst)
+t_arrnum	*ft_ltan_free(t_list *lst)
 {
-	ft_putnbr(*((int *)lst->content));
-	ft_putchar(' ');
-//	ft_putendl("");
-}
+	t_arrnum	*res;
+	int			len;
+	int			*arr;
+	int			i;
+	t_list		*temp;
 
-void		ft_lstprintnb(t_list *lst)
-{
-	if (!lst)
-		return ;
-	ft_lstiter(lst, sub_print);
-	ft_putendl("");
+	res = (t_arrnum*)malloc(sizeof(t_arrnum));
+	len = ft_lstlen(lst);
+	res->size = len;
+	arr = (int*)malloc(sizeof(int) * len);
+	i = 0;
+	while (i < len)
+	{
+		arr[i] = ft_lstgetnb(lst);
+		temp = lst;
+		lst = lst->next;
+		ft_lstdelone(&temp, ft_lstdelfun);
+		i++;
+	}
+	res->arr = arr;
+	return (res);
 }

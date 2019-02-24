@@ -249,11 +249,48 @@ int main(int argc, char **argv)
 }
 */
 
+void	room_del(t_room *room)
+{
+	free(room->name);
+	if (room->conn)
+	{
+		free(room->conn->arr);
+		free(room->conn);
+	}
+	free(room);
+}
+
 int main(int argc, char **argv)
 {
 	t_farm *farm;
+	t_list *lst;
+	t_list *temp;
 
 	farm = parser();
+	lst = 0;
+
+	ft_putendl("paths(id):");
+	way_finder(farm, &lst, 0, -1);
+	while (lst)
+	{
+		temp = lst;
+		ft_arrnumprint(*((t_resolve*)lst->content)->path);
+		free(((t_resolve*)lst->content)->path);
+		free(lst->content);
+		lst = lst->next;
+		free(temp);
+	}
+
+	int i = 0;
+	while (i < farm->size)
+	{
+		room_del(farm->room[i]);
+		i++;
+	}
+	free(farm->room);
+	free(farm);
+
+
 	/*
 	s_farm	*farm;
 

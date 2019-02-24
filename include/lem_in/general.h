@@ -15,6 +15,7 @@ typedef struct	s_room
 	int			is_empty;
 	t_list		*link_list;
 	t_list		*pre_list;
+	t_arrnum	*conn;
 	int			type;
 }				t_room;
 

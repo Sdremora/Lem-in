@@ -7,9 +7,9 @@
 typedef	struct	s_resolve
 {
 	int			nb;
-	t_list		*path;
+	t_arrnum	*path;
 }				t_resolve;
 
-t_resolve	*way_finder(t_farm *farm);
+void    way_finder(t_farm *farm, t_list **res, int start, int prev);
 
 #endif
