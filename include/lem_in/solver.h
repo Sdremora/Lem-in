@@ -6,6 +6,6 @@
 
 void	solver(void);
 
-//int		turn_counter(s_farm *farm, t_resolve *res);
+int		turn_counter(int ant_count, t_resolve *res);
 
 #endif
