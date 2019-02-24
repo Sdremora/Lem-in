@@ -1,19 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   general.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/21 17:21:40 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/21 17:32:39 by hharvey          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef GENERAL_H
 # define GENERAL_H
 
 # include "libft.h"
+
+# define E_NOMEM -4
+# define E_NOMEM_STR "Error: no mem"
 
 typedef struct	s_room
 {
@@ -21,13 +13,14 @@ typedef struct	s_room
 	int 		x;
 	int			y;
 	int			is_empty;
-	int			*conn;
+	t_list		*link_list;
+	t_list		*pre_list;
 	int			type;
 }				t_room;
 
 typedef struct		s_farm
 {
-	t_room			*room;
+	t_room			**room;
 	int				ant_count;
 	int				size;
 }					t_farm;
@@ -40,5 +33,6 @@ typedef struct	s_ant
 }				t_ant;
 
 void	printer(void);
+void	error_handle(int error_index, char *error_str);
 
 #endif
