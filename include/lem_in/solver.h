@@ -4,7 +4,7 @@
 
 # include "general.h"
 
-void	solver(void);
+char	*solver(t_list *resolve);
 
 int		turn_counter(int ant_count, t_resolve *res);
 

@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/21 12:11:19 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/24 15:58:04 by hharvey          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "lem_in.h"
 
@@ -120,7 +109,7 @@ void	temp_to_array(t_list *farm, t_farm *res)
 	t_list	*temp;
 	int i;
 
-	i = 0;	
+	i = 0;
 	len = ft_lstlen(farm);
 	room = (t_room**)malloc(sizeof(t_room*) * len);
 	res->size = len;
@@ -233,7 +222,7 @@ t_farm	*parser()
 	t_farm	*res;
 	t_list	*test;
 
-	farm = 0;
+	farm = NULL;
 	res = (t_farm*)malloc(sizeof(t_farm));
 	type = 0;
 	res->ant_count = -1;
