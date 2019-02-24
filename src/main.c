@@ -12,4 +12,5 @@ int main()
 	result = solver(resolve);
 	printer(result);
 	return (0);
+
 }
