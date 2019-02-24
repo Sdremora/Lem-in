@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 12:11:19 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/23 18:09:04 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/02/24 14:12:23 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	temp_to_array(t_list *farm, t_farm *res)
 	int i;
 
 	i = 0;
-	
+
 	len = ft_lstlen(farm);
 	room = (t_room**)malloc(sizeof(t_room*) * len);
 	res->size = len;
@@ -234,7 +234,7 @@ t_farm	*parser()
 	t_farm	*res;
 	t_list	*test;
 
-	farm = 0;
+	farm = NULL;
 	res = (t_farm*)malloc(sizeof(t_farm));
 	type = 0;
 	res->ant_count = -1;
@@ -252,7 +252,7 @@ t_farm	*parser()
 		free(str);
 	}
 	temp_to_array(farm,res);
-	
+
 	farm = 0;
 	temp_conn_init(&farm, res);
 	read_connection(str, farm, res);

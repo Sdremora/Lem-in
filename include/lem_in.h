@@ -8,4 +8,6 @@
 # include "lem_in/solver.h"
 # include "libft.h"
 
+#include <stdio.h> // <==== Удалить
+
 #endif
