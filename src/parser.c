@@ -1,6 +1,27 @@
 
 #include "lem_in.h"
 
+void	room_cleaner(t_room *room)
+{
+	free(room->name);
+	ft_lstdel(&(room->link_list), ft_lstdelfun);
+	ft_lstdel(&(room->pre_list), ft_lstdelfun);
+	free(room);
+}
+
+void	farm_cleaner(t_list *farm)
+{
+	t_list *temp;
+
+	while (farm)
+	{
+		temp = farm;
+		room_cleaner(farm->content);
+		farm = farm->next;
+		free(temp);
+	}
+}
+
 int     read_commands(char *str)
 {
 	static int	has_start = 0;
@@ -65,7 +86,7 @@ int		ft_check_duplication(char *name, t_list *farm)
 	return (0);
 }
 
-void    read_room(t_list **farm, char *str, int *type)
+void    read_room(t_list **farm, char *str, int *type, t_farm *res)
 {
 	t_room  *room;
 	t_list  *temp_list;
@@ -81,6 +102,10 @@ void    read_room(t_list **farm, char *str, int *type)
 	room->pre_list = 0;
 	ft_arrstrdel(split);
 	room->type = *type;
+	if (*type == 1)
+		res->start = room;
+	else if (*type == 2)
+		res->end = room;
 	if (ft_check_duplication(room->name, *farm))
 		ft_error();
 	temp_list = (t_list*)malloc(sizeof(t_list));
@@ -117,16 +142,9 @@ void	temp_to_array(t_list *farm, t_farm *res)
 	while (i < len)
 	{
 		room[i] = get_room(farm);
-		if (room[i]->type != 0)
-			swap_rooms(room, i, room[i]->type, len);
 		temp = farm;
 		farm = farm->next;
 		free(temp);
-		if (room[i]->type == 2)
-		{
-			len -= 1;
-			continue;
-		}
 		i++;
 	}
 	res->room = room;
@@ -151,23 +169,29 @@ void	read_connection(char *str, t_list *farm)
 {
 	char	**split;
 	t_list	*temp_lst;
-	int		id1;
-	int		id2;
-	t_list	*lst;
+	t_list	*lst1;
+	t_list	*lst2;
 
-	lst = farm;
 	split = ft_strsplit(str, '-');
-	while (!ft_strequ(((t_room*)lst->content)->name, split[0]))
-		lst = lst->next;
-	temp_lst = (t_list*)malloc(sizeof(t_list));
-	temp_lst->content = lst->content;
-	ft_lstadd(&((t_room*)lst->content)->link_list, temp_lst);
-	lst = farm;
-	while (!ft_strequ(((t_room*)lst->content)->name, split[1]))
-		lst = lst->next;
-	temp_lst = (t_list*)malloc(sizeof(t_list));
-	temp_lst->content = lst->content;
-	ft_lstadd(&((t_room*)lst->content)->link_list, temp_lst);
+	if (!ft_strequ(split[0],split[1]))
+	{
+		lst1 = 0;
+		lst2 = 0;
+		while (!lst1 || !lst2)
+		{
+			if (ft_strequ(((t_room*)farm->content)->name, split[0]))
+				lst1 = farm;
+			if (ft_strequ(((t_room*)farm->content)->name, split[1]))
+				lst2 = farm;
+			farm = farm->next;
+		}
+		temp_lst = (t_list*)malloc(sizeof(t_list));
+		temp_lst->content = lst2->content;
+		ft_lstadd(&((t_room*)lst1->content)->link_list, temp_lst);
+		temp_lst = (t_list*)malloc(sizeof(t_list));
+		temp_lst->content = lst1->content;
+		ft_lstadd(&((t_room*)lst2->content)->link_list, temp_lst);
+	}
 	ft_arrstrdel(split);
 }
 
@@ -176,24 +200,6 @@ void	s_connlst_set(t_connlst *connlst, int id, char *name, t_list *conn)
 	connlst->id = id;
 	connlst->name = name;
 	connlst->conn = conn;
-}
-
-void	temp_conn_init(t_list **farm, t_farm *res)
-{
-	int			i;
-	t_connlst	*connlst;
-	t_list		*temp;
-
-	i = 0;
-	while (i < res->size)
-	{
-		connlst = (t_connlst*)malloc(sizeof(t_connlst));
-		s_connlst_set(connlst, i, res->room[i]->name, 0);
-		temp = ft_lstnew(connlst, sizeof(*connlst));
-		free(connlst);
-		ft_lstadd(farm, temp);
-		i++;
-	}
 }
 
 t_farm	*parser()
@@ -216,7 +222,7 @@ t_farm	*parser()
 		else if (*str == '#')
 			type = read_commands(str);
 		else if (*str != 'L' && ft_strwrdcnt(str, ' ') == 3)
-			read_room(&farm, str, &type);
+			read_room(&farm, str, &type, res);
 		else if (*str != 'L' && ft_strwrdcnt(str, '-') == 2 && farm)
 			read_connection(str, farm);
 		else
@@ -227,5 +233,18 @@ t_farm	*parser()
 		free(str);
 	}
 	temp_to_array(farm,res);
+	int i = 0;
+	while (i < res->size)
+	{
+		printf("%s\n", res->room[i]->name);
+		test = res->room[i]->link_list;
+		while (test)
+		{
+			printf("%s ", ((t_room*)test->content)->name);
+			test = test->next;
+		}
+		printf("\n");
+		i++;
+	}
 	return (res);
 }
