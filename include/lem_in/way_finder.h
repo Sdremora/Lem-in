@@ -23,5 +23,6 @@ typedef	struct	s_resolve
 }				t_resolve;
 
 t_list *way_finder(t_farm *farm);
+void	path_logic(t_list **path_lst, t_path *path, t_room *room);
 
 #endif
