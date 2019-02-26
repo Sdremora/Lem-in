@@ -114,20 +114,7 @@ void    read_room(t_list **farm, char *str, int *type, t_farm *res)
 	*type = 0;
 }
 
-void	swap_rooms(t_room **room, int i, int type, int len)
-{
-	t_room *temp;
-
-	if (type == 1)
-	{
-		temp = room[0];
-		room[0] = room[i];
-		room[i] = temp;
-	}
-	else if (type == 2)
-		room[len - 1] = room[i];
-}
-
+/*
 void	temp_to_array(t_list *farm, t_farm *res)
 {
 	int		len;
@@ -164,6 +151,7 @@ int		get_id(t_farm *res, char *str)
 	ft_error();
 	return (-1);
 }
+*/
 
 void	read_connection(char *str, t_list *farm)
 {
@@ -193,13 +181,6 @@ void	read_connection(char *str, t_list *farm)
 		ft_lstadd(&((t_room*)lst2->content)->link_list, temp_lst);
 	}
 	ft_arrstrdel(split);
-}
-
-void	s_connlst_set(t_connlst *connlst, int id, char *name, t_list *conn)
-{
-	connlst->id = id;
-	connlst->name = name;
-	connlst->conn = conn;
 }
 
 t_farm	*parser()
@@ -232,19 +213,20 @@ t_farm	*parser()
 		}
 		free(str);
 	}
-	temp_to_array(farm,res);
-	int i = 0;
-	while (i < res->size)
+	res->room = farm;
+//	temp_to_array(farm,res);
+	while (farm)
 	{
-		printf("%s\n", res->room[i]->name);
-		test = res->room[i]->link_list;
+		printf("room name: %s\n", ((t_room*)farm->content)->name);
+		test = ((t_room*)farm->content)->link_list;
+		printf("links: ");
 		while (test)
 		{
 			printf("%s ", ((t_room*)test->content)->name);
 			test = test->next;
 		}
 		printf("\n");
-		i++;
+		farm = farm->next;
 	}
 	return (res);
 }

@@ -20,7 +20,7 @@ typedef struct	s_room
 
 typedef struct		s_farm
 {
-	t_room			**room;
+	t_list			*room;
 	int				ant_count;
 	int				size;
 	t_room			*start;
