@@ -76,10 +76,11 @@ void    read_room(t_list **farm, char *str, int *type)
 	room->name = ft_strdup(split[0]);
 	room->x = get_nb(split[1]);
 	room->y = get_nb(split[2]);
+	room->link_list = 0;
+	room->step = -1;
+	room->pre_list = 0;
 	ft_arrstrdel(split);
 	room->type = *type;
-	room->is_empty = 1;
-	room->conn = 0;
 	if (ft_check_duplication(room->name, *farm))
 		ft_error();
 	temp_list = (t_list*)malloc(sizeof(t_list));
@@ -146,7 +147,7 @@ int		get_id(t_farm *res, char *str)
 	return (-1);
 }
 
-void	read_connection(char *str, t_list *farm, t_farm *res)
+void	read_connection(char *str, t_list *farm)
 {
 	char	**split;
 	t_list	*temp_lst;
@@ -156,21 +157,18 @@ void	read_connection(char *str, t_list *farm, t_farm *res)
 
 	lst = farm;
 	split = ft_strsplit(str, '-');
-	id1 = get_id(res, split[0]);
-	id2 = get_id(res, split[1]);
-	while (!ft_strequ(((t_connlst*)lst->content)->name, split[0]))
+	while (!ft_strequ(((t_room*)lst->content)->name, split[0]))
 		lst = lst->next;
 	temp_lst = (t_list*)malloc(sizeof(t_list));
-	ft_lstsetnb(temp_lst, id2);
-	ft_lstadd(&((t_connlst*)lst->content)->conn, temp_lst);
+	temp_lst->content = lst->content;
+	ft_lstadd(&((t_room*)lst->content)->link_list, temp_lst);
 	lst = farm;
-	while (!ft_strequ(((t_connlst*)lst->content)->name, split[1]))
+	while (!ft_strequ(((t_room*)lst->content)->name, split[1]))
 		lst = lst->next;
 	temp_lst = (t_list*)malloc(sizeof(t_list));
-	ft_lstsetnb(temp_lst, id1);
-	ft_lstadd(&((t_connlst*)lst->content)->conn, temp_lst);
+	temp_lst->content = lst->content;
+	ft_lstadd(&((t_room*)lst->content)->link_list, temp_lst);
 	ft_arrstrdel(split);
-	free(str);
 }
 
 void	s_connlst_set(t_connlst *connlst, int id, char *name, t_list *conn)
@@ -198,22 +196,6 @@ void	temp_conn_init(t_list **farm, t_farm *res)
 	}
 }
 
-void	temp_conn_to_arr(t_list *farm, t_farm *res)
-{
-	t_list		*lst;
-	int			i;
-	t_arrnum	*arr;
-
-	while (farm)
-	{
-		arr = ft_ltan_free(((t_connlst*)farm->content)->conn);
-		res->room[((t_connlst*)farm->content)->id]->conn = arr;
-		lst = farm;
-		farm = farm->next;
-		ft_lstdelone(&lst, ft_lstdelfun);
-	}
-}
-
 t_farm	*parser()
 {
 	char	*str;
@@ -222,7 +204,7 @@ t_farm	*parser()
 	t_farm	*res;
 	t_list	*test;
 
-	farm = NULL;
+	farm = 0;
 	res = (t_farm*)malloc(sizeof(t_farm));
 	type = 0;
 	res->ant_count = -1;
@@ -235,32 +217,15 @@ t_farm	*parser()
 			type = read_commands(str);
 		else if (*str != 'L' && ft_strwrdcnt(str, ' ') == 3)
 			read_room(&farm, str, &type);
-		else
-			break ;
-		free(str);
-	}
-	temp_to_array(farm,res);
-	farm = 0;
-	temp_conn_init(&farm, res);
-	read_connection(str, farm, res);
-	while (get_next_line(0, &str))
-	{
-		if (*str == '#' && !ft_strnequ(str, "##", 2));
 		else if (*str != 'L' && ft_strwrdcnt(str, '-') == 2 && farm)
-			read_connection(str, farm, res);
+			read_connection(str, farm);
 		else
 		{
 			free(str);
 			break ;
 		}
+		free(str);
 	}
-	temp_conn_to_arr(farm, res);
-	int i = 0;
-	while (i < res->size)
-	{
-		printf("name: %s id %d\n", res->room[i]->name, i);
-		ft_arrnumprint(*res->room[i]->conn);
-		i++;
-	}
+	temp_to_array(farm,res);
 	return (res);
 }
