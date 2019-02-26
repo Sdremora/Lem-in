@@ -12,11 +12,9 @@ typedef struct	s_room
 	char		*name;
 	int 		x;
 	int			y;
-	int			is_empty;
 	t_list		*link_list;
 	t_list		*pre_list;
-	t_arrnum	*conn;
-	int			type;
+	int			step;
 }				t_room;
 
 typedef struct		s_farm
@@ -24,14 +22,9 @@ typedef struct		s_farm
 	t_room			**room;
 	int				ant_count;
 	int				size;
+	t_room			*start;
+	t_room			*end;
 }					t_farm;
-
-typedef struct	s_ant
-{
-	t_room		room;
-	char		*path;
-	int			has_path;
-}				t_ant;
 
 void	printer(char *result);
 void	error_handle(int error_index, char *error_str);
