@@ -71,7 +71,7 @@ t_path	*get_min_path(t_resolve *res)
 	path = res->path_ar[i];
 	while (++i < res->flow_count)
 	{
-		if (path->max_size < res->path_ar[i]->max_size)
+		if (path->max_size > res->path_ar[i]->max_size)
 		{
 			path = res->path_ar[i];
 		}
@@ -86,7 +86,6 @@ t_ant	*ant_init(t_resolve *res, int ant_count)
 	t_ant	*ant;
 	t_path	**path;
 	int		*pos;
-
 
 	ant = (t_ant*)malloc(sizeof(t_ant));
 	i = 0;
@@ -105,7 +104,7 @@ t_ant	*ant_init(t_resolve *res, int ant_count)
 
 void	move_ant(t_ant *ant)
 {
-
+	return ;
 }
 
 void	print_res(t_resolve *res, int ant_count)
@@ -121,7 +120,7 @@ void	print_res(t_resolve *res, int ant_count)
 	while (i < step)
 	{
 		j = 0;
-		while(j < ant_count)
+		while (j < ant_count)
 		{
 			if (ant->pos[i] + 1 < ant->path[i]->size && ant->path[i]->ar[ant->pos[i] + 1]->is_empty)
 			{
@@ -152,8 +151,6 @@ char	*solver(t_list *resolve, int ant_count)
 		resolve_reverse(res);
 		print_res(res, ant_count);
 	}
-
 	result = ft_strdup("L1-2\nL1-3 L2-2\nL1-1 L2-3 L3-2\nL2-1 L3-3\nL3-1\n");
-
 	return (result);
 }
