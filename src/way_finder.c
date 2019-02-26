@@ -81,13 +81,6 @@
 //  	return (marker(next_room_lst, step));
 //  }
 
-// t_list		*path_combine(t_farm *farm)
-// {
-// 	t_list	*path_lst;
-
-// 	return (path_lst);
-// }
-
 // t_path	*path_ini(int path_size)
 // {
 // 	t_path	*path;
@@ -195,6 +188,10 @@
 // 	return (resolve);
 // }
 
+// int			resolve_add(t_resolve *resolve, t_path *add_path)
+// {
+
+// }
 
 // void		resolve_builder(t_resolve *resolve, t_path *path, int flow)
 // {
@@ -213,13 +210,7 @@
 // 		resolve = resolve_ini(flow);
 // 		node = path_node->next;
 // 		i = 0;
-// 		while (node)
-// 		{
-// 			if (resolve_add(resolve, (t_path *)node->content))
-// 				i++;
-// 			if (i == flow)
-// 			node = node->next;
-// 		}
+
 // 		path_lst = path_lst->next;
 // 	}
 
@@ -275,40 +266,5 @@
 
 t_list *way_finder(t_farm *farm)
 {
-	t_list		*resolve;
-	t_resolve	*temp;
-	t_list		*path1;
-	t_list		*path2;
-	t_list		*path3;
-
-	path1 = NULL;
-	path2 = NULL;
-	path3 = NULL;
-	ft_lstadd(&path1, ft_lstput(farm->room[1], sizeof(t_room)));
-	ft_lstadd(&path1, ft_lstput(farm->room[2], sizeof(t_room)));
-	ft_lstadd(&path1, ft_lstput(farm->room[4], sizeof(t_room)));
-
-	ft_lstadd(&path2, ft_lstput(farm->room[1], sizeof(t_room)));
-	ft_lstadd(&path2, ft_lstput(farm->room[3], sizeof(t_room)));
-	ft_lstadd(&path2, ft_lstput(farm->room[4], sizeof(t_room)));
-
-	ft_lstadd(&path3, ft_lstput(farm->room[2], sizeof(t_room)));
-	ft_lstadd(&path3, ft_lstput(farm->room[5], sizeof(t_room)));
-	ft_lstadd(&path3, ft_lstput(farm->room[4], sizeof(t_room)));
-
-	temp = (t_resolve *)ft_memalloc(sizeof(t_resolve));
-	temp->path_list = NULL;
-	ft_lstadd(&temp->path_list, path1);
-	temp->flow_count = 1;
-	temp->move_count = 3;
-	ft_lstadd(&resolve, ft_lstput(temp, sizeof(t_resolve)));
-
-	temp = (t_resolve *)ft_memalloc(sizeof(t_resolve));
-	temp->path_list = NULL;
-	ft_lstadd(&temp->path_list, path2);
-	ft_lstadd(&temp->path_list, path3);
-	temp->flow_count = 2;
-	temp->move_count = 6;
-	ft_lstadd(&resolve, ft_lstput(temp, sizeof(t_resolve)));
-	return (resolve);
+	return (NULL);
 }
