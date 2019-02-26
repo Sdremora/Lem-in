@@ -18,6 +18,7 @@ typedef	struct	s_resolve
 {
 	t_path		**path_ar;
 	int			flow_count;
+	int			cur_flow;
 	int			move_count;
 }				t_resolve;
 
