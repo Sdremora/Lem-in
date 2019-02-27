@@ -362,6 +362,6 @@ void	print_eval(t_list	*resolve_lst)
 	path_lst = path_combine(farm, max_step);
 	resolve_lst = NULL;
 	make_eval(farm, &resolve_lst, path_lst);
-	print_eval(resolve_lst);
+//	print_eval(resolve_lst);
 	return (resolve_lst);
  }
