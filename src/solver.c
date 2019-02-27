@@ -142,7 +142,9 @@ void	print_res(t_resolve *res, int ant_count)
 	int		j;
 	t_ant	*ant;
 	int		step;
+	int		is_fst;
 
+	is_fst = 1;
 	step = step_counter(res, ant_count);
 	ant = ant_init(res, ant_count);
 //	print_ant_path(ant, ant_count);
@@ -151,17 +153,23 @@ void	print_res(t_resolve *res, int ant_count)
 	while (i < step - 1)
 	{
 		j = 0;
+		is_fst = 1;
 		while (j < ant_count)
 		{
 			if (ant->pos[j] + 1 < ant->path[j]->size && ant->path[j]->ar[ant->pos[j] + 1]->is_empty)
 			{
-								
+				if (is_fst)
+				{
+					is_fst = 0;
+				}
+				else
+					printf(" ");
 				ant->path[j]->ar[ant->pos[j]]->is_empty = 1;	
 				if (ant->pos[j] + 1 != ant->path[j]->size - 1)
 					ant->path[j]->ar[ant->pos[j] + 1]->is_empty = 0;
 				ant->pos[j] += 1;
 //				printf("%d %d\n", j +1, ant->pos[j] + 1);
-				printf("L%d-%s ", j + 1, ant->path[j]->ar[ant->pos[j]]->name);
+				printf("L%d-%s", j + 1, ant->path[j]->ar[ant->pos[j]]->name);
 			}
 			j++;
 		}
