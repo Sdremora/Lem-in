@@ -5,7 +5,7 @@
 # include "general.h"
 
 # define E_NOPATH -5
-# define E_NOPATH_STR "Error\n"
+# define E_NOPATH_STR "ERROR\n"
 
 typedef struct	s_path
 {
@@ -22,7 +22,7 @@ typedef	struct	s_resolve
 	int			move_count;
 }				t_resolve;
 
-t_list *way_finder(t_farm *farm);
-void	path_logic(t_list **path_lst, t_path *path, t_room *room);
+t_list	*way_finder(t_farm *farm);
+int		marker(t_list *room_lst, int step);
 
 #endif
