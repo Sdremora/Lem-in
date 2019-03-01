@@ -8,9 +8,12 @@ int main()
 	char	*result;
 
 	farm = parser();
+	
 	resolve = way_finder(farm);
 	print_map(farm);
 	solver(resolve, farm->ant_count);
+	farm_cleaner(farm);
+
 	return (0);
 
 }

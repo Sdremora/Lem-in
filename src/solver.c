@@ -32,10 +32,7 @@ t_resolve	*get_path(t_list *resolve, int ant_count)
 	if (solution)
 		return (solution->content);
 	else
-	{
-
 		return (0);
-	}
 }
 
 void	path_reverse(t_path *path)
@@ -83,6 +80,13 @@ t_path	*get_min_path(t_resolve *res)
 	}
 	path->max_size += 1;
 	return (path);
+}
+
+void	ant_cleaner(t_ant *ant)
+{
+	free(ant->path);
+	free(ant->pos);
+	free(ant);
 }
 
 t_ant	*ant_init(t_resolve *res, int ant_count)
@@ -147,8 +151,6 @@ void	print_res(t_resolve *res, int ant_count)
 	is_fst = 1;
 	step = step_counter(res, ant_count);
 	ant = ant_init(res, ant_count);
-//	print_ant_path(ant, ant_count);
-//	return ;
 	i = 0;
 	while (i < step - 1)
 	{
@@ -168,7 +170,6 @@ void	print_res(t_resolve *res, int ant_count)
 				if (ant->pos[j] + 1 != ant->path[j]->size - 1)
 					ant->path[j]->ar[ant->pos[j] + 1]->is_empty = 0;
 				ant->pos[j] += 1;
-//				printf("%d %d\n", j +1, ant->pos[j] + 1);
 				printf("L%d-%s", j + 1, ant->path[j]->ar[ant->pos[j]]->name);
 			}
 			j++;
@@ -176,6 +177,7 @@ void	print_res(t_resolve *res, int ant_count)
 		printf("\n");
 		i++;
 	}
+	ant_cleaner(ant);
 }
 
 char	*solver(t_list *resolve, int ant_count)
@@ -194,24 +196,6 @@ char	*solver(t_list *resolve, int ant_count)
 	{
 		res = get_path(resolve, ant_count);
 		resolve_reverse(res);
-		/*		
-		ft_putstr("\nanswer: \n");
-		i = 0;
-		while (i < res->flow_count)
-		{
-			path = res->path_ar[i];
-			k = 0;
-			while (k < path->size)
-			{
-				room = path->ar[k];
-				ft_putstr(room->name);
-				ft_putstr("\t");
-				k++;
-			}
-			ft_putstr("\n");
-			i++;
-		}
-		*/
 		print_res(res, ant_count);
 		return (0);
 	}

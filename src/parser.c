@@ -13,11 +13,38 @@ void	farm_checker(t_farm *farm)
 		ft_error();
 }
 
+void	 list_half_cleaner(t_list *list)
+{
+	t_list	*temp;
+
+	while (list)
+	{
+		temp = list;
+		list = list->next;
+		free(temp);
+	}
+}
+
+void	list_cleaner(t_list *list)
+{
+	t_list	*temp;
+
+	while (list)
+	{
+		temp = list;
+		free(list->content);
+		list = list->next;
+		free(temp);
+	}
+}
+
 void	room_cleaner(t_room *room)
 {
 	free(room->name);
-	ft_lstdel(&(room->link_list), ft_lstdelfun);
-	ft_lstdel(&(room->pre_list), ft_lstdelfun);
+	list_half_cleaner(room->link_list);
+	list_half_cleaner(room->pre_list);
+//	ft_lstdel(&(room->link_list), ft_lstdelfun);
+//	ft_lstdel(&(room->pre_list), ft_lstdelfun);
 	free(room);
 }
 
@@ -36,6 +63,7 @@ void	farm_list_cleaner(t_list *farm)
 
 void	farm_cleaner(t_farm *farm)
 {
+	free(farm->map);
 	farm_list_cleaner(farm->room);
 	free(farm);
 }
@@ -166,7 +194,7 @@ void	read_connection(char *str, t_list *farm)
 	ft_arrstrdel(split);
 }
 
-char 	*add_map(char *map, char *str)
+char 	*add_map(char *map, char *str, int flag)
 {
 	int		len;
 	char	*res;
@@ -174,6 +202,8 @@ char 	*add_map(char *map, char *str)
 	int		len_map;
 	int		len_str;
 
+	if (*str == '#' && !flag)
+		return (add_comms(map, str));
 	i = 0;
 	len_map = ft_strlen(map);
 	len_str = ft_strlen(str);
@@ -192,6 +222,20 @@ char 	*add_map(char *map, char *str)
 	free(map);
 	free(str);
 	return (res);
+}
+
+char    *add_comms(char *map, char *str)
+{
+	if (ft_strnequ(str, "##", 2))
+	{
+		if (ft_strequ(str, "##start") || ft_strequ(str, "##end"))
+			return (add_map(map, str, 1));
+		else if (ft_strnequ(str, "###", 3))
+			return (add_map(map, str, 1));
+		else
+			return (map);
+	}
+	return add_map(map, str, 1);
 }
 
 t_farm	*parser(void)
@@ -223,8 +267,7 @@ t_farm	*parser(void)
 			free(str);
 			break ;
 		}
-		res->map = add_map(res->map, str);
-//		free(str);
+		res->map = add_map(res->map, str, 0);
 	}
 	res->room = farm;
 	farm_checker(res);
