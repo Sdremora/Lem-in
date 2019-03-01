@@ -232,6 +232,6 @@ t_list *way_finder(t_farm *farm)
 	if (farm->end->pre_list == NULL)
 		error_handle(E_NOPATH, E_NOPATH_STR);
 	resolve_gen(farm, &resolve_lst, max_step);
-	print_eval(resolve_lst);
+	//print_eval(resolve_lst);
 	return (resolve_lst);
 }
