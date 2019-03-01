@@ -43,8 +43,6 @@ void	room_cleaner(t_room *room)
 	free(room->name);
 	list_half_cleaner(room->link_list);
 	list_half_cleaner(room->pre_list);
-//	ft_lstdel(&(room->link_list), ft_lstdelfun);
-//	ft_lstdel(&(room->pre_list), ft_lstdelfun);
 	free(room);
 }
 
@@ -233,9 +231,91 @@ char    *add_comms(char *map, char *str)
 		else if (ft_strnequ(str, "###", 3))
 			return (add_map(map, str, 1));
 		else
+		{
+			free(str);
 			return (map);
+		}
 	}
 	return add_map(map, str, 1);
+}
+
+int		read_ant_count(t_farm *res, char **str)
+{
+	int		ant_count;
+
+	while (!res->ant_count)
+	{
+		if (get_next_line(0, str))
+		{
+			if (**str == '#')
+			{
+				if (ft_strequ(*str, "##start") || ft_strequ(*str, "##end"))
+					return (0);
+				else
+					res->map = add_comms(res->map, *str);
+			}
+			else if (ft_isnumber(*str))
+			{
+				res->ant_count = ft_atoi(*str);
+				res->map = add_map(res->map, *str, 0);
+			}
+			else
+				return (0);
+		}
+		else
+			return (-1);
+	}
+	return (1);
+}
+
+int		read_all_cons(t_farm *res, char **str, t_list *farm)
+{
+	read_connection(*str, farm);
+	res->map = add_map(res->map, *str, 0);
+	while (get_next_line(0, str))
+	{
+		if (**str == '#')
+		{
+			if (ft_strequ(*str, "##start") || ft_strequ(*str, "##end"))
+			{
+				free(*str);
+				return (-1);
+			}
+			else
+				res->map = add_comms(res->map, *str);
+		}
+		else if (**str != 'L' && ft_strwrdcnt(*str, '-') == 2 && farm)
+		{
+			read_connection(*str, farm);
+			res->map = add_map(res->map, *str, 0);
+		}
+		else
+		{
+			free(*str);
+			return (-1);
+		}
+	}
+	return (1);
+}
+
+int		read_rooms(t_farm *res, char **str, t_list **farm)
+{
+	int		type;
+
+	type = 0;
+	while (get_next_line(0, str))
+	{
+		if (**str == '#')
+			read_commands(*str, &type);
+		else if (**str != 'L' && ft_strwrdcnt(*str, ' ') == 3)
+			read_room(farm, *str, &type, res);
+		else if (**str != 'L' && ft_strwrdcnt(*str, '-') == 2 && *farm)
+			return (read_all_cons(res, str, *farm));
+		else
+			return (0);
+		res->map = add_map(res->map, *str, 0);
+	}
+	return (1);
 }
 
 t_farm	*parser(void)
@@ -251,12 +331,27 @@ t_farm	*parser(void)
 	res->start = 0;
 	res->end = 0;
 	type = 0;
-	res->ant_count = -1;
+	res->ant_count = 0;
+	if (!read_ant_count(res, &str))
+	{
+		free(str);
+		free(res);
+		ft_error();
+	}
+	if (!read_rooms(res, &str, &farm))
+	{
+		free(str);
+		free(res);
+		ft_error();
+	}
+
+
+	/*
 	while (get_next_line(0, &str))
 	{
 		if (*str == '#')
 			read_commands(str, &type);
-		else if (ft_isnumber(str) && res->ant_count == -1)
+		else if (ft_isnumber(str) && !res->ant_count)
 			res->ant_count = ft_atoi(str);
 		else if (*str != 'L' && ft_strwrdcnt(str, ' ') == 3)
 			read_room(&farm, str, &type, res);
@@ -269,6 +364,7 @@ t_farm	*parser(void)
 		}
 		res->map = add_map(res->map, str, 0);
 	}
+	*/
 	res->room = farm;
 	farm_checker(res);
 	return (res);
