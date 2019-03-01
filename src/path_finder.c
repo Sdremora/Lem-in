@@ -363,6 +363,6 @@ t_list *way_finder(t_farm *farm)
 	print_all_path(path_lst);
 	resolve_lst = NULL;
 	make_eval(farm, &resolve_lst, path_lst);
-	print_eval(resolve_lst);
+//	print_eval(resolve_lst);
 	return (resolve_lst);
 }

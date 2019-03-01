@@ -16,6 +16,7 @@ typedef struct	s_room
 	t_list		*pre_list;
 	int			step;
 	int			type;
+	int			is_empty;
 }				t_room;
 
 typedef struct		s_farm
@@ -25,16 +26,19 @@ typedef struct		s_farm
 	int				size;
 	t_room			*start;
 	t_room			*end;
+	char			*map;
 }					t_farm;
 
 typedef    enum    e_room_types
 {
-					R_START,
 					R_DEF,
+					R_START,
 					R_END
 }					t_room_types;
 
 void	printer(char *result);
 void	error_handle(int error_index, char *error_str);
+t_room	*get_room(t_list *farm);
+
 
 #endif

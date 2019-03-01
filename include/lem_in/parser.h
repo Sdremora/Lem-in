@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 15:07:19 by hharvey           #+#    #+#             */
-/*   Updated: 2019/02/24 13:45:14 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:23:18 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ typedef struct	s_connlst
 	char		*name;
 }				t_connlst;
 
-t_farm	*parser(void);
+t_farm			*parser(void);
+void			farm_cleaner(t_farm *farm);
+
 
 #endif

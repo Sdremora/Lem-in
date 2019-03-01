@@ -9,8 +9,8 @@ int main()
 
 	farm = parser();
 	resolve = way_finder(farm);
-	result = solver(resolve);
-	printer(result);
+	print_map(farm);
+	solver(resolve, farm->ant_count);
 	return (0);
 
 }

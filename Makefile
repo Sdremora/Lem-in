@@ -9,7 +9,7 @@ LIB_DIR := libft/
 LIB := $(LIB_DIR)libft.a
 
 OBJ := $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))
-FLAGS := -Wall -Wextra -Werror
+FLAGS := #-Wall -Wextra -Werror
 DEBUG_FLAGS := -g -O0
 
 VPATH := $(SRC_DIR) $(OBJ_DIR) $(INCLUDES)
