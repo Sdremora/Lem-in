@@ -24,5 +24,6 @@ typedef	struct	s_resolve
 
 t_list	*way_finder(t_farm *farm);
 int		marker(t_list *room_lst, int step);
+t_path	*path_getnew(t_farm	*farm);
 
 #endif

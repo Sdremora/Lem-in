@@ -70,80 +70,63 @@ void	path_resize(t_path *path, int new_ar_size)
 	path->max_size = new_ar_size;
 }
 
-void	path_build(t_list **lst, t_path *orig_path, t_room *add_room)
-{
-	t_path	*path_copy;
+// void	path_build(t_list **lst, t_path *orig_path, t_room *add_room)
+// {
+// 	t_path	*path_copy;
 
-	path_copy = path_get_copy(orig_path);
-	if (path_copy->size == path_copy->max_size)
-		path_resize(path_copy, path_copy->max_size * 2);
-	path_copy->ar[path_copy->size] = add_room;
-	path_copy->size++;
-	path_to_lst(lst, path_copy);
-}
+// 	path_copy = path_get_copy(orig_path);
+// 	if (path_copy->size == path_copy->max_size)
+// 		path_resize(path_copy, path_copy->max_size * 2);
+// 	path_copy->ar[path_copy->size] = add_room;
+// 	path_copy->size++;
+// 	path_to_lst(lst, path_copy);
+// }
 
-int		check_loop(t_path *path, t_room *room)
-{
-	int	i;
+// int		check_loop(t_path *path, t_room *room)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < path->size)
-	{
-		if (path->ar[i] == room)
-			return (0);
-		i++;
-	}
-	return (1);
-}
+// 	i = 0;
+// 	while (i < path->size)
+// 	{
+// 		if (path->ar[i] == room)
+// 			return (0);
+// 		i++;
+// 	}
+// 	return (1);
+// }
 
-void	path_logic(t_list **res_lst, t_list *path_lst, t_farm *farm)
-{
-	t_list	*next_lst;
-	t_list	*room_lst;
-	t_list	*temp;
-	t_path	*path;
+// void	path_logic(t_list **res_lst, t_list *path_lst, t_farm *farm)
+// {
+// 	t_list	*next_lst;
+// 	t_list	*room_lst;
+// 	t_list	*temp;
+// 	t_path	*path;
 
-	next_lst = NULL;
-	while (path_lst)
-	{
-		path = (t_path *)path_lst->content;
-		room_lst = (path->ar[path->size - 1])->pre_list;
-		while (room_lst)
-		{
-			if ((t_room *)room_lst->content == farm->start)
-				path_build(res_lst, path, (t_room *)room_lst->content);
-			else if (check_loop(path, (t_room *)room_lst->content))
-				path_build(&next_lst, path, (t_room *)room_lst->content);
-			room_lst = room_lst->next;
-		}
-		temp = path_lst->next;
-		free_path_lst(path_lst);
-		path_lst = temp;
-		if (!path_lst && next_lst)
-		{
-			path_lst = next_lst;
-			next_lst = NULL;
-		}
-	}
+// 	next_lst = NULL;
+// 	while (path_lst)
+// 	{
+// 		path = (t_path *)path_lst->content;
+// 		room_lst = (path->ar[path->size - 1])->pre_list;
+// 		while (room_lst)
+// 		{
+// 			if ((t_room *)room_lst->content == farm->start)
+// 				path_build(res_lst, path, (t_room *)room_lst->content);
+// 			else if (check_loop(path, (t_room *)room_lst->content))
+// 				path_build(&next_lst, path, (t_room *)room_lst->content);
+// 			room_lst = room_lst->next;
+// 		}
+// 		temp = path_lst->next;
+// 		free_path_lst(path_lst);
+// 		path_lst = temp;
+// 		if (!path_lst && next_lst)
+// 		{
+// 			path_lst = next_lst;
+// 			next_lst = NULL;
+// 		}
+// 	}
 
-}
-
-t_list	*path_combine(t_farm *farm, int	max_step)
-{
-	t_list	*res_lst;
-	t_list	*path_lst;
-	t_path	*path;
-
-	path = path_ini(max_step * 2);
-	path->ar[0] = farm->end;
-	path->size++;
-	path_lst = NULL;
-	res_lst = NULL;
-	path_to_lst(&path_lst, path);
-	path_logic(&res_lst, path_lst, farm);
-
-	return (res_lst);
-}
+// }
 
 t_resolve	*resolve_ini(int flow_count)
 {
@@ -288,19 +271,6 @@ t_resolve	*get_resolve(t_list *path_lst, int flow)
 	return (resolve);
 }
 
-// void	path_lst_clear(t_list *path_lst)
-// {
-// 	t_list	*next_node;
-
-// 	while (path_lst)
-// 	{
-// 		next_node = path_lst->next;
-// 		path_clear((t_path *)path_lst);
-// 		free(path_lst);
-// 		path_lst = next_node;
-// 	}
-// }
-
 void	make_eval(t_farm *farm, t_list **resolve_lst, t_list *path_lst)
 {
 	t_resolve	*resolve;
@@ -375,40 +345,18 @@ void	print_eval(t_list	*resolve_lst)
 	ft_putstr("\n\n");
 }
 
-void	print_all_path(t_list *path_lst)
+t_list *way_finder(t_farm *farm)
 {
-	int		i;
-	t_path	*path;
-	t_room	*room;
-
-	while (path_lst)
-	{
-		i = 0;
-		path = (t_path *)path_lst->content;
-		while (i < path->size)
-		{
-			room = path->ar[i];
-			ft_putstr(room->name);
-			ft_putstr("\t");
-			i++;
-		}
-		ft_putstr("\n");
-		path_lst = path_lst->next;
-	}
-}
-
- t_list *way_finder(t_farm *farm)
- {
- 	t_list	*cur_rooms_list;
+	t_list	*cur_rooms_list;
 	t_list	*path_lst;
 	t_list	*resolve_lst;
 	int		max_step;
 
 	farm->start->step = 0;
- 	cur_rooms_list = ft_lstput(farm->start, sizeof(t_room));
- 	if (!cur_rooms_list)
- 		error_handle(E_NOMEM, E_NOMEM_STR);
- 	max_step = marker(cur_rooms_list, 0);
+	cur_rooms_list = ft_lstput(farm->start, sizeof(t_room));
+	if (!cur_rooms_list)
+		error_handle(E_NOMEM, E_NOMEM_STR);
+	max_step = marker(cur_rooms_list, 0);
 	if (farm->end->pre_list == NULL)
 		error_handle(E_NOPATH, E_NOPATH_STR);
 	path_lst = path_combine(farm, max_step);
@@ -417,4 +365,4 @@ void	print_all_path(t_list *path_lst)
 	make_eval(farm, &resolve_lst, path_lst);
 	print_eval(resolve_lst);
 	return (resolve_lst);
- }
+}
