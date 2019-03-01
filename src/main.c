@@ -11,7 +11,6 @@ int main()
 	resolve = way_finder(farm);
 	print_map(farm);
 	solver(resolve, farm->ant_count);
-//	printer(result);
 	return (0);
 
 }

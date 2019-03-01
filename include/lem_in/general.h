@@ -26,12 +26,13 @@ typedef struct		s_farm
 	int				size;
 	t_room			*start;
 	t_room			*end;
+	char			*map;
 }					t_farm;
 
 typedef    enum    e_room_types
 {
-					R_START,
 					R_DEF,
+					R_START,
 					R_END
 }					t_room_types;
 

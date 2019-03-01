@@ -36,8 +36,16 @@ void	print_connection(t_list *lst, t_farm *farm)
 	ft_putendl("");
 }
 
+void    printer(char *str)
+{
+	write(1, str, ft_strlen(str));
+}
+
 void	print_map(t_farm *farm)
 {
+	printer(farm->map);
+	ft_putendl("");
+	/*
 	t_list	*lst;
 	t_list	*clist;
 
@@ -59,9 +67,5 @@ void	print_map(t_farm *farm)
 		lst = lst->next;
 	}
 	print_connection(farm->room, farm);
-}
-
-void	printer(char *str)
-{
-	write(1, str, ft_strlen(str));
+	*/
 }
