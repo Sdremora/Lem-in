@@ -23,16 +23,6 @@ void	path_to_lst(t_list **lst, t_path *path)
 	ft_lstadd(lst, path_node);
 }
 
-void	free_path_lst(t_list *path_lst)
-{
-	t_path	*path;
-
-	path = (t_path *)path_lst->content;
-	free(path->ar);
-	free(path);
-	free(path_lst);
-}
-
 t_path	*path_get_copy(t_path *path)
 {
 	t_path	*path_copy;
@@ -75,6 +65,7 @@ static t_list	*path_first_ini(t_farm *farm, int *is_first_call)
 	t_list	*path_lst;
 	t_path	*path;
 
+	path_lst = NULL;
 	path = path_ini(10);
 	path->ar[0] = farm->end;
 	path->size++;
@@ -97,9 +88,41 @@ static t_list	*path_next_and_free(t_list *lst)
 	return (lst);
 }
 
+void			path_add(t_list **lst, t_path *orig_path, t_room *add_room)
+{
+	t_path	*path_copy;
+
+	path_copy = path_get_copy(orig_path);
+	if (path_copy->size == path_copy->max_size)
+		path_resize(path_copy, path_copy->max_size * 2);
+	path_copy->ar[path_copy->size] = add_room;
+	path_copy->size++;
+	path_to_lst(lst, path_copy);
+}
+
+void			path_build(t_list **result_lst, t_list **next_lst, t_path *path, t_room *room)
+{
+	t_path	*path_copy;
+	int 	i;
+
+	i = 1;
+	if (room->type == R_START)
+		path_add(result_lst, path, room);
+	else
+	{
+		while (i < path->size)
+		{
+			if (path->ar[i] == room)
+				return ;
+			i++;
+		}
+		path_add(next_lst, path, room);
+	}
+}
+
 void			path_logic(t_list **result_lst, t_farm *farm)
 {
-	static			*is_first_call;
+	static int		is_first_call;
 	static t_list	*path_lst;
 	static t_list	*next_lst;
 	t_list			*room_lst;
@@ -107,22 +130,34 @@ void			path_logic(t_list **result_lst, t_farm *farm)
 
 	if (!is_first_call)
 		path_lst = path_first_ini(farm, &is_first_call);
-	while (path_lst && !result_lst)
+	while (path_lst && !*result_lst)
 	{
 		path = (t_path *)path_lst->content;
 		room_lst = (path->ar[path->size - 1])->pre_list;
 		while (room_lst)
 		{
-			path_build(&result_lst, &next_lst, path, (t_room *)room_lst->content);
+			path_build(result_lst, &next_lst, path, (t_room *)room_lst->content);
 			room_lst = room_lst->next;
 		}
-		path_lst = next_and_free(path_lst);
+		path_lst = path_next_and_free(path_lst);
 		if (!path_lst && next_lst)
 		{
 			path_lst = next_lst;
 			next_lst = NULL;
 		}
 	}
+}
+
+t_path	*path_getmin(t_list **path_lst)
+{
+	t_path	*path;
+	t_list	*temp;
+
+	path = (t_path *)(*path_lst)->content;
+	temp = *path_lst;
+	*path_lst = (*path_lst)->next;
+	free(temp);
+	return (path);
 }
 
 t_path *path_getnew(t_farm	*farm)
@@ -143,7 +178,7 @@ t_path *path_getnew(t_farm	*farm)
 		path_logic(&path_lst, farm);
 		if (!path_lst)
 			return (NULL);
-		path = get_path();
+		path = path_getmin(&path_lst);
 	}
 	return (path);
 }
