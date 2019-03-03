@@ -33,7 +33,6 @@ void	read_room(t_list **farm, char *str, int *type, t_farm *res)
 void	read_connection(char *str, t_list *farm)
 {
 	char	**split;
-	t_list	*temp_lst;
 	t_list	*lst1;
 	t_list	*lst2;
 
@@ -52,11 +51,10 @@ void	read_connection(char *str, t_list *farm)
 		}
 		if (!lst1 || !lst2)
 			ft_error();
-
-		ft_lstadd(&((t_room*)lst1->content)->link_list, ft_lstput(lst2->content, lst2->content_size));
-//		temp_lst = (t_list*)malloc(sizeof(t_list));
-//		temp_lst->content = lst1->content;
-		ft_lstadd(&((t_room*)lst2->content)->link_list, ft_lstput(lst1->content, lst1->content_size));
+		ft_lstadd(&((t_room*)lst1->content)->link_list,
+				ft_lstput(lst2->content, lst2->content_size));
+		ft_lstadd(&((t_room*)lst2->content)->link_list,
+				ft_lstput(lst1->content, lst1->content_size));
 	}
 	ft_arrstrdel(split);
 }
@@ -66,7 +64,6 @@ int		read_all_cons(t_farm *res, char **str, t_list *farm)
 	read_connection(*str, farm);
 	res->map = add_map(res->map, *str, 0);
 	while (get_next_line(0, str))
-	{
 		if (**str == '#')
 		{
 			if (ft_strequ(*str, "##start") || ft_strequ(*str, "##end"))
@@ -87,7 +84,6 @@ int		read_all_cons(t_farm *res, char **str, t_list *farm)
 			free(*str);
 			return (-1);
 		}
-	}
 	return (1);
 }
 
@@ -128,6 +124,7 @@ t_farm	*parser(void)
 	if (!read_ant_count(res, &str) || !read_rooms(res, &str, &farm))
 	{
 		free(str);
+		free(res->map);
 		free(res);
 		ft_error();
 	}

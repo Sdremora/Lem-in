@@ -1,7 +1,7 @@
 
 #include "lem_in.h"
 
-void	resolve_free(t_list	*resolve_lst)
+void	resolve_free(t_list *resolve_lst)
 {
 	t_list		*next_node;
 	t_resolve	*resolve;
@@ -17,7 +17,7 @@ void	resolve_free(t_list	*resolve_lst)
 	}
 }
 
-int main()
+int		main(void)
 {
 	t_farm	*farm;
 	t_list	*resolve_lst;
@@ -32,8 +32,5 @@ int main()
 	path_free(path_lst);
 	resolve_free(resolve_lst);
 	farm_cleaner(farm);
-//
-//
 	return (0);
-
 }

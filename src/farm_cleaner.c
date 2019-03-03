@@ -1,10 +1,9 @@
 
-
 #include "lem_in.h"
 
-void     list_half_cleaner(t_list *list)
+void	list_half_cleaner(t_list *list)
 {
-	t_list  *temp;
+	t_list	*temp;
 
 	while (list)
 	{
@@ -14,9 +13,9 @@ void     list_half_cleaner(t_list *list)
 	}
 }
 
-void    list_cleaner(t_list *list)
+void	list_cleaner(t_list *list)
 {
-	t_list  *temp;
+	t_list	*temp;
 
 	while (list)
 	{
@@ -27,7 +26,7 @@ void    list_cleaner(t_list *list)
 	}
 }
 
-void    room_cleaner(t_room *room)
+void	room_cleaner(t_room *room)
 {
 	free(room->name);
 	list_half_cleaner(room->link_list);
@@ -35,7 +34,7 @@ void    room_cleaner(t_room *room)
 	free(room);
 }
 
-void    farm_list_cleaner(t_list *farm)
+void	farm_list_cleaner(t_list *farm)
 {
 	t_list *temp;
 
@@ -48,7 +47,7 @@ void    farm_list_cleaner(t_list *farm)
 	}
 }
 
-void    farm_cleaner(t_farm *farm)
+void	farm_cleaner(t_farm *farm)
 {
 	free(farm->map);
 	farm_list_cleaner(farm->room);

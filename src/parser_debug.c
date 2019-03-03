@@ -1,6 +1,6 @@
 #include "lem_in.h"
 
-void    room_printer(t_room *room)
+void	room_printer(t_room *room)
 {
 	t_list *lst;
 
@@ -13,15 +13,14 @@ void    room_printer(t_room *room)
 		lst = lst->next;
 	}
 	ft_putendl("");
-
 }
 
-void    farm_printer(t_farm *res)
+void	farm_printer(t_farm *res)
 {
 	t_list *lst;
 
 	lst = res->room;
-	while(lst)
+	while (lst)
 	{
 		room_printer(lst->content);
 		lst = lst->next;

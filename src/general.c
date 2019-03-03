@@ -13,6 +13,6 @@ void	error_handle(int error_index)
 		error_str = "ERROR: no mem";
 	else
 		error_str = "ERROR";
-	printf("%s\n", error_str);
+	ft_putendl(error_str);
 	exit(error_index);
 }
