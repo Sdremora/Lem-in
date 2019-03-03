@@ -1,19 +1,17 @@
-12
+4
 one 0 2
 ##start
 zero 2 0
 ##end
 four 2 6
 two 4 2
-4
 three 4 4
 five 9 1
+six 99 99
 zero-one
 zero-two
 two-three
 three-four
 four-one
 one-two
-9 9 9
-one-five
-one-one
+six-five
