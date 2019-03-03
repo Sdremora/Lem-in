@@ -12,7 +12,7 @@ int			resolve_check(t_resolve *resolve, t_path *add_path)
 	i = 0;
 	while (i < resolve->cur_flow)
 	{
-		cur_path = resolve->path_ar[i++];
+		cur_path = resolve->path_ar[i];
 		n = 1;
 		while (n < cur_path->size - 1)
 		{
@@ -74,6 +74,7 @@ t_resolve	*resolve_builder(t_list *path_lst, int flow)
 {
 	t_resolve	*resolve;
 	t_list		*resolve_node;
+	t_path		*path;
 
 	resolve = resolve_ini(flow);
 	while (resolve->cur_flow < resolve->flow_count)
@@ -83,8 +84,9 @@ t_resolve	*resolve_builder(t_list *path_lst, int flow)
 			resolve_clean(resolve);
 			return (NULL);
 		}
-		if (resolve_check(resolve, (t_path *)path_lst->content))
-			resolve_path_add(resolve, (t_path *)path_lst->content);
+		path = (t_path *)path_lst->content;
+		if (resolve_check(resolve, path))
+			resolve_path_add(resolve, path);
 		path_lst = path_lst->next;
 	}
 	return (resolve);
@@ -156,7 +158,7 @@ void	resolve_gen(t_farm *farm, t_list **resolve_lst,\
 	{
 		resolve = get_resolve(farm, last_resolve, i, path_lst);
 		if (!resolve)
-			break;
+			break ;
 		last_resolve = resolve;
 		node = ft_lstput(resolve, sizeof(t_resolve));
 		if (node == NULL)
@@ -166,7 +168,7 @@ void	resolve_gen(t_farm *farm, t_list **resolve_lst,\
 	}
 }
 
-t_list *path_finder(t_farm *farm, t_list **path_lst)
+t_list	*path_finder(t_farm *farm, t_list **path_lst)
 {
 	t_list	*cur_rooms_list;
 	t_list	*resolve_lst;
