@@ -22,7 +22,7 @@ typedef	struct	s_resolve
 	int			move_count;
 }				t_resolve;
 
-t_list	*way_finder(t_farm *farm);
+t_list	*path_finder(t_farm *farm);
 int		marker(t_list *room_lst, int step);
 t_path	*path_getnew(t_farm	*farm);
 void	path_to_lst(t_list **lst, t_path *path);
