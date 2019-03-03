@@ -7,7 +7,7 @@ t_path	*path_ini(int path_size)
 
 	if (!(path = (t_path *)malloc(sizeof(t_path))) ||\
 		!(path->ar = (t_room **)ft_memalloc(sizeof(t_room *) * path_size)))
-		error_handle(E_NOMEM, E_NOMEM_STR);
+		error_handle(E_NOMEM);
 	path->size = 0;
 	path->max_size = path_size;
 	return (path);
@@ -19,7 +19,7 @@ void	path_to_lst(t_list **lst, t_path *path)
 
 	path_node = ft_lstput(path, sizeof(t_path));
 	if (!path_node)
-		error_handle(E_NOMEM, E_NOMEM_STR);
+		error_handle(E_NOMEM);
 	ft_lstadd(lst, path_node);
 }
 
@@ -48,7 +48,7 @@ void	path_resize(t_path *path, int new_ar_size)
 		return ;
 	temp = (t_room **)ft_memalloc(sizeof(t_room *) * new_ar_size);
 	if (!temp)
-		error_handle(E_NOMEM, E_NOMEM_STR);
+		error_handle(E_NOMEM);
 	i = 0;
 	while (i < path->size)
 	{
@@ -74,18 +74,22 @@ static t_list	*path_first_ini(t_farm *farm, int *is_first_call)
 	return (path_lst);
 }
 
-static t_list	*path_next_and_free(t_list *lst)
+static void		path_next_and_free(t_list **path_lst, t_list **next_lst)
 {
 	t_list	*temp;
 	t_path	*path;
 
-	temp = lst;
-	lst = lst->next;
+	temp = *path_lst;
+	*path_lst = (*path_lst)->next;
 	path = (t_path *)temp->content;
 	free(path->ar);
 	free(path);
 	free(temp);
-	return (lst);
+	if (!*path_lst && *next_lst)
+	{
+		*path_lst = *next_lst;
+		*next_lst = NULL;
+	}
 }
 
 void			path_add(t_list **lst, t_path *orig_path, t_room *add_room)
@@ -100,10 +104,11 @@ void			path_add(t_list **lst, t_path *orig_path, t_room *add_room)
 	path_to_lst(lst, path_copy);
 }
 
-void			path_build(t_list **result_lst, t_list **next_lst, t_path *path, t_room *room)
+void			path_build(t_list **result_lst, t_list **next_lst,\
+							t_path *path, t_room *room)
 {
 	t_path	*path_copy;
-	int 	i;
+	int		i;
 
 	i = 1;
 	if (room->type == R_START)
@@ -120,7 +125,23 @@ void			path_build(t_list **result_lst, t_list **next_lst, t_path *path, t_room *
 	}
 }
 
-void			path_logic(t_list **result_lst, t_farm *farm)
+void	path_free(t_list *path_lst)
+{
+	t_list		*next_node;
+	t_path		*path;
+
+	while (path_lst)
+	{
+		next_node = path_lst->next;
+		path = (t_path *)path_lst->content;
+		free(path->ar);
+		free(path);
+		free(path_lst);
+		path_lst = next_node;
+	}
+}
+
+void			path_logic(t_list **res_lst, t_farm *farm)
 {
 	static int		is_first_call;
 	static t_list	*path_lst;
@@ -128,23 +149,24 @@ void			path_logic(t_list **result_lst, t_farm *farm)
 	t_list			*room_lst;
 	t_path			*path;
 
+	if (!res_lst)
+	{
+		path_free(path_lst);
+		path_free(next_lst);
+		return ;
+	}
 	if (!is_first_call)
 		path_lst = path_first_ini(farm, &is_first_call);
-	while (path_lst && !*result_lst)
+	while (path_lst && !*res_lst)
 	{
 		path = (t_path *)path_lst->content;
 		room_lst = (path->ar[path->size - 1])->pre_list;
 		while (room_lst)
 		{
-			path_build(result_lst, &next_lst, path, (t_room *)room_lst->content);
+			path_build(res_lst, &next_lst, path, (t_room *)room_lst->content);
 			room_lst = room_lst->next;
 		}
-		path_lst = path_next_and_free(path_lst);
-		if (!path_lst && next_lst)
-		{
-			path_lst = next_lst;
-			next_lst = NULL;
-		}
+		path_next_and_free(&path_lst, &next_lst);
 	}
 }
 
@@ -160,12 +182,17 @@ t_path	*path_getmin(t_list **path_lst)
 	return (path);
 }
 
-t_path *path_getnew(t_farm	*farm)
+t_path		*path_getnew(t_farm *farm)
 {
 	static t_list	*path_lst;
 	t_list			*temp;
 	t_path			*path;
 
+	if (farm == NULL)
+	{
+		path_logic(NULL, NULL);
+		return (NULL);
+	}
 	if (path_lst)
 	{
 		path = (t_path *)path_lst->content;

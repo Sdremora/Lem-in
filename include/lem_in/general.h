@@ -5,7 +5,6 @@
 # include "libft.h"
 
 # define E_NOMEM -4
-# define E_NOMEM_STR "Error: no mem"
 
 typedef struct	s_room
 {
@@ -37,7 +36,7 @@ typedef    enum    e_room_types
 }					t_room_types;
 
 void	printer(char *result);
-void	error_handle(int error_index, char *error_str);
+void	error_handle(int error_index);
 t_room	*get_room(t_list *farm);
 
 
