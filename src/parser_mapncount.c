@@ -49,8 +49,6 @@ char	*add_comms(char *map, char *str)
 
 int		read_ant_count(t_farm *res, char **str)
 {
-	int	ant_count;
-
 	while (!res->ant_count)
 	{
 		if (get_next_line(0, str))

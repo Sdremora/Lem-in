@@ -22,7 +22,6 @@ int		main(void)
 	t_farm	*farm;
 	t_list	*resolve_lst;
 	t_list	*path_lst;
-	char	*result;
 
 	farm = parser();
 	resolve_lst = path_finder(farm, &path_lst);

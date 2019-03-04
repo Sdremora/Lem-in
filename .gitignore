@@ -2,6 +2,7 @@
 *.a
 .DS_Store
 .vscode/
+*.swp
 *.dSYM/
 *.out
 lem-in

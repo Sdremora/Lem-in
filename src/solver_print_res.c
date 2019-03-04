@@ -5,7 +5,6 @@ t_path	*get_min_path(t_resolve *res)
 {
 	t_path	*path;
 	int		i;
-	int		min;
 
 	i = 0;
 	path = res->path_ar[i];

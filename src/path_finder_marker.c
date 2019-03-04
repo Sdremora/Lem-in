@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/03 11:58:39 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/03 12:03:51 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/04 10:51:01 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	check_exist(t_list *lst, t_room *found_room, int step)
 	return (0);
 }
 
-static int	add_mark(t_room *next_room, t_room *room, int step)
+static int	add_mark(t_room *next_room, t_room *room)
 {
 	t_list	*node;
 	int		status;
@@ -62,7 +62,7 @@ static void	add_link(t_list **next_room_lst, t_room *room, int step)
 	while (link_lst != NULL)
 	{
 		next_room = (t_room *)link_lst->content;
-		if (add_mark(next_room, room, step))
+		if (add_mark(next_room, room))
 		{
 			next_room->step = step;
 			new_node = ft_lstput(next_room, sizeof(t_room));
