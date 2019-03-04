@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:30:02 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/04 10:51:54 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/04 12:47:22 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,10 @@ static int			resolve_logic(t_resolve *resolve, t_resolve *last_resolve,\
 	if (*save_res == NULL)
 	{
 		*max_size = resolve->move_count - last_resolve->move_count - 1;
-		if (resolve->path_ar[resolve->flow_count - 1]->size > *max_size)
+		if (resolve->path_ar[0]->size > *max_size)
 			return (1);
 		*save_res = resolve;
+		resolve = NULL;
 	}
 	else if (resolve->move_count < (*save_res)->move_count)
 	{
@@ -84,8 +85,7 @@ static int			resolve_logic(t_resolve *resolve, t_resolve *last_resolve,\
 		resolve = *save_res;
 		*save_res = temp;
 	}
-	else
-		resolve_clean(resolve);
+	resolve_clean(resolve);
 	return (0);
 }
 

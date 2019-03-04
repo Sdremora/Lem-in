@@ -4,6 +4,7 @@
 
 # include "libft.h"
 
+# define E_BADMAP -3
 # define E_NOMEM -4
 # define E_NOPATH -5
 

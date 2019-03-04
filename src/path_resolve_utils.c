@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:27:55 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/04 11:16:05 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/04 12:49:22 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_resolve	*resolve_ini(int flow_count)
 	return (resolve);
 }
 
-void	resolve_free(t_list *resolve_lst)
+void		resolve_free(t_list *resolve_lst)
 {
 	t_list		*next_node;
 	t_resolve	*resolve;

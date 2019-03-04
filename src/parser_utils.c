@@ -12,14 +12,14 @@ void	read_commands(char *str, int *type)
 		*type = R_START;
 	}
 	else if (ft_strequ(str, "##start") && has_start)
-		ft_error();
+		error_handle(E_BADMAP);
 	else if (ft_strequ(str, "##end") && !has_end)
 	{
 		has_end = 1;
 		*type = R_END;
 	}
 	else if (ft_strequ(str, "##end") && has_end)
-		ft_error();
+		error_handle(E_BADMAP);
 }
 
 t_room	*get_room(t_list *farm)
@@ -41,30 +41,30 @@ int		get_nb(char *str)
 		str++;
 	}
 	if (*str == 0)
-		ft_error();
+		error_handle(E_BADMAP);
 	while (*str >= '0' && *str <= '9')
 	{
 		nb *= 10;
 		nb += *str - '0';
 		if ((nb > 2147483647 && sgn == 1) || (nb > 2147483648 && sgn == -1))
-			ft_error();
+			error_handle(E_BADMAP);
 		str++;
 	}
 	if (*str != 0)
-		ft_error();
+		error_handle(E_BADMAP);
 	return (nb * sgn);
 }
 
 void	farm_checker(t_farm *farm)
 {
 	if (!farm->room)
-		ft_error();
+		error_handle(E_BADMAP);
 	if (farm->ant_count <= 0)
-		ft_error();
+		error_handle(E_BADMAP);
 	if (!farm->start)
-		ft_error();
+		error_handle(E_BADMAP);
 	if (!farm->end)
-		ft_error();
+		error_handle(E_BADMAP);
 }
 
 int		ft_check_duplication(char *name, t_list *farm)

@@ -6,9 +6,11 @@ void		error_handle(int error_index)
 	char	*error_str;
 
 	if (error_index == E_NOPATH)
-		error_str = "ERROR";
+		error_str = "ERROR: no path.";
+	else if (error_index == E_BADMAP)
+		error_str = "ERROR: invalid map.";
 	else if (error_index == E_NOMEM)
-		error_str = "ERROR: no mem";
+		error_str = "ERROR: no mem.";
 	else
 		error_str = "ERROR";
 	ft_putendl(error_str);

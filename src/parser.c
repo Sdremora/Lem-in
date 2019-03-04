@@ -23,7 +23,7 @@ void	read_room(t_list **farm, char *str, int *type, t_farm *res)
 	else if (*type == 2)
 		res->end = room;
 	if (ft_check_duplication(room->name, *farm))
-		ft_error();
+		error_handle(E_BADMAP);
 	temp_list = (t_list*)malloc(sizeof(t_list));
 	temp_list->content = room;
 	ft_lstadd(farm, temp_list);
@@ -50,7 +50,7 @@ void	read_connection(char *str, t_list *farm)
 			farm = farm->next;
 		}
 		if (!lst1 || !lst2)
-			ft_error();
+			error_handle(E_BADMAP);
 		ft_lstadd(&((t_room*)lst1->content)->link_list,
 				ft_lstput(lst2->content, lst2->content_size));
 		ft_lstadd(&((t_room*)lst2->content)->link_list,
@@ -126,7 +126,7 @@ t_farm	*parser(void)
 		free(str);
 		free(res->map);
 		free(res);
-		ft_error();
+		error_handle(E_BADMAP);
 	}
 	res->room = farm;
 	farm_checker(res);
