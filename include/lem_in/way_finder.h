@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:20:49 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/04 10:52:51 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/04 10:57:31 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ void			resolve_gen(t_farm *farm, t_list **resolve_lst,\
 int				get_flow(t_farm *farm);
 void			resolve_clean(t_resolve *resolve);
 t_resolve		*resolve_ini(int flow_count);
+void			resolve_free(t_list *resolve_lst);
 
 #endif

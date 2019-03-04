@@ -8,7 +8,6 @@ typedef struct	s_ant
 {
 	t_path	**path;
 	int		*pos;
-//	t_room	**room;
 }				t_ant;
 
 void			solver(t_list *resolve, int ant_count);

@@ -1,23 +1,33 @@
 
 #include "lem_in.h"
 
-void	resolve_free(t_list *resolve_lst)
+void		error_handle(int error_index)
 {
-	t_list		*next_node;
-	t_resolve	*resolve;
+	char	*error_str;
 
-	while (resolve_lst)
-	{
-		next_node = resolve_lst->next;
-		resolve = (t_resolve *)resolve_lst->content;
-		free(resolve->path_ar);
-		free(resolve);
-		free(resolve_lst);
-		resolve_lst = next_node;
-	}
+	if (error_index == E_NOPATH)
+		error_str = "ERROR";
+	else if (error_index == E_NOMEM)
+		error_str = "ERROR: no mem";
+	else
+		error_str = "ERROR";
+	ft_putendl(error_str);
+	exit(error_index);
 }
 
-int		main(void)
+/*
+**	path_getnew(NULL) clean inner static variable.
+*/
+
+static void	farm_free(t_farm *farm, t_list *res_lst, t_list *path_lst)
+{
+	path_getnew(NULL);
+	path_free(path_lst);
+	resolve_free(res_lst);
+	farm_cleaner(farm);
+}
+
+int			main(void)
 {
 	t_farm	*farm;
 	t_list	*resolve_lst;
@@ -27,9 +37,6 @@ int		main(void)
 	resolve_lst = path_finder(farm, &path_lst);
 	print_map(farm);
 	solver(resolve_lst, farm->ant_count);
-	path_getnew(NULL);
-	path_free(path_lst);
-	resolve_free(resolve_lst);
-	farm_cleaner(farm);
+	farm_free(farm, resolve_lst, path_lst);
 	return (0);
 }
