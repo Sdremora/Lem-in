@@ -36,11 +36,13 @@ int			main(void)
 	t_list	*path_lst;
 
 	farm = parser();
-//	farm_printer(farm);
-//	end_start_conn_printer(farm);
+	farm_printer(farm);
+	end_start_conn_printer(farm);
 	
 	resolve_lst = path_finder(farm, &path_lst);
-	print_map(farm);
+//	print_all_resolves(resolve_lst);
+//	print_map(farm);
+//	print_all_resolves(resolve_lst);
 	solver(resolve_lst, farm->ant_count);
 	farm_free(farm, resolve_lst, path_lst);
 	
