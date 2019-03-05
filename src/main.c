@@ -40,5 +40,6 @@ int			main(void)
 	print_map(farm);
 	solver(resolve_lst, farm->ant_count);
 	farm_free(farm, resolve_lst, path_lst);
+	//
 	return (0);
 }
