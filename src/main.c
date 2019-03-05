@@ -38,7 +38,7 @@ int			main(void)
 	farm = parser();
 	resolve_lst = path_finder(farm, &path_lst);
 	print_map(farm);
-	solver(resolve_lst, farm->ant_count);
-	farm_free(farm, resolve_lst, path_lst);
+ 	solver(resolve_lst, farm->ant_count);
+	//farm_free(farm, resolve_lst, path_lst);
 	return (0);
 }

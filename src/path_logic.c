@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:17:57 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/04 10:51:14 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/05 15:32:12 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,19 @@ static void		path_build(t_list **result_lst, t_list **next_lst,\
 		}
 		path_add(next_lst, path, room);
 	}
+}
+
+int		lstlen(t_list *lst)
+{
+	int len;
+
+	len = 0;
+	while (lst)
+	{
+		len++;
+		lst = lst->next;
+	}
+	return (len);
 }
 
 void			path_logic(t_list **res_lst, t_farm *farm)
