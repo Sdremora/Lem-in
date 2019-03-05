@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:30:02 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/04 12:47:22 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/05 18:08:09 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,31 @@ static t_resolve	*get_resolve(t_farm *farm, t_resolve *last_res,\
 	return (res != NULL) ? res : save_res;
 }
 
+void	print_paths(t_list *path_lst)
+{
+	t_path	*path;
+	t_room	*room;
+	int 	i;
+
+	ft_putstr(" =====> Начало <=====\n");
+	while (path_lst)
+	{
+		path = (t_path *)path_lst->content;
+		i = path->size;
+		while (i > 0)
+		{
+			i--;
+			room = path->ar[i];
+			ft_putstr(room->name);
+			if (room->type != R_END)
+				ft_putstr(" -> ");
+		}
+		ft_putstr("\n");
+		path_lst = path_lst->next;
+	}
+	ft_putstr(" =====> Конец <=====\n");
+}
+
 void				resolve_gen(t_farm *farm, t_list **resolve_lst,\
 								t_list **path_lst)
 {
@@ -140,4 +165,5 @@ void				resolve_gen(t_farm *farm, t_list **resolve_lst,\
 		ft_lstadd(resolve_lst, node);
 		i++;
 	}
+	print_paths(*path_lst);
 }
