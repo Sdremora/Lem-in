@@ -15,4 +15,7 @@ void			print_map(t_farm *farm);
 void			print_res(t_resolve *res, int ant_count);
 int				step_counter(t_resolve *res, int ant_count);
 
+void			print_resolve(t_resolve *res);
+void			print_all_resolves(t_list *resolve);
+
 #endif

@@ -107,15 +107,37 @@ int		read_rooms(t_farm *res, char **str, t_list **farm)
 	return (1);
 }
 
+/*
+void	deadend_remover(t_farm *farm)
+{
+	t_list	*lst;
+
+	lst = farm->room;
+	while (lst)
+	{
+		if (ft_lstlen(get_room(lst->content)->link_list) <= 1)
+		{
+			lst->content = 
+		}
+		lst = lst->next;
+	}
+}
+*/
+
 t_farm	*parser(void)
 {
 	char	*str;
 	int		type;
 	t_list	*farm;
 	t_farm	*res;
+	t_room	*temp;
 
 	farm = 0;
 	res = (t_farm*)malloc(sizeof(t_farm));
+	temp = (t_room*)malloc(sizeof(t_room));
+	temp->name = ft_strdup("");
+	temp->link_list = 0;
+	res->empty = temp;
 	res->map = ft_strdup("");
 	res->start = 0;
 	res->end = 0;

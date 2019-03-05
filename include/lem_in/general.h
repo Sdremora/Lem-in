@@ -28,6 +28,7 @@ typedef struct	s_farm
 	t_room	*start;
 	t_room	*end;
 	char	*map;
+	t_room	*empty;
 }				t_farm;
 
 typedef enum	e_room_types

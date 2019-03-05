@@ -17,6 +17,8 @@ t_resolve	*get_path(t_list *resolve, int ant_count)
 	solution = resolve;
 	while (resolve)
 	{
+//		ft_putendl("res:");
+//		print_resolve(resolve->content);
 		if (min_step > (temp = step_counter(resolve->content, ant_count)))
 		{
 			min_step = temp;

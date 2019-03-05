@@ -6,6 +6,8 @@ void	room_printer(t_room *room)
 
 	ft_putendl(room->name);
 	lst = room->link_list;
+	ft_putnbr(ft_lstlen(lst));
+	ft_putstr(" ");
 	while (lst)
 	{
 		ft_putstr(((t_room*)lst->content)->name);
@@ -25,4 +27,10 @@ void	farm_printer(t_farm *res)
 		room_printer(lst->content);
 		lst = lst->next;
 	}
+}
+
+void	end_start_conn_printer(t_farm *res)
+{
+	room_printer(res->start);
+	room_printer(res->end);
 }

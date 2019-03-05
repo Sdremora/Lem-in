@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 15:07:19 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/04 10:45:06 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/04 16:43:57 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ char			*add_comms(char *map, char *str);
 int				read_ant_count(t_farm *res, char **str);
 
 void			farm_printer(t_farm *res);
+void			end_start_conn_printer(t_farm *res);
 
 #endif

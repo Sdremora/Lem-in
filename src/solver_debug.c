@@ -26,3 +26,40 @@ void	print_ant_path(t_ant *ant, int ant_count)
 		i++;
 	}
 }
+
+void	print_path(t_path *path)
+{
+	int i;
+
+	i = 0;
+	while (i < path->size)
+	{
+		ft_putstr(path->ar[i]->name);
+		ft_putstr(" ");
+		i++;
+	}
+
+}
+
+void	print_resolve(t_resolve *res)
+{
+	int i;
+
+	i = 0;
+	while (i < res->flow_count)
+	{
+		print_path(res->path_ar[i]);
+		ft_putendl("");
+		i++;
+	}
+}
+
+void	print_all_resolves(t_list *resolve)
+{
+	while (resolve)
+	{
+		ft_putendl("res:");
+		print_resolve(resolve->content);
+		resolve = resolve->next;
+	}
+}
