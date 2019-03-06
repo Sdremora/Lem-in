@@ -40,11 +40,10 @@ int			main(void)
 	end_start_conn_printer(farm);
 	
 	resolve_lst = path_finder(farm, &path_lst);
-//	print_all_resolves(resolve_lst);
-//	print_map(farm);
-//	print_all_resolves(resolve_lst);
+	print_all_resolves(resolve_lst);
+	print_map(farm);
+	print_all_resolves(resolve_lst);
 	solver(resolve_lst, farm->ant_count);
 	farm_free(farm, resolve_lst, path_lst);
-	
 	return (0);
 }
