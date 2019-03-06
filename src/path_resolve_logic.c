@@ -1,39 +1,43 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   path_resolve_logic.c                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/04 10:30:02 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/05 18:08:09 by sdremora         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int			resolve_check(t_resolve *resolve, t_path *add_path)
+int		resolve_isbest(t_state *state)
 {
+	int			cur_flow;
+	t_resolve	*resolve;
+	t_resolve	*prev_resolve;
+	int			max_size;
+	t_path		*path;
+
+	cur_flow = state->cur_flow;
+	if (state->res_ar[cur_flow] == NULL)
+		return (0);
+	if (cur_flow < 2)
+		return (1);
+	resolve = (t_resolve *)state->res_ar[cur_flow]->content;
+	prev_resolve = (t_resolve *)state->res_ar[cur_flow - 1]->content;
+	path = ((t_resolve *)state->last_one->content)->path_ar[0];
+	max_size = resolve->move_count - prev_resolve->move_count;
+	if (path->size < max_size)
+		return (0);
+	return (1);
+}
+
+int		path_check(t_path *path1, t_path *path2)
+{
+	t_room	*room;
 	int		i;
 	int		n;
-	int		k;
-	t_path	*cur_path;
-	t_room	*room;
 
-	i = 0;
-	while (i < resolve->cur_flow)
+	i = 1;
+	while (i < path1->size - 1)
 	{
-		cur_path = resolve->path_ar[i];
+		room = path1->ar[i];
 		n = 1;
-		while (n < cur_path->size - 1)
+		while (n < path2->size - 1)
 		{
-			room = cur_path->ar[n];
-			k = 1;
-			while (k < add_path->size)
-			{
-				if (room == add_path->ar[k++])
-					return (0);
-			}
+			if (room == path2->ar[n])
+				return (0);
 			n++;
 		}
 		i++;
@@ -41,129 +45,177 @@ static int			resolve_check(t_resolve *resolve, t_path *add_path)
 	return (1);
 }
 
-static t_resolve	*resolve_builder(t_list *path_lst, int flow)
+int		resolve_check(t_resolve *resolve, t_path *path)
 {
+	int i;
+	t_path	*cur_path;
+
+	i = 0;
+	while (i < resolve->flow_count)
+	{
+		cur_path = resolve->path_ar[i];
+		if (!path_check(cur_path, path))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	resolve_to_state(t_state *state, t_resolve *resolve, int flow)
+{
+	t_list	*node;
+	t_list	*temp;
+
+	node = ft_lstput(resolve, resolve->move_count);
+	if (!node)
+		error_handle(E_NOMEM);
+	if (state->res_ar[flow] == NULL)
+		state->res_ar[flow] = node;
+	else
+	{
+		temp = state->res_ar[flow];
+		if (temp->content_size > node->content_size)
+		{
+			state->res_ar[flow] = node;
+			node->next = temp;
+		}
+		else
+		{
+			node->next = temp->next;
+			temp->next = node;
+		}
+	}
+}
+
+void	resolve_merge(t_state *state, t_resolve *resolve, t_path *path, int flow)
+{
+	t_resolve	*new_res;
+	int			i;
+
+	if (flow > state->max_flow)
+		state->max_flow = flow;
+	new_res = resolve_ini(flow + 1);
+	i = 0;
+	while (i < resolve->flow_count)
+	{
+		new_res->path_ar[i] = resolve->path_ar[i];
+		i++;
+	}
+	new_res->path_ar[i] = path;
+	new_res->move_count = resolve->move_count + path->size;
+	resolve_to_state(state, new_res, flow);
+}
+
+void	resolve_addone(t_state *state, t_path *path)
+{
+	t_resolve	*new_res;
+	t_list		*node;
+	t_list		*temp;
+
+	new_res = resolve_ini(1);
+	new_res->path_ar[0] = path;
+	new_res->move_count = path->size;
+	node = ft_lstput(new_res, path->size);
+	if (!node)
+		error_handle(E_NOMEM);
+	if (state->res_ar[0] == NULL)
+	{
+		state->res_ar[0] = node;
+		state->last_one = node;
+	}
+	else
+	{
+		temp = state->last_one;
+		state->last_one = node;
+		temp->next = node;
+	}
+}
+
+void	resolve_mixer(t_state *state, t_path *path)
+{
+	int			flow;
+	t_list		*res_node;
 	t_resolve	*resolve;
-	t_path		*path;
 
-	resolve = resolve_ini(flow);
-	while (resolve->cur_flow < resolve->flow_count)
+	flow = state->max_flow;
+	while (flow >= 0)
 	{
-		if (path_lst == NULL)
+		res_node = state->res_ar[flow];
+		while (res_node)
 		{
-			resolve_clean(resolve);
-			return (NULL);
+			resolve = (t_resolve *)res_node->content;
+			if (resolve_check(resolve, path))
+				resolve_merge(state, resolve, path, flow + 1);
+			res_node = res_node->next;
 		}
-		path = (t_path *)path_lst->content;
-		if (resolve_check(resolve, path))
-		{
-			resolve->path_ar[resolve->cur_flow] = path;
-			resolve->cur_flow++;
-			resolve->move_count += path->size;
-		}
-		path_lst = path_lst->next;
+		flow--;
 	}
-	return (resolve);
+	resolve_addone(state, path);
 }
 
-static int			resolve_logic(t_resolve *resolve, t_resolve *last_resolve,\
-			t_resolve **save_res, int *max_size)
-{
-	t_resolve *temp;
-
-	if (*save_res == NULL)
-	{
-		*max_size = resolve->move_count - last_resolve->move_count - 1;
-		if (resolve->path_ar[0]->size > *max_size)
-			return (1);
-		*save_res = resolve;
-		resolve = NULL;
-	}
-	else if (resolve->move_count < (*save_res)->move_count)
-	{
-		temp = resolve;
-		resolve = *save_res;
-		*save_res = temp;
-	}
-	resolve_clean(resolve);
-	return (0);
-}
-
-static t_resolve	*get_resolve(t_farm *farm, t_resolve *last_res,\
-						int flow, t_list **path_lst)
-{
-	t_path			*path;
-	t_resolve		*res;
-	t_resolve		*save_res;
-	int				max_size;
-
-	res = NULL;
-	save_res = NULL;
-	max_size = 0;
-	while ((path = path_getnew(farm)) != NULL)
-	{
-		res = NULL;
-		path_to_lst(path_lst, path);
-		if (save_res != NULL && path->size > max_size)
-			break ;
-		if ((res = resolve_builder(*path_lst, flow)) == NULL)
-			continue ;
-		if (flow <= 2 ||\
-			resolve_logic(res, last_res, &save_res, &max_size) == 1)
-			break ;
-	}
-	return (res != NULL) ? res : save_res;
-}
-
-void	print_paths(t_list *path_lst)
+void	state_fill(t_state *state, t_farm *farm)
 {
 	t_path	*path;
-	t_room	*room;
+
+	while (state->cur_flow < state->target_flow)
+	{
+		if (resolve_isbest(state))
+		{
+			state->cur_flow++;
+			continue;
+		}
+		path = path_getnew(farm);
+		if (!path)
+			break ;
+		resolve_mixer(state, path);
+	}
+}
+
+void	print_ones(t_state *state)
+{
+	t_list	*node;
+	t_path	*path;
 	int 	i;
 
-	ft_putstr(" =====> Начало <=====\n");
-	while (path_lst)
+	node = state->res_ar[0];
+	ft_putstr("<==== Начало ====>\n");
+	while (node)
 	{
-		path = (t_path *)path_lst->content;
+		path = ((t_resolve *)node->content)->path_ar[0];
 		i = path->size;
 		while (i > 0)
 		{
 			i--;
-			room = path->ar[i];
-			ft_putstr(room->name);
-			if (room->type != R_END)
-				ft_putstr(" -> ");
+			ft_putstr(path->ar[i]->name);
+			ft_putstr(" ");
 		}
 		ft_putstr("\n");
-		path_lst = path_lst->next;
+		node = node->next;
 	}
-	ft_putstr(" =====> Конец <=====\n");
+	ft_putstr("<==== Конец ====>\n");
 }
 
-void				resolve_gen(t_farm *farm, t_list **resolve_lst,\
-								t_list **path_lst)
+t_list	*resolve_make(t_farm *farm)
 {
+	t_list	*res_lst;
+	t_state	*state;
 	t_resolve	*resolve;
-	t_resolve	*last_resolve;
 	t_list		*node;
-	int			max_flow;
-	int			i;
+	int 	i;
 
-	max_flow = get_flow(farm);
-	*resolve_lst = NULL;
-	last_resolve = NULL;
-	i = 1;
-	while (i <= max_flow)
+	res_lst = NULL;
+	state = state_ini(farm);
+	state_fill(state, farm);
+	print_ones(state);
+	i = 0;
+	while (i < state->cur_flow)
 	{
-		resolve = get_resolve(farm, last_resolve, i, path_lst);
-		if (!resolve)
-			break ;
-		last_resolve = resolve;
+		resolve = (t_resolve *)state->res_ar[i]->content;
 		node = ft_lstput(resolve, sizeof(t_resolve));
-		if (node == NULL)
+		if (!node)
 			error_handle(E_NOMEM);
-		ft_lstadd(resolve_lst, node);
+		ft_lstadd(&res_lst, node);
 		i++;
 	}
-	print_paths(*path_lst);
+	return (res_lst);
 }

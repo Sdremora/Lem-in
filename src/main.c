@@ -38,7 +38,7 @@ int			main(void)
 	farm = parser();
 	farm_printer(farm);
 	end_start_conn_printer(farm);
-	
+
 	resolve_lst = path_finder(farm, &path_lst);
 	print_all_resolves(resolve_lst);
 	print_map(farm);

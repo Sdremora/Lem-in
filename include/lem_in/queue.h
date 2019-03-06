@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   queue.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/04 10:47:07 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/06 14:08:27 by sdremora         ###   ########.fr       */
+/*   Created: 2019/03/06 12:04:27 by sdremora          #+#    #+#             */
+/*   Updated: 2019/03/06 13:03:21 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#ifndef QUEUE_H
+# define QUEUE_H
 
-# include "lem_in/general.h"
-# include "lem_in/parser.h"
-# include "lem_in/way_finder.h"
-# include "lem_in/solver.h"
 # include "libft.h"
-# include "lem_in/queue.h"
 
+typedef struct		s_node
+{
+	void			*content;
+	struct s_node	*next;
+	struct s_node	*prev;
+}					t_node;
+
+typedef struct	s_queue
+{
+	t_node	*first;
+	t_node	*last;
+	size_t	size;
+}				t_queue;
+
+t_queue	*queue_new(void);
+int		queue_put(t_queue *queue, void	*content);
+void	*queue_get(t_queue *queue);
 #endif
