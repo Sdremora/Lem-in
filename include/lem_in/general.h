@@ -8,6 +8,8 @@
 # define E_NOMEM -4
 # define E_NOPATH -5
 
+#define F_PR 0
+
 typedef struct	s_room
 {
 	char	*name;

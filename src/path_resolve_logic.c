@@ -195,15 +195,15 @@ void	print_ones(t_state *state)
 	ft_putstr("<==== Конец ====>\n");
 }
 
-t_list	*resolve_make(t_farm *farm)
+t_list	*path_finder(t_farm *farm)
 {
-	t_list	*res_lst;
-	t_state	*state;
-	t_resolve	*resolve;
+	int 		i;
+	t_list		*result_lst;
 	t_list		*node;
-	int 	i;
+	t_state		*state;
+	t_resolve	*resolve;
 
-	res_lst = NULL;
+	result_lst = NULL;
 	state = state_ini(farm);
 	state_fill(state, farm);
 	print_ones(state);
@@ -214,8 +214,8 @@ t_list	*resolve_make(t_farm *farm)
 		node = ft_lstput(resolve, sizeof(t_resolve));
 		if (!node)
 			error_handle(E_NOMEM);
-		ft_lstadd(&res_lst, node);
+		ft_lstadd(&result_lst, node);
 		i++;
 	}
-	return (res_lst);
+	return (result_lst);
 }

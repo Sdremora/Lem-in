@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:20:49 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/06 16:40:01 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/06 17:25:36 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct	s_state
 **	--------------------------path_finder.c-------------------------------
 */
 
-t_list			*path_finder(t_farm *farm, t_list **path_lst);
+t_list			*path_finder(t_farm *farm);
 
 /*
 **	--------------------------path_finder.c-------------------------------
@@ -91,7 +91,6 @@ t_resolve		*resolve_ini(int flow_count);
 void			resolve_free(t_list *resolve_lst);
 
 t_state	*state_ini(t_farm *farm);
-t_list	*resolve_make(t_farm *farm);
 
 int	lstlen(t_list *lst); //удалить
 #endif

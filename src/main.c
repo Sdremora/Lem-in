@@ -17,33 +17,73 @@ void		error_handle(int error_index)
 	exit(error_index);
 }
 
-/*
-**	path_getnew(NULL) clean inner static variable.
-*/
-
-static void	farm_free(t_farm *farm, t_list *res_lst, t_list *path_lst)
+static void	farm_free(t_farm *farm, t_list *res_lst)
 {
-	path_getnew(NULL);
-	path_free(path_lst);
 	resolve_free(res_lst);
 	farm_cleaner(farm);
 }
 
-int			main(void)
+void	flags_handle(int argc, char **argv, int *flags)
+{
+	int i;
+
+	i = 1;
+	while (i < argc && i < 5)
+	{
+		if (ft_strequ(argv[i], "-pr"))
+			flags[F_PR] = 1;
+		i++;
+	}
+}
+
+void		print_res_lst(t_list *res_lst)
+{
+	int 		n;
+	int 		i;
+	t_path		*path;
+	t_resolve	*resolve;
+
+	while (res_lst)
+	{
+		i = 0;
+		resolve = (t_resolve *)res_lst->content;
+		ft_putstr("==>\t");
+		while (i < resolve->flow_count)
+		{
+			path = resolve->path_ar[i++];
+			n = 0;
+			while (n < path->size)
+			{
+				ft_putstr(path->ar[n]->name);
+				if (path->ar[n++]->type != R_END)
+					ft_putstr(" -> ");
+			}
+			ft_putstr("\n\t");
+		}
+		ft_putstr("\n");
+		res_lst = res_lst->next;
+	}
+}
+
+int			main(int argc, char **argv)
 {
 	t_farm	*farm;
 	t_list	*resolve_lst;
 	t_list	*path_lst;
+	int		flags[5];
 
+	ft_bzero(flags, 5);
 	farm = parser();
 	farm_printer(farm);
 	end_start_conn_printer(farm);
 
-	resolve_lst = path_finder(farm, &path_lst);
-	print_all_resolves(resolve_lst);
+	resolve_lst = path_finder(farm);
 	print_map(farm);
-	print_all_resolves(resolve_lst);
+	if (argc != 1)
+		flags_handle(argc, argv, flags);
+	if (flags[F_PR])
+		print_res_lst(resolve_lst);
 	solver(resolve_lst, farm->ant_count);
-	farm_free(farm, resolve_lst, path_lst);
+	farm_free(farm, resolve_lst);
 	return (0);
 }
