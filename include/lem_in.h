@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:47:07 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/04 10:47:10 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/06 14:08:27 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 # include "lem_in/way_finder.h"
 # include "lem_in/solver.h"
 # include "libft.h"
+# include "lem_in/queue.h"
 
 #endif

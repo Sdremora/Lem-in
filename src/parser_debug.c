@@ -13,6 +13,7 @@ void	room_printer(t_room *room)
 		lst = lst->next;
 	}
 	ft_putendl("");
+	ft_putstr("\n");
 }
 
 void	farm_printer(t_farm *res)

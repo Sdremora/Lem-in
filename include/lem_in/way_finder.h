@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:20:49 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/05 12:45:24 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:40:01 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,11 @@ int				marker(t_list *room_lst, int step);
 **	--------------------------path_utils.c-------------------------------
 */
 
-void			path_add(t_list **lst, t_path *orig_path, t_room *add_room);
-t_path			*path_ini(int path_size);
+void			path_add(t_path *path, t_room *add_room);
+t_path			*path_new(int path_size);
 void			path_to_lst(t_list **lst, t_path *path);
 void			path_resize(t_path *path, int new_ar_size);
+t_path			*path_copy(t_path *path);
 
 /*
 **	--------------------------path_logic.c-------------------------------
@@ -91,4 +92,6 @@ void			resolve_free(t_list *resolve_lst);
 
 t_state	*state_ini(t_farm *farm);
 t_list	*resolve_make(t_farm *farm);
+
+int	lstlen(t_list *lst); //удалить
 #endif

@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:27:55 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/05 14:16:38 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/06 14:33:29 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_state	*state_ini(t_farm *farm)
 	int		end_flow;
 
 	start_flow = ft_lstlen(farm->start->link_list);
-	end_flow = ft_lstlen(farm->end->pre_list);
+	end_flow = ft_lstlen(farm->end->link_list);
 	max_flow = start_flow < end_flow ? start_flow : end_flow;
 	if (!(state = (t_state *)malloc(sizeof(t_state))) ||\
 		!(state->res_ar = (t_list **)ft_memalloc(sizeof(t_list *) * max_flow)))

@@ -6,18 +6,30 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:09:01 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/04 10:39:22 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:48:04 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static t_path	*path_get_copy(t_path *path)
+t_path			*path_new(int path_size)
+{
+	t_path	*path;
+
+	if (!(path = (t_path *)malloc(sizeof(t_path))) ||\
+		!(path->ar = (t_room **)ft_memalloc(sizeof(t_room *) * path_size)))
+		error_handle(E_NOMEM);
+	path->size = 0;
+	path->max_size = path_size;
+	return (path);
+}
+
+t_path	*path_copy(t_path *path)
 {
 	t_path	*path_copy;
 	int		i;
 
-	path_copy = path_ini(path->max_size);
+	path_copy = path_new(path->max_size);
 	i = 0;
 	while (i < path->size)
 	{
@@ -28,28 +40,12 @@ static t_path	*path_get_copy(t_path *path)
 	return (path_copy);
 }
 
-void			path_add(t_list **lst, t_path *orig_path, t_room *add_room)
+void			path_add(t_path *path, t_room *add_room)
 {
-	t_path	*path_copy;
-
-	path_copy = path_get_copy(orig_path);
-	if (path_copy->size == path_copy->max_size)
-		path_resize(path_copy, path_copy->max_size * 2);
-	path_copy->ar[path_copy->size] = add_room;
-	path_copy->size++;
-	path_to_lst(lst, path_copy);
-}
-
-t_path			*path_ini(int path_size)
-{
-	t_path	*path;
-
-	if (!(path = (t_path *)malloc(sizeof(t_path))) ||\
-		!(path->ar = (t_room **)ft_memalloc(sizeof(t_room *) * path_size)))
-		error_handle(E_NOMEM);
-	path->size = 0;
-	path->max_size = path_size;
-	return (path);
+	if (path->size == path->max_size)
+		path_resize(path, path->max_size * 2);
+	path->ar[path->size] = add_room;
+	path->size++;
 }
 
 void			path_to_lst(t_list **lst, t_path *path)
@@ -81,4 +77,20 @@ void			path_resize(t_path *path, int new_ar_size)
 	free(path->ar);
 	path->ar = temp;
 	path->max_size = new_ar_size;
+}
+
+void			path_free(t_list *path_lst)
+{
+	t_list		*next_node;
+	t_path		*path;
+
+	while (path_lst)
+	{
+		next_node = path_lst->next;
+		path = (t_path *)path_lst->content;
+		free(path->ar);
+		free(path);
+		free(path_lst);
+		path_lst = next_node;
+	}
 }

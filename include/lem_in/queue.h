@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   222.c                                              :+:      :+:    :+:   */
+/*   queue.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/04 10:27:55 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/05 12:50:01 by sdremora         ###   ########.fr       */
+/*   Created: 2019/03/06 12:04:27 by sdremora          #+#    #+#             */
+/*   Updated: 2019/03/06 13:03:21 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#ifndef QUEUE_H
+# define QUEUE_H
 
-int			get_flow(t_farm *farm)
+# include "libft.h"
+
+typedef struct		s_node
 {
-	int	start_flow;
-	int	end_flow;
+	void			*content;
+	struct s_node	*next;
+	struct s_node	*prev;
+}					t_node;
 
-	start_flow = ft_lstlen(farm->start->link_list);
-	end_flow = ft_lstlen(farm->end->pre_list);
-	return (start_flow < end_flow ? start_flow : end_flow);
-}
-
-void		resolve_clean(t_resolve *resolve)
+typedef struct	s_queue
 {
-	if (resolve)
-	{
-		free(resolve->path_ar);
-		free(resolve);
-	}
-}
+	t_node	*first;
+	t_node	*last;
+	size_t	size;
+}				t_queue;
 
-
+t_queue	*queue_new(void);
+int		queue_put(t_queue *queue, void	*content);
+void	*queue_get(t_queue *queue);
+#endif
