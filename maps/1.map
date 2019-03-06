@@ -7,6 +7,9 @@ four 2 6
 two 4 2
 three 4 4
 five 9 1
+six 9 9
+seven 9 9
+nine 9 9 
 zero-one
 zero-two
 two-three
@@ -14,3 +17,5 @@ three-four
 four-one
 one-two
 one-five
+five-six
+six-seven
