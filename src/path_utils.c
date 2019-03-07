@@ -6,13 +6,13 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:09:01 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/06 16:48:04 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/07 17:36:23 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_path			*path_new(int path_size)
+t_path			*path_new(int path_size, int path_id)
 {
 	t_path	*path;
 
@@ -21,6 +21,7 @@ t_path			*path_new(int path_size)
 		error_handle(E_NOMEM);
 	path->size = 0;
 	path->max_size = path_size;
+	path->id = path_id;
 	return (path);
 }
 
@@ -29,7 +30,7 @@ t_path	*path_copy(t_path *path)
 	t_path	*path_copy;
 	int		i;
 
-	path_copy = path_new(path->max_size);
+	path_copy = path_new(path->max_size, path->id);
 	i = 0;
 	while (i < path->size)
 	{
@@ -93,4 +94,17 @@ void			path_free(t_list *path_lst)
 		free(path_lst);
 		path_lst = next_node;
 	}
+}
+
+int	lstlen(t_list *lst)
+{
+	int	len;
+
+	len = 0;
+	while (lst)
+	{
+		len++;
+		lst = lst->next;
+	}
+	return (len);
 }

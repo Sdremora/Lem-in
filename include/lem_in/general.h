@@ -20,6 +20,7 @@ typedef struct	s_room
 	int				step;
 	int				type;
 	int				is_empty;
+	char			is_visited[100];
 	unsigned int	hash;
 }				t_room;
 

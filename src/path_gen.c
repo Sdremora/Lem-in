@@ -4,30 +4,36 @@ t_queue	*add_first_room(t_farm *farm, int *is_first_call)
 {
 	t_queue *path_qu;
 	t_path	*path;
+	t_list	*link;
+	int		path_id;
 
 	path_qu = queue_new();
 	if (path_qu == NULL)
 		error_handle(E_NOMEM);
-	path = path_new(20);
-	path_add(path, farm->start);
-	queue_put(path_qu, path);
+	link = farm->start->link_list;
+	path_id = 0;
+	while (link)
+	{
+		path = path_new(20, path_id);
+		path_add(path, farm->start);
+		path_add(path, (t_room *)link->content);
+		farm->start->is_visited[path_id] = 1;
+		((t_room *)link->content)->is_visited[path_id] = 1;
+		queue_put(path_qu, path);
+		path_id++;
+		link = link->next;
+	}
 	*is_first_call = -1;
 	return (path_qu);
 }
 
 int		check_path_loop(t_path *path, t_room *room)
 {
-	int i;
-
-	i = path->size;
-	while (i > 1)
-	{
-		i--;
-		if (path->ar[i - 1] == room)
-			return (-1);
-	}
-	if (room->type == R_START)
+	if (room->is_visited[path->id])
 		return (-1);
+	if (room->type == R_END)
+		return (0);
+	room->is_visited[path->id] = 1;
 	return (0);
 }
 
@@ -77,17 +83,4 @@ t_path	*path_getnew(t_farm	*farm)
 		free(path);
 	}
 	return (result);
-}
-
-int	lstlen(t_list *lst)
-{
-	int len;
-
-	len = 0;
-	while (lst)
-	{
-		len++;
-		lst = lst->next;
-	}
-	return (len);
 }

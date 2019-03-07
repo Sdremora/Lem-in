@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:20:49 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/07 11:32:24 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/07 16:28:24 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct	s_path
 	t_room		**ar;
 	int			size;
 	int			max_size;
+	int			id;
 }				t_path;
 
 typedef	struct	s_resolve
@@ -57,7 +58,7 @@ int				marker(t_list *room_lst, int step);
 */
 
 void			path_add(t_path *path, t_room *add_room);
-t_path			*path_new(int path_size);
+t_path			*path_new(int path_size, int path_id);
 void			path_to_lst(t_list **lst, t_path *path);
 void			path_resize(t_path *path, int new_ar_size);
 t_path			*path_copy(t_path *path);

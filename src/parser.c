@@ -11,6 +11,7 @@ void	room_init(t_room *room, char **split)
 	room->pre_list = 0;
 	room->is_empty = 1;
 	room->hash = 0;
+	ft_bzero(room->is_visited, 100);
 	free(split[1]);
 	free(split[2]);
 	free(split);
@@ -214,9 +215,9 @@ t_farm	*parser(void)
 	}
 	res->room = farm;
 	farm_checker(res);
-	while (deadend_remover_farm(res))
-	{
-		;
-	}
+	// while (deadend_remover_farm(res))
+	// {
+	// 	;
+	// }
 	return (res);
 }

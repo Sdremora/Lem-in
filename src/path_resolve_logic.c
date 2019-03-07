@@ -194,12 +194,15 @@ void	resolve_mixer(t_state *state, t_path *path)
 void	state_fill(t_state *state, t_farm *farm)
 {
 	t_path	*path;
+	int		count;
 
-	while (state->cur_flow < state->target_flow)
+	count = 0;
+	while (state->cur_flow < state->target_flow && state->cur_flow < 8)
 	{
 		if (resolve_isbest(state))
 		{
 			state->cur_flow++;
+			count = 0;
 			continue;
 		}
 		path = path_getnew(farm);
@@ -208,6 +211,7 @@ void	state_fill(t_state *state, t_farm *farm)
 		if (!path)
 			break ;
 		resolve_mixer(state, path);
+		count++;
 	}
 }
 
