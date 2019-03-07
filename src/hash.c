@@ -1,6 +1,4 @@
 
-#include "lem-in"
-
 /*
 **	http://www.amsoftware.narod.ru/algo2.html
 */

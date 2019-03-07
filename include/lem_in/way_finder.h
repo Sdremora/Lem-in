@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:20:49 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/06 17:25:36 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/07 11:32:24 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ typedef	struct	s_resolve
 {
 	t_path		**path_ar;
 	int			flow_count;
-//	int			cur_flow;
 	int			move_count;
+	t_list		**rooms_har;
+	int			har_size;
 }				t_resolve;
 
 typedef struct	s_state

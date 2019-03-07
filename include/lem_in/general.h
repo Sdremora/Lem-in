@@ -12,14 +12,15 @@
 
 typedef struct	s_room
 {
-	char	*name;
-	int		x;
-	int		y;
-	t_list	*link_list;
-	t_list	*pre_list;
-	int		step;
-	int		type;
-	int		is_empty;
+	char			*name;
+	int				x;
+	int				y;
+	t_list			*link_list;
+	t_list			*pre_list;
+	int				step;
+	int				type;
+	int				is_empty;
+	unsigned int	hash;
 }				t_room;
 
 typedef struct	s_farm

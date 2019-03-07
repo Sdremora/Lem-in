@@ -10,6 +10,7 @@ void	room_init(t_room *room, char **split)
 	room->step = -1;
 	room->pre_list = 0;
 	room->is_empty = 1;
+	room->hash = 0;
 	free(split[1]);
 	free(split[2]);
 	free(split);

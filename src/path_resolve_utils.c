@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:27:55 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/06 14:33:29 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/07 11:33:17 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_resolve	*resolve_ini(int flow_count)
 		error_handle(E_NOMEM);
 	resolve->flow_count = flow_count;
 	resolve->move_count = 0;
+	resolve->rooms_har = NULL;
+	resolve->har_size = 0;
 	return (resolve);
 }
 

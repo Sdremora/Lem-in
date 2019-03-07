@@ -1,6 +1,53 @@
 
 #include "lem_in.h"
 
+void	room_in_har(t_resolve *resolve, t_room *room)
+{
+	t_list	*node;
+	t_list	*temp;
+	int		index;
+
+	if (room->hash == 0)
+		room->hash = mafast_hash(room->name, ft_strlen(room->name));
+	node = ft_lstput(room, room->hash);
+	if (node == NULL)
+		error_handle(E_NOMEM);
+	index = room->hash % resolve->har_size;
+	if (resolve->rooms_har[index] == NULL)
+		resolve->rooms_har[index] = node;
+	else
+	{
+		temp = resolve->rooms_har[index];
+		while (temp->next)
+			temp = temp->next;
+		temp->next = node;
+	}
+}
+
+void	hash_fill(t_resolve	*resolve)
+{
+	int		i;
+	int		n;
+	t_path	*path;
+
+	resolve->har_size = resolve->move_count * 1.5;
+	resolve->rooms_har = (t_list **)ft_memalloc(sizeof(t_list *) * resolve->har_size);
+	if (resolve->rooms_har == NULL)
+		error_handle(E_NOMEM);
+	i = 0;
+	while (i < resolve->flow_count)
+	{
+		path = resolve->path_ar[i];
+		n = 0;
+		while (n < path->size)
+		{
+			room_in_har(resolve, path->ar[n]);
+			n++;
+		}
+		i++;
+	}
+}
+
 int		resolve_isbest(t_state *state)
 {
 	int			cur_flow;
@@ -23,39 +70,28 @@ int		resolve_isbest(t_state *state)
 	return (1);
 }
 
-int		path_check(t_path *path1, t_path *path2)
-{
-	t_room	*room;
-	int		i;
-	int		n;
-
-	i = 1;
-	while (i < path1->size - 1)
-	{
-		room = path1->ar[i];
-		n = 1;
-		while (n < path2->size - 1)
-		{
-			if (room == path2->ar[n])
-				return (0);
-			n++;
-		}
-		i++;
-	}
-	return (1);
-}
-
 int		resolve_check(t_resolve *resolve, t_path *path)
 {
-	int i;
-	t_path	*cur_path;
+	int		i;
+	int		n;
+	t_list	*node;
+	t_room	*room;
 
-	i = 0;
-	while (i < resolve->flow_count)
+	i = 1;
+	while (i < path->size - 1)
 	{
-		cur_path = resolve->path_ar[i];
-		if (!path_check(cur_path, path))
-			return (0);
+		room = path->ar[i];
+		if (room->hash != 0)
+		{
+			n = room->hash % resolve->har_size;
+			node = resolve->rooms_har[n];
+			while (node)
+			{
+				if (node->content_size == room->hash)
+					return (0);
+				node = node->next;
+			}
+		}
 		i++;
 	}
 	return (1);
@@ -103,6 +139,7 @@ void	resolve_merge(t_state *state, t_resolve *resolve, t_path *path, int flow)
 	}
 	new_res->path_ar[i] = path;
 	new_res->move_count = resolve->move_count + path->size;
+	hash_fill(new_res);
 	resolve_to_state(state, new_res, flow);
 }
 
@@ -115,6 +152,7 @@ void	resolve_addone(t_state *state, t_path *path)
 	new_res = resolve_ini(1);
 	new_res->path_ar[0] = path;
 	new_res->move_count = path->size;
+	hash_fill(new_res);
 	node = ft_lstput(new_res, path->size);
 	if (!node)
 		error_handle(E_NOMEM);
@@ -165,6 +203,8 @@ void	state_fill(t_state *state, t_farm *farm)
 			continue;
 		}
 		path = path_getnew(farm);
+		if (state->res_ar[0] && path->size > ((t_resolve *)state->res_ar[0]->content)->path_ar[0]->size * 4)
+			break ;
 		if (!path)
 			break ;
 		resolve_mixer(state, path);
