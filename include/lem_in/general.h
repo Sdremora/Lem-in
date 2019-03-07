@@ -43,5 +43,6 @@ typedef enum	e_room_types
 void			printer(char *result);
 void			error_handle(int error_index);
 t_room			*get_room(t_list *farm);
+unsigned int	mafast_hash(char *str, unsigned int len);
 
 #endif
