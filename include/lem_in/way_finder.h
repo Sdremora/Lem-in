@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:20:49 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/07 16:28:24 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/10 12:54:24 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,60 +39,36 @@ typedef struct	s_state
 	int			cur_flow;
 	int			max_flow;
 	int			target_flow;
+	int			res_count;
 }				t_state;
-
-/*
-**	--------------------------path_finder.c-------------------------------
-*/
-
-t_list			*path_finder(t_farm *farm);
-
-/*
-**	--------------------------path_finder.c-------------------------------
-*/
-
-int				marker(t_list *room_lst, int step);
-
-/*
-**	--------------------------path_utils.c-------------------------------
-*/
-
-void			path_add(t_path *path, t_room *add_room);
-t_path			*path_new(int path_size, int path_id);
-void			path_to_lst(t_list **lst, t_path *path);
-void			path_resize(t_path *path, int new_ar_size);
-t_path			*path_copy(t_path *path);
-
-/*
-**	--------------------------path_logic.c-------------------------------
-*/
-
-void			path_logic(t_list **res_lst, t_farm *farm);
-
-/*
-**	--------------------------path_finder_genpath.c-----------------------
-*/
-
-t_path			*path_getnew(t_farm *farm);
-void			path_free(t_list *path_lst);
 
 /*
 **	--------------------------path_resolve_logic.c-----------------------
 */
 
-void			resolve_gen(t_farm *farm, t_list **resolve_lst,\
-							t_list **path_lst);
+t_list			*resolve_finder(t_farm *farm, t_state *state);
 
 /*
-**	--------------------------path_resolve_utils.c-----------------------
+**	--------------------------path_gen.c-----------------------
 */
 
-int				get_flow(t_farm *farm);
-void			resolve_clean(t_resolve *resolve);
+t_path			*path_getnew(t_farm *farm);
+
+/*
+**	--------------------------path_utils.c-------------------------------
+*/
+
+t_path			*path_new(int path_size, int path_id);
+t_path			*path_copy(t_path *path);
+void			path_add(t_path *path, t_room *add_room);
+void			path_resize(t_path *path, int new_ar_size);
+
+/*
+**	----------------------path_resolve_utils.c-------------------------
+*/
+
+t_state			*state_ini(t_farm *farm);
 t_resolve		*resolve_ini(int flow_count);
 void			resolve_free(t_list *resolve_lst);
 
-t_state	*state_ini(t_farm *farm);
-
-int	lstlen(t_list *lst); //удалить
 #endif

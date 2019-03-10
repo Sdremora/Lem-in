@@ -70,6 +70,7 @@ int			main(int argc, char **argv)
 	t_farm	*farm;
 	t_list	*resolve_lst;
 	t_list	*path_lst;
+	t_state	*state;
 	int		flags[5];
 
 	ft_bzero(flags, 5);
@@ -77,7 +78,10 @@ int			main(int argc, char **argv)
 	farm_printer(farm);
 	end_start_conn_printer(farm);
 
-	resolve_lst = path_finder(farm);
+	state = state_ini(farm);
+	resolve_lst = resolve_finder(farm, state);
+	if (resolve_lst == NULL)
+		error_handle(E_NOPATH);
 	print_map(farm);
 	if (argc != 1)
 		flags_handle(argc, argv, flags);

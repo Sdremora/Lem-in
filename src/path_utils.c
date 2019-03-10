@@ -6,13 +6,13 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:09:01 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/07 17:36:23 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/10 11:21:50 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_path			*path_new(int path_size, int path_id)
+t_path	*path_new(int path_size, int path_id)
 {
 	t_path	*path;
 
@@ -41,7 +41,7 @@ t_path	*path_copy(t_path *path)
 	return (path_copy);
 }
 
-void			path_add(t_path *path, t_room *add_room)
+void	path_add(t_path *path, t_room *add_room)
 {
 	if (path->size == path->max_size)
 		path_resize(path, path->max_size * 2);
@@ -49,17 +49,7 @@ void			path_add(t_path *path, t_room *add_room)
 	path->size++;
 }
 
-void			path_to_lst(t_list **lst, t_path *path)
-{
-	t_list	*path_node;
-
-	path_node = ft_lstput(path, sizeof(t_path));
-	if (!path_node)
-		error_handle(E_NOMEM);
-	ft_lstadd(lst, path_node);
-}
-
-void			path_resize(t_path *path, int new_ar_size)
+void	path_resize(t_path *path, int new_ar_size)
 {
 	t_room	**temp;
 	int		i;
@@ -78,33 +68,4 @@ void			path_resize(t_path *path, int new_ar_size)
 	free(path->ar);
 	path->ar = temp;
 	path->max_size = new_ar_size;
-}
-
-void			path_free(t_list *path_lst)
-{
-	t_list		*next_node;
-	t_path		*path;
-
-	while (path_lst)
-	{
-		next_node = path_lst->next;
-		path = (t_path *)path_lst->content;
-		free(path->ar);
-		free(path);
-		free(path_lst);
-		path_lst = next_node;
-	}
-}
-
-int	lstlen(t_list *lst)
-{
-	int	len;
-
-	len = 0;
-	while (lst)
-	{
-		len++;
-		lst = lst->next;
-	}
-	return (len);
 }

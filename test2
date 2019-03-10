@@ -1,0 +1,229 @@
+end
+5 11 7 6 5 1 
+
+11
+2 end 10 
+
+10
+2 11 9 
+
+9
+2 10 8 
+
+8
+2 9 start 
+
+7
+2 end 4 
+
+6
+2 end 3 
+
+5
+2 end 2 
+
+4
+2 7 start 
+
+3
+2 6 start 
+
+2
+2 5 start 
+
+1
+2 end start 
+
+start
+5 8 4 3 2 1 
+
+start
+5 8 4 3 2 1 
+
+end
+5 11 7 6 5 1 
+
+
+Решения с потоками 1
+start 1 end 
+
+start 4 7 end 
+
+start 3 6 end 
+
+start 2 5 end 
+
+start 8 9 10 11 end 
+
+
+
+Решения с потоками 2
+start 1 end 
+start 4 7 end 
+
+start 2 5 end 
+start 8 9 10 11 end 
+
+start 3 6 end 
+start 8 9 10 11 end 
+
+start 4 7 end 
+start 8 9 10 11 end 
+
+start 1 end 
+start 8 9 10 11 end 
+
+start 3 6 end 
+start 2 5 end 
+
+start 4 7 end 
+start 2 5 end 
+
+start 1 end 
+start 2 5 end 
+
+start 4 7 end 
+start 3 6 end 
+
+start 1 end 
+start 3 6 end 
+
+
+
+Решения с потоками 3
+start 1 end 
+start 4 7 end 
+start 3 6 end 
+
+start 1 end 
+start 3 6 end 
+start 8 9 10 11 end 
+
+start 4 7 end 
+start 3 6 end 
+start 8 9 10 11 end 
+
+start 1 end 
+start 2 5 end 
+start 8 9 10 11 end 
+
+start 4 7 end 
+start 2 5 end 
+start 8 9 10 11 end 
+
+start 3 6 end 
+start 2 5 end 
+start 8 9 10 11 end 
+
+start 1 end 
+start 4 7 end 
+start 8 9 10 11 end 
+
+start 1 end 
+start 3 6 end 
+start 2 5 end 
+
+start 4 7 end 
+start 3 6 end 
+start 2 5 end 
+
+start 1 end 
+start 4 7 end 
+start 2 5 end 
+
+
+
+Решения с потоками 4
+start 1 end 
+start 4 7 end 
+start 3 6 end 
+start 2 5 end 
+
+start 1 end 
+start 4 7 end 
+start 2 5 end 
+start 8 9 10 11 end 
+
+start 4 7 end 
+start 3 6 end 
+start 2 5 end 
+start 8 9 10 11 end 
+
+start 1 end 
+start 3 6 end 
+start 2 5 end 
+start 8 9 10 11 end 
+
+start 1 end 
+start 4 7 end 
+start 3 6 end 
+start 8 9 10 11 end 
+
+
+
+Решения с потоками 5
+start 1 end 
+start 4 7 end 
+start 3 6 end 
+start 2 5 end 
+start 8 9 10 11 end 
+
+
+
+
+100
+##start
+start 1 1
+1 1 1
+2 1 1
+3 1 1
+4 1 1
+5 1 1
+6 1 1
+7 1 1
+8 1 1
+9 1 1
+10 1 1
+11 1 1
+##end
+end 1 1
+start-1
+start-2
+start-3
+start-4
+start-8
+2-5
+3-6
+4-7
+8-9
+9-10
+10-11
+end-1
+end-5
+end-6
+end-7
+end-11
+
+L1-1 L3-7 L4-6 L5-5 L14-11
+L1-start L2-1 L3-4 L4-3 L5-2 L7-7 L8-6 L9-5 L14-10 L19-11
+L2-start L3-start L4-start L5-start L6-1 L7-4 L8-3 L9-2 L11-7 L12-6 L13-5 L14-9 L19-10 L24-11
+L6-start L7-start L8-start L9-start L10-1 L11-4 L12-3 L13-2 L14-8 L16-7 L17-6 L18-5 L19-9 L24-10 L29-11
+L10-start L11-start L12-start L13-start L14-start L15-1 L16-4 L17-3 L18-2 L19-8 L21-7 L22-6 L23-5 L24-9 L29-10 L34-11
+L15-start L16-start L17-start L18-start L19-start L20-1 L21-4 L22-3 L23-2 L24-8 L26-7 L27-6 L28-5 L29-9 L34-10 L39-11
+L20-start L21-start L22-start L23-start L24-start L25-1 L26-4 L27-3 L28-2 L29-8 L31-7 L32-6 L33-5 L34-9 L39-10 L44-11
+L25-start L26-start L27-start L28-start L29-start L30-1 L31-4 L32-3 L33-2 L34-8 L36-7 L37-6 L38-5 L39-9 L44-10 L49-11
+L30-start L31-start L32-start L33-start L34-start L35-1 L36-4 L37-3 L38-2 L39-8 L41-7 L42-6 L43-5 L44-9 L49-10 L54-11
+L35-start L36-start L37-start L38-start L39-start L40-1 L41-4 L42-3 L43-2 L44-8 L46-7 L47-6 L48-5 L49-9 L54-10 L59-11
+L40-start L41-start L42-start L43-start L44-start L45-1 L46-4 L47-3 L48-2 L49-8 L51-7 L52-6 L53-5 L54-9 L59-10 L64-11
+L45-start L46-start L47-start L48-start L49-start L50-1 L51-4 L52-3 L53-2 L54-8 L56-7 L57-6 L58-5 L59-9 L64-10 L69-11
+L50-start L51-start L52-start L53-start L54-start L55-1 L56-4 L57-3 L58-2 L59-8 L61-7 L62-6 L63-5 L64-9 L69-10 L74-11
+L55-start L56-start L57-start L58-start L59-start L60-1 L61-4 L62-3 L63-2 L64-8 L66-7 L67-6 L68-5 L69-9 L74-10 L79-11
+L60-start L61-start L62-start L63-start L64-start L65-1 L66-4 L67-3 L68-2 L69-8 L71-7 L72-6 L73-5 L74-9 L79-10 L84-11
+L65-start L66-start L67-start L68-start L69-start L70-1 L71-4 L72-3 L73-2 L74-8 L76-7 L77-6 L78-5 L79-9 L84-10 L89-11
+L70-start L71-start L72-start L73-start L74-start L75-1 L76-4 L77-3 L78-2 L79-8 L81-7 L82-6 L83-5 L84-9 L89-10 L94-11
+L75-start L76-start L77-start L78-start L79-start L80-1 L81-4 L82-3 L83-2 L84-8 L86-7 L87-6 L88-5 L89-9 L94-10 L99-11
+L80-start L81-start L82-start L83-start L84-start L85-1 L86-4 L87-3 L88-2 L89-8 L91-7 L92-6 L93-5 L94-9 L99-10
+L85-start L86-start L87-start L88-start L89-start L90-1 L91-4 L92-3 L93-2 L94-8 L96-7 L97-6 L98-5 L99-9
+L90-start L91-start L92-start L93-start L94-start L95-1 L96-4 L97-3 L98-2 L99-8
+L95-start L96-start L97-start L98-start L99-start L100-1
+L100-start

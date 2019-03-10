@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path_gen.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/10 11:22:46 by sdremora          #+#    #+#             */
+/*   Updated: 2019/03/10 11:24:23 by sdremora         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
-t_queue	*add_first_room(t_farm *farm, int *is_first_call)
+static t_queue	*add_first_room(t_farm *farm, int *is_first_call)
 {
 	t_queue *path_qu;
 	t_path	*path;
@@ -27,7 +39,7 @@ t_queue	*add_first_room(t_farm *farm, int *is_first_call)
 	return (path_qu);
 }
 
-int		check_path_loop(t_path *path, t_room *room)
+static int		check_path_loop(t_path *path, t_room *room)
 {
 	if (room->is_visited[path->id])
 		return (-1);
@@ -37,7 +49,7 @@ int		check_path_loop(t_path *path, t_room *room)
 	return (0);
 }
 
-t_path	*add_new_links(t_path *path, t_queue *path_qu)
+static t_path	*add_new_links(t_path *path, t_queue *path_qu)
 {
 	t_room	*room;
 	t_path	*result;
@@ -63,7 +75,7 @@ t_path	*add_new_links(t_path *path, t_queue *path_qu)
 	return (result);
 }
 
-t_path	*path_getnew(t_farm	*farm)
+t_path			*path_getnew(t_farm *farm)
 {
 	static int		is_first_call;
 	static t_queue	*path_qu;

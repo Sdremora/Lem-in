@@ -167,6 +167,7 @@ void	resolve_addone(t_state *state, t_path *path)
 		state->last_one = node;
 		temp->next = node;
 	}
+	state->res_count++;
 }
 
 void	resolve_mixer(t_state *state, t_path *path)
@@ -183,7 +184,10 @@ void	resolve_mixer(t_state *state, t_path *path)
 		{
 			resolve = (t_resolve *)res_node->content;
 			if (resolve_check(resolve, path))
+			{
 				resolve_merge(state, resolve, path, flow + 1);
+				state->res_count++;
+			}
 			res_node = res_node->next;
 		}
 		flow--;
@@ -194,63 +198,47 @@ void	resolve_mixer(t_state *state, t_path *path)
 void	state_fill(t_state *state, t_farm *farm)
 {
 	t_path	*path;
-	int		count;
 
-	count = 0;
-	while (state->cur_flow < state->target_flow && state->cur_flow < 8)
+	while (state->cur_flow < state->target_flow)
 	{
 		if (resolve_isbest(state))
 		{
 			state->cur_flow++;
-			count = 0;
+			if (state->res_count > 150000)
+				break ;
 			continue;
 		}
 		path = path_getnew(farm);
-		if (state->res_ar[0] && path->size > ((t_resolve *)state->res_ar[0]->content)->path_ar[0]->size * 4)
-			break ;
 		if (!path)
 			break ;
 		resolve_mixer(state, path);
-		count++;
 	}
 }
 
-void	print_ones(t_state *state)
-{
-	t_list	*node;
-	t_path	*path;
-	int 	i;
+// void	state_free(t_state	*state)
+// {
+// 	t_list	*node;
+// 	int		i;
+// 	int		n;
 
-	node = state->res_ar[0];
-	ft_putstr("<==== Начало ====>\n");
-	while (node)
-	{
-		path = ((t_resolve *)node->content)->path_ar[0];
-		i = path->size;
-		while (i > 0)
-		{
-			i--;
-			ft_putstr(path->ar[i]->name);
-			ft_putstr(" ");
-		}
-		ft_putstr("\n");
-		node = node->next;
-	}
-	ft_putstr("<==== Конец ====>\n");
-}
+// 	i = 0;
+// 	while (i < state->max_flow)
+// 	{
+// 		node = state->res_ar[i];
+// 		n =
 
-t_list	*path_finder(t_farm *farm)
+// 	}
+// }
+
+t_list	*resolve_finder(t_farm *farm, t_state *state)
 {
 	int 		i;
 	t_list		*result_lst;
 	t_list		*node;
-	t_state		*state;
 	t_resolve	*resolve;
 
 	result_lst = NULL;
-	state = state_ini(farm);
 	state_fill(state, farm);
-	print_ones(state);
 	i = 0;
 	while (i < state->cur_flow)
 	{
@@ -261,5 +249,6 @@ t_list	*path_finder(t_farm *farm)
 		ft_lstadd(&result_lst, node);
 		i++;
 	}
+	// state_free(state);
 	return (result_lst);
 }

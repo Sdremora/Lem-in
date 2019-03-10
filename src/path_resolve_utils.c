@@ -6,15 +6,14 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:27:55 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/07 16:33:55 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/10 12:41:52 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_state	*state_ini(t_farm *farm)
+static int	get_flow(t_farm *farm)
 {
-	t_state	*state;
 	int		max_flow;
 	int		start_flow;
 	int		end_flow;
@@ -23,13 +22,24 @@ t_state	*state_ini(t_farm *farm)
 	end_flow = ft_lstlen(farm->end->link_list);
 	max_flow = start_flow < end_flow ? start_flow : end_flow;
 	max_flow = max_flow < farm->ant_count ? max_flow : farm->ant_count;
-	if (!(state = (t_state *)malloc(sizeof(t_state))) ||\
-		!(state->res_ar = (t_list **)ft_memalloc(sizeof(t_list *) * max_flow)))
+	return (max_flow);
+}
+
+t_state		*state_ini(t_farm *farm)
+{
+	t_state	*state;
+	int		target_flow;
+
+	target_flow = get_flow(farm);
+	if (!(state = (t_state *)malloc(sizeof(t_state))) ||
+		!(state->res_ar =
+		(t_list **)ft_memalloc(sizeof(t_list *) * target_flow)))
 		error_handle(E_NOMEM);
+	state->last_one = NULL;
 	state->cur_flow = 0;
 	state->max_flow = 0;
-	state->target_flow = max_flow;
-	state->last_one = NULL;
+	state->target_flow = target_flow;
+	state->res_count = 0;
 	return (state);
 }
 
@@ -63,3 +73,4 @@ void		resolve_free(t_list *resolve_lst)
 		resolve_lst = next_node;
 	}
 }
+
