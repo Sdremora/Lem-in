@@ -65,7 +65,6 @@ void		solver(t_list *resolve, int ant_count)
 	if (resolve)
 	{
 		res = get_path(resolve, ant_count);
-		resolve_reverse(res);
 		print_res(res, ant_count);
 	}
 	else
