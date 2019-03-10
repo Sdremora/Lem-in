@@ -1,6 +1,20 @@
 
 #include "lem_in.h"
 
+void	room_init(t_room *room, char **split)
+{
+	room->name = split[0];
+	room->x = get_nb(split[1]);
+	room->y = get_nb(split[2]);
+	room->link_list = 0;
+	room->step = -1;
+	room->pre_list = 0;
+	room->is_empty = 1;
+	free(split[1]);
+	free(split[2]);
+	free(split);
+}
+
 char	*add_map(char *map, char *str, int flag)
 {
 	int		len;

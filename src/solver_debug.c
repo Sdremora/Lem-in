@@ -38,7 +38,6 @@ void	print_path(t_path *path)
 		ft_putstr(" ");
 		i++;
 	}
-
 }
 
 void	print_resolve(t_resolve *res)
