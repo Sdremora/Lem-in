@@ -50,14 +50,14 @@ int		deadend_remover_farm(t_farm *farm)
 	t_list	*lst;
 	t_list	*next;
 	t_list	*prev;
-	t_list	*temp;
 
 	lst = farm->room;
 	prev = 0;
 	while (lst)
 	{
 		next = lst->next;
-		if (ft_lstlen(((t_room*)lst->content)->link_list) <= 1)
+		if (ft_lstlen((get_room(lst)->link_list)) <= 1 &&
+				lst->content != farm->end && lst->content != farm->start)
 		{
 			if (!prev)
 				farm->room = next;
