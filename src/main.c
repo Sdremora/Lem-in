@@ -75,7 +75,6 @@ int			main(int argc, char **argv)
 	ft_bzero(flags, 5);
 	farm = parser();
 	farm_printer(farm);
-	end_start_conn_printer(farm);
 
 	resolve_lst = path_finder(farm);
 	print_map(farm);

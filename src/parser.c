@@ -1,20 +1,6 @@
 
 #include "lem_in.h"
 
-void	room_init(t_room *room, char **split)
-{
-	room->name = split[0];
-	room->x = get_nb(split[1]);
-	room->y = get_nb(split[2]);
-	room->link_list = 0;
-	room->step = -1;
-	room->pre_list = 0;
-	room->is_empty = 1;
-	free(split[1]);
-	free(split[2]);
-	free(split);
-}
-
 void	read_room(t_list **farm, char *str, int *type, t_farm *res)
 {
 	t_room	*room;
@@ -115,81 +101,6 @@ int		read_rooms(t_farm *res, char **str, t_list **farm)
 	return (1);
 }
 
-void	link_del(t_room *delroom, t_room *dst)
-{
-	t_list	*prev;
-	t_list	*lst;
-	t_list	*next;
-
-	lst = dst->link_list;
-	prev = 0;
-	while (lst)
-	{
-		next = lst->next;
-		if ((t_room*)lst->content == delroom)
-		{
-			if (!prev)
-				dst->link_list = next;
-			else
-				prev->next = next;
-			free(lst);
-			break ;
-		}
-		else
-		{
-			prev = lst;
-			lst = lst->next;
-		}
-	}
-}
-
-void	dead_list_remover(t_room *room)
-{
-	if (room->link_list)
-	{
-		link_del(room, room->link_list->content);
-		free(room->link_list);
-	}
-	free(room->name);
-	free(room);
-}
-
-int		deadend_remover_farm(t_farm *farm)
-{
-	t_list	*lst;
-	t_list	*next;
-	t_list	*prev;
-	t_list	*temp;
-	int		res;
-
-	res = 0;
-	lst = farm->room;
-	prev = 0;
-	while (lst)
-	{
-		next = lst->next;
-		if (ft_lstlen(((t_room*)lst->content)->link_list) <= 1)
-		{
-			if (!prev)
-				farm->room = next;
-			else
-				prev->next = next;
-			dead_list_remover(lst->content);
-			free(lst);
-			lst = next;
-			res = 1;
-			break ;
-		}
-		else
-		{
-			prev = lst;
-			lst = next;
-		}
-	}
-	return (res);
-}
-
-
 t_farm	*parser(void)
 {
 	char	*str;
@@ -214,8 +125,6 @@ t_farm	*parser(void)
 	res->room = farm;
 	farm_checker(res);
 	while (deadend_remover_farm(res))
-	{
 		;
-	}
 	return (res);
 }
