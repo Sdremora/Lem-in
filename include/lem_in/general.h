@@ -16,8 +16,6 @@ typedef struct	s_room
 	int				x;
 	int				y;
 	t_list			*link_list;
-	t_list			*pre_list;
-	int				step;
 	int				type;
 	int				is_empty;
 	char			is_visited[100];

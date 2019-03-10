@@ -30,7 +30,6 @@ void	room_cleaner(t_room *room)
 {
 	free(room->name);
 	list_half_cleaner(room->link_list);
-	list_half_cleaner(room->pre_list);
 	free(room);
 }
 

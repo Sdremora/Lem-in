@@ -7,8 +7,6 @@ void	room_init(t_room *room, char **split)
 	room->x = get_nb(split[1]);
 	room->y = get_nb(split[2]);
 	room->link_list = 0;
-	room->step = -1;
-	room->pre_list = 0;
 	room->is_empty = 1;
 	room->hash = 0;
 	ft_bzero(room->is_visited, 100);
