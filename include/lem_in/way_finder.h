@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:20:49 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/10 12:54:24 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/10 15:25:28 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct	s_path
 	int			size;
 	int			max_size;
 	int			id;
+	int			clear_flag;
 }				t_path;
 
 typedef	struct	s_resolve
@@ -46,7 +47,7 @@ typedef struct	s_state
 **	--------------------------path_resolve_logic.c-----------------------
 */
 
-t_list			*resolve_finder(t_farm *farm, t_state *state);
+t_list			*resolve_finder(t_farm *farm);
 
 /*
 **	--------------------------path_gen.c-----------------------
@@ -62,6 +63,7 @@ t_path			*path_new(int path_size, int path_id);
 t_path			*path_copy(t_path *path);
 void			path_add(t_path *path, t_room *add_room);
 void			path_resize(t_path *path, int new_ar_size);
+int		lstlen(t_list *lst); // удалить
 
 /*
 **	----------------------path_resolve_utils.c-------------------------
@@ -69,6 +71,6 @@ void			path_resize(t_path *path, int new_ar_size);
 
 t_state			*state_ini(t_farm *farm);
 t_resolve		*resolve_ini(int flow_count);
-void			resolve_free(t_list *resolve_lst);
+void			resolve_free(t_resolve *resolve);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:22:46 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/10 11:24:23 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/10 16:57:00 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,15 @@ static t_path	*add_new_links(t_path *path, t_queue *path_qu)
 	return (result);
 }
 
+void			path_free(void	*content)
+{
+	t_path	*path;
+
+	path = (t_path *)content;
+	free(path->ar);
+	free(path);
+}
+
 t_path			*path_getnew(t_farm *farm)
 {
 	static int		is_first_call;
@@ -82,6 +91,11 @@ t_path			*path_getnew(t_farm *farm)
 	t_path			*path;
 	t_path			*result;
 
+	if (farm == NULL)
+	{
+		queue_free(&path_qu, path_free);
+		return (NULL);
+	}
 	if (!is_first_call)
 		path_qu = add_first_room(farm, &is_first_call);
 	result = NULL;

@@ -128,7 +128,7 @@ void	resolve_merge(t_state *state, t_resolve *resolve, t_path *path, int flow)
 	t_resolve	*new_res;
 	int			i;
 
-	if (flow > state->max_flow)
+	if (flow > state->max_flow && flow < state->target_flow)
 		state->max_flow = flow;
 	new_res = resolve_ini(flow + 1);
 	i = 0;
@@ -215,40 +215,132 @@ void	state_fill(t_state *state, t_farm *farm)
 	}
 }
 
-// void	state_free(t_state	*state)
-// {
-// 	t_list	*node;
-// 	int		i;
-// 	int		n;
+void	resolve_free(t_resolve *resolve)
+{
+	t_list		*node;
+	t_list		*next;
+	int			i;
 
-// 	i = 0;
-// 	while (i < state->max_flow)
-// 	{
-// 		node = state->res_ar[i];
-// 		n =
+	if (resolve->flow_count == 1 && !resolve->path_ar[0]->clear_flag)
+		free(resolve->path_ar[0]);
+	free(resolve->path_ar);
+	i = 0;
+	while (i < resolve->har_size)
+	{
+		node = resolve->rooms_har[i];
+		while (node)
+		{
+			next = node->next;
+			free(node);
+			node = next;
+		}
+		i++;
+	}
+	free(resolve->rooms_har);
+	free(resolve);
+}
 
-// 	}
-// }
+void	state_free(t_state	*state)
+{
+	t_list		*node;
+	t_list		*next;
+	int			i;
 
-t_list	*resolve_finder(t_farm *farm, t_state *state)
+	i = 0;
+	while (i <= state->max_flow)
+	{
+		node = state->res_ar[i]->next;
+		while (node)
+		{
+			next = node->next;
+			resolve_free((t_resolve *)node->content);
+			free(node);
+			node = next;
+		}
+		free(state->res_ar[i]);
+		i++;
+	}
+	free(state->res_ar);
+	free(state);
+}
+
+void	path_clear_mark(t_resolve *resolve)
+{
+	int		i;
+
+	i = 0;
+	while (i < resolve->flow_count)
+	{
+		resolve->path_ar[i]->clear_flag = 1;
+		i++;
+	}
+}
+
+void	print_ones(t_state *state)
+{
+	t_list		*node;
+	t_resolve	*resolve;
+	t_path		*path;
+	int			i;
+	int			n;
+	int			k;
+
+	n = 0;
+	while (n < state->cur_flow)
+	{
+		ft_putstr("\nРешения с потоками ");
+		ft_putnbr(n + 1);
+		ft_putstr("\n");
+		node = state->res_ar[n];
+		while (node)
+		{
+			resolve = (t_resolve *)node->content;
+			k = 0;
+			while (k < resolve->flow_count)
+			{
+				path = resolve->path_ar[k];
+				i = 0;
+				while (i < path->size)
+				{
+					ft_putstr(path->ar[i]->name);
+					ft_putstr(" ");
+					i++;
+				}
+				k++;
+				ft_putstr("\n");
+			}
+			ft_putstr("\n");
+			node = node->next;
+		}
+		n++;
+		ft_putstr("\n");
+	}
+	ft_putstr("\n\n");
+}
+
+t_list	*resolve_finder(t_farm *farm)
 {
 	int 		i;
 	t_list		*result_lst;
 	t_list		*node;
+	t_state		*state;
 	t_resolve	*resolve;
 
 	result_lst = NULL;
+	state = state_ini(farm);
 	state_fill(state, farm);
 	i = 0;
 	while (i < state->cur_flow)
 	{
 		resolve = (t_resolve *)state->res_ar[i]->content;
+		path_clear_mark(resolve);
 		node = ft_lstput(resolve, sizeof(t_resolve));
 		if (!node)
 			error_handle(E_NOMEM);
 		ft_lstadd(&result_lst, node);
 		i++;
 	}
-	// state_free(state);
+	//print_ones(state);
+	state_free(state);
 	return (result_lst);
 }

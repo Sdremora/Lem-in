@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 12:04:27 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/06 13:03:21 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/10 14:21:22 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ typedef struct	s_queue
 t_queue	*queue_new(void);
 int		queue_put(t_queue *queue, void	*content);
 void	*queue_get(t_queue *queue);
+void	queue_free(t_queue **queue, void (content_free)(void *content));
 #endif

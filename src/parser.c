@@ -215,9 +215,9 @@ t_farm	*parser(void)
 	}
 	res->room = farm;
 	farm_checker(res);
-	// while (deadend_remover_farm(res))
-	// {
-	// 	;
-	// }
+	while (deadend_remover_farm(res))
+	{
+		;
+	}
 	return (res);
 }

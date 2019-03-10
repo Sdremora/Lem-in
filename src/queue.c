@@ -55,3 +55,15 @@ void	*queue_get(t_queue *queue)
 	return (data);
 }
 
+void	queue_free(t_queue **queue, void (content_free)(void *content))
+{
+	void	*data;
+
+	while ((*queue)->size > 0)
+	{
+		data = queue_get(*queue);
+		content_free(data);
+	}
+	free(*queue);
+	*queue = NULL;
+}
