@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:20:49 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/10 15:25:28 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/11 11:11:16 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ typedef struct	s_path
 	int			size;
 	int			max_size;
 	int			id;
-	int			clear_flag;
 }				t_path;
 
 typedef	struct	s_resolve

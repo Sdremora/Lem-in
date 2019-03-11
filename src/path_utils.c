@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:09:01 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/10 16:51:25 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/11 09:43:59 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	path_add(t_path *path, t_room *add_room)
 {
 	if (path->size == path->max_size)
 		path_resize(path, path->max_size * 2);
+	add_room->is_visited[path->id] = 1;
 	path->ar[path->size] = add_room;
 	path->size++;
 }

@@ -221,9 +221,11 @@ void	resolve_free(t_resolve *resolve)
 	t_list		*next;
 	int			i;
 
-	if (resolve->flow_count == 1 && !resolve->path_ar[0]->clear_flag)
+	if (resolve->flow_count == 1)
+	{
+		free(resolve->path_ar[0]->ar);
 		free(resolve->path_ar[0]);
-	free(resolve->path_ar);
+	}
 	i = 0;
 	while (i < resolve->har_size)
 	{
@@ -236,6 +238,7 @@ void	resolve_free(t_resolve *resolve)
 		}
 		i++;
 	}
+	free(resolve->path_ar);
 	free(resolve->rooms_har);
 	free(resolve);
 }
@@ -249,7 +252,7 @@ void	state_free(t_state	*state)
 	i = 0;
 	while (i <= state->max_flow)
 	{
-		node = state->res_ar[i]->next;
+		node = state->res_ar[i];
 		while (node)
 		{
 			next = node->next;
@@ -257,23 +260,10 @@ void	state_free(t_state	*state)
 			free(node);
 			node = next;
 		}
-		free(state->res_ar[i]);
 		i++;
 	}
 	free(state->res_ar);
 	free(state);
-}
-
-void	path_clear_mark(t_resolve *resolve)
-{
-	int		i;
-
-	i = 0;
-	while (i < resolve->flow_count)
-	{
-		resolve->path_ar[i]->clear_flag = 1;
-		i++;
-	}
 }
 
 void	print_ones(t_state *state)
@@ -320,27 +310,29 @@ void	print_ones(t_state *state)
 
 t_list	*resolve_finder(t_farm *farm)
 {
-	int 		i;
-	t_list		*result_lst;
-	t_list		*node;
-	t_state		*state;
-	t_resolve	*resolve;
+	static t_state	*state;
+	t_resolve		*resolve;
+	t_list			*result_lst;
+	t_list			*node;
+	int 			i;
 
 	result_lst = NULL;
-	state = state_ini(farm);
-	state_fill(state, farm);
-	i = 0;
-	while (i < state->cur_flow)
+	if (farm == NULL)
+		state_free(state);
+	else
 	{
-		resolve = (t_resolve *)state->res_ar[i]->content;
-		path_clear_mark(resolve);
-		node = ft_lstput(resolve, sizeof(t_resolve));
-		if (!node)
-			error_handle(E_NOMEM);
-		ft_lstadd(&result_lst, node);
-		i++;
+		state = state_ini(farm);
+		state_fill(state, farm);
+		i = 0;
+		while (i < state->cur_flow)
+		{
+			resolve = (t_resolve *)state->res_ar[i]->content;
+			node = ft_lstput(resolve, sizeof(t_resolve));
+			if (!node)
+				error_handle(E_NOMEM);
+			ft_lstadd(&result_lst, node);
+			i++;
+		}
 	}
-	//print_ones(state);
-	state_free(state);
 	return (result_lst);
 }

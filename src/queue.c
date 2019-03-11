@@ -60,10 +60,7 @@ void	queue_free(t_queue **queue, void (content_free)(void *content))
 	void	*data;
 
 	while ((*queue)->size > 0)
-	{
-		data = queue_get(*queue);
-		content_free(data);
-	}
+		content_free(queue_get(*queue));
 	free(*queue);
 	*queue = NULL;
 }

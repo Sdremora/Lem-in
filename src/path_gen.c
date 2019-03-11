@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:22:46 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/10 17:48:29 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/11 11:29:28 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static t_queue	*add_first_room(t_farm *farm, int *is_first_call)
 		path = path_new(20, path_id);
 		path_add(path, farm->start);
 		path_add(path, (t_room *)link->content);
-		farm->start->is_visited[path_id] = 1;
-		((t_room *)link->content)->is_visited[path_id] = 1;
 		queue_put(path_qu, path);
 		path_id++;
 		link = link->next;
@@ -41,11 +39,8 @@ static t_queue	*add_first_room(t_farm *farm, int *is_first_call)
 
 static int		check_path_loop(t_path *path, t_room *room)
 {
-	if (room->is_visited[path->id])
+	if (room->is_visited[path->id] && room->type != R_END)
 		return (-1);
-	if (room->type == R_END)
-		return (0);
-	room->is_visited[path->id] = 1;
 	return (0);
 }
 
@@ -79,11 +74,8 @@ static t_path	*add_new_links(t_path *path, t_queue *path_qu)
 
 void			path_free(void	*content)
 {
-	t_path	*path;
-
-	path = (t_path *)content;
-	free(path->ar);
-	free(path);
+	free(((t_path *)content)->ar);
+	free(content);
 }
 
 t_path			*path_getnew(t_farm *farm)
