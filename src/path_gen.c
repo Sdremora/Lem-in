@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:22:46 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/11 12:27:21 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/11 13:45:59 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ t_path			*path_getnew(t_farm *farm)
 	}
 	if (!is_first_call)
 		path_qu = add_first_room(farm, &is_first_call);
+	if (path_qu->size > 100000)
+		return (NULL);
 	result = NULL;
 	while (!result)
 	{
