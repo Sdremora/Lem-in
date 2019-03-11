@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:20:49 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/11 11:11:16 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/11 12:29:26 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,31 @@ typedef struct	s_state
 }				t_state;
 
 /*
-**	--------------------------path_resolve_logic.c-----------------------
+**	----------------------resolve_logic.c-----------------------
 */
 
 t_list			*resolve_finder(t_farm *farm);
+
+/*
+**	----------------------resolve_mixer.c-----------------------
+*/
+
+void			resolve_mixer(t_state *state, t_path *path);
+
+/*
+**	----------------------resolve_utils.c-------------------------
+*/
+
+t_state			*state_ini(t_farm *farm);
+t_resolve		*resolve_ini(int flow_count);
+void			resolve_free(t_resolve *resolve);
+void			state_free(t_state *state);
+
+/*
+**	----------------------resolve_hash.c-------------------------
+*/
+
+void			hash_fill(t_resolve	*resolve);
 
 /*
 **	--------------------------path_gen.c-----------------------
@@ -62,14 +83,5 @@ t_path			*path_new(int path_size, int path_id);
 t_path			*path_copy(t_path *path);
 void			path_add(t_path *path, t_room *add_room);
 void			path_resize(t_path *path, int new_ar_size);
-int		lstlen(t_list *lst); // удалить
-
-/*
-**	----------------------path_resolve_utils.c-------------------------
-*/
-
-t_state			*state_ini(t_farm *farm);
-t_resolve		*resolve_ini(int flow_count);
-void			resolve_free(t_resolve *resolve);
 
 #endif

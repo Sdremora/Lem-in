@@ -17,7 +17,7 @@ void		error_handle(int error_index)
 	exit(error_index);
 }
 
-void		result_free(t_list	*res_lst)
+static void	farm_free(t_farm *farm, t_list *res_lst)
 {
 	t_list	*next;
 
@@ -27,19 +27,12 @@ void		result_free(t_list	*res_lst)
 		free(res_lst);
 		res_lst = next;
 	}
-}
-
-static void	farm_free(t_farm *farm, t_list *res_lst)
-{
-	t_list	*next;
-
-	result_free(res_lst);
 	resolve_finder(NULL);
 	path_getnew(NULL);
 	farm_cleaner(farm);
 }
 
-void	flags_handle(int argc, char **argv, int *flags)
+static void	flags_handle(int argc, char **argv, int *flags)
 {
 	int i;
 
@@ -52,10 +45,10 @@ void	flags_handle(int argc, char **argv, int *flags)
 	}
 }
 
-void		print_res_lst(t_list *res_lst)
+static void	print_res_lst(t_list *res_lst)
 {
-	int 		n;
-	int 		i;
+	int			n;
+	int			i;
 	t_path		*path;
 	t_resolve	*resolve;
 
@@ -85,15 +78,16 @@ int			main(int argc, char **argv)
 {
 	t_farm	*farm;
 	t_list	*resolve_lst;
-	t_list	*path_lst;
 	int		flags[5];
 
 	ft_bzero(flags, 5);
 	farm = parser();
-
 	resolve_lst = resolve_finder(farm);
 	if (resolve_lst == NULL)
+	{
+		farm_free(farm, resolve_lst);
 		error_handle(E_NOPATH);
+	}
 	print_map(farm);
 	if (argc != 1)
 		flags_handle(argc, argv, flags);

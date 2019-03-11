@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:22:46 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/11 11:29:28 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/11 12:27:21 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static t_path	*add_new_links(t_path *path, t_queue *path_qu)
 	return (result);
 }
 
-void			path_free(void	*content)
+static void		path_free(void *content)
 {
 	free(((t_path *)content)->ar);
 	free(content);

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   queue.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/11 12:20:00 by sdremora          #+#    #+#             */
+/*   Updated: 2019/03/11 12:25:53 by sdremora         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in/queue.h"
 
@@ -14,10 +25,9 @@ t_queue	*queue_new(void)
 	return (queue);
 }
 
-int		queue_put(t_queue *queue, void	*content)
+int		queue_put(t_queue *queue, void *content)
 {
 	t_node	*node;
-	t_node	*temp;
 
 	node = (t_node *)ft_memalloc(sizeof(t_node));
 	if (node == NULL)
@@ -57,8 +67,8 @@ void	*queue_get(t_queue *queue)
 
 void	queue_free(t_queue **queue, void (content_free)(void *content))
 {
-	void	*data;
-
+	if (!*queue)
+		return ;
 	while ((*queue)->size > 0)
 		content_free(queue_get(*queue));
 	free(*queue);
