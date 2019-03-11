@@ -133,7 +133,7 @@ int			main(int argc, char **argv)
 
 	ft_bzero(flags, 5);
 	farm = parser();
-	
+
 	resolve_lst = resolve_finder(farm);
 	if (resolve_lst == NULL)
 		error_handle(E_NOPATH);

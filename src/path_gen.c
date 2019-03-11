@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:22:46 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/10 16:57:00 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/10 17:48:29 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static t_path	*add_new_links(t_path *path, t_queue *path_qu)
 	t_path	*new_path;
 
 	result = NULL;
+	if (path->ar[path->size - 1]->type == R_END)
+		return (path_copy(path));
 	links = path->ar[path->size - 1]->link_list;
 	while (links)
 	{
