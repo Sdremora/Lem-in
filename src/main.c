@@ -17,72 +17,22 @@ void		error_handle(int error_index)
 	exit(error_index);
 }
 
-void		path_to_lst(t_list **lst_head, t_path *path)
-{
-	t_list	*node;
-
-	node = ft_lstput(path, sizeof(t_path));
-	if (node == NULL)
-		error_handle(E_NOMEM);
-	ft_lstadd(lst_head, node);
-}
-
-int			ft_lstisexist(t_list *lst_head, void *content)
-{
-	while (lst_head)
-	{
-		if (lst_head->content == content)
-			return (1);
-		lst_head = lst_head->next;
-	}
-	return (0);
-}
-void		result_free(t_list	*res_lst)
-{
-	t_list		*path_lst;
-	t_list		*temp;
-	t_resolve	*resolve;
-	t_path		*path;
-	int			i;
-
-	path_lst = NULL;
-	while (res_lst)
-	{
-		temp = res_lst->next;
-		resolve = (t_resolve *)res_lst->content;
-		i = 0;
-		while (i < resolve->flow_count)
-		{
-			path = resolve->path_ar[i];
-			if (!ft_lstisexist(path_lst, path))
-				path_to_lst(&path_lst, path);
-			i++;
-		}
-		resolve_free(resolve);
-		free(res_lst);
-		res_lst = temp;
-	}
-	while (path_lst)
-	{
-		temp = path_lst->next;
-		path = (t_path *)path_lst->content;
-		free(path->ar);
-		free(path);
-		free(path_lst);
-		path_lst = temp;
-	}
-}
-
 static void	farm_free(t_farm *farm, t_list *res_lst)
 {
 	t_list	*next;
 
-	result_free(res_lst);
+	while (res_lst)
+	{
+		next = res_lst->next;
+		free(res_lst);
+		res_lst = next;
+	}
+	resolve_finder(NULL);
 	path_getnew(NULL);
 	farm_cleaner(farm);
 }
 
-void	flags_handle(int argc, char **argv, int *flags)
+static void	flags_handle(int argc, char **argv, int *flags)
 {
 	int i;
 
@@ -95,10 +45,10 @@ void	flags_handle(int argc, char **argv, int *flags)
 	}
 }
 
-void		print_res_lst(t_list *res_lst)
+static void	print_res_lst(t_list *res_lst)
 {
-	int 		n;
-	int 		i;
+	int			n;
+	int			i;
 	t_path		*path;
 	t_resolve	*resolve;
 
@@ -128,14 +78,16 @@ int			main(int argc, char **argv)
 {
 	t_farm	*farm;
 	t_list	*resolve_lst;
-	t_list	*path_lst;
 	int		flags[5];
 
 	ft_bzero(flags, 5);
 	farm = parser();
 	resolve_lst = resolve_finder(farm);
 	if (resolve_lst == NULL)
+	{
+		farm_free(farm, resolve_lst);
 		error_handle(E_NOPATH);
+	}
 	print_map(farm);
 	if (argc != 1)
 		flags_handle(argc, argv, flags);

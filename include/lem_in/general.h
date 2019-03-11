@@ -8,7 +8,7 @@
 # define E_NOMEM -4
 # define E_NOPATH -5
 
-#define F_PR 0
+# define F_PR 0
 
 typedef struct	s_room
 {
@@ -42,6 +42,5 @@ typedef enum	e_room_types
 void			printer(char *result);
 void			error_handle(int error_index);
 t_room			*get_room(t_list *farm);
-unsigned int	mafast_hash(char *str, unsigned int len);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 12:04:27 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/10 14:21:22 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/11 12:24:03 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 # include "libft.h"
 
-typedef struct		s_node
+typedef struct	s_node
 {
 	void			*content;
 	struct s_node	*next;
 	struct s_node	*prev;
-}					t_node;
+}				t_node;
 
 typedef struct	s_queue
 {
@@ -29,8 +29,9 @@ typedef struct	s_queue
 	size_t	size;
 }				t_queue;
 
-t_queue	*queue_new(void);
-int		queue_put(t_queue *queue, void	*content);
-void	*queue_get(t_queue *queue);
-void	queue_free(t_queue **queue, void (content_free)(void *content));
+t_queue			*queue_new(void);
+int				queue_put(t_queue *queue, void	*content);
+void			*queue_get(t_queue *queue);
+void			queue_free(t_queue **queue, void (content_free)(void *content));
+
 #endif
