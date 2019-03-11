@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:05:26 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/11 14:28:20 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/11 14:47:48 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ t_farm	*parser(void)
 	res->end = 0;
 	type = 0;
 	res->ant_count = 0;
-	if (!read_ant_count(res, &str) || !read_rooms(res, &str, &farm))
+	if (read_ant_count(res, &str) <= 0 || !read_rooms(res, &str, &farm))
 	{
 		free(str);
 		free(res->map);

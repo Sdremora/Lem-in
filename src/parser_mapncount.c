@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:07:23 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/11 14:22:38 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/11 14:47:34 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		read_ant_count(t_farm *res, char **str)
 {
 	while (!res->ant_count)
 	{
-		if (get_next_line(0, str))
+		if (get_next_line(0, str) == 1)
 		{
 			if (**str == '#')
 			{
