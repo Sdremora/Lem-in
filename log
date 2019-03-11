@@ -1,0 +1,3 @@
+./lem-in < maps/loop.map
+./lem-in < maps/inv_no_possible_solution.map
+start-end map

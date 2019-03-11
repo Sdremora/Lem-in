@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_mapncount.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/11 14:07:23 by hharvey           #+#    #+#             */
+/*   Updated: 2019/03/11 14:47:34 by hharvey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
@@ -7,8 +18,6 @@ void	room_init(t_room *room, char **split)
 	room->x = get_nb(split[1]);
 	room->y = get_nb(split[2]);
 	room->link_list = 0;
-	room->step = -1;
-	room->pre_list = 0;
 	room->is_empty = 1;
 	room->hash = 0;
 	ft_bzero(room->is_visited, 100);
@@ -67,7 +76,7 @@ int		read_ant_count(t_farm *res, char **str)
 {
 	while (!res->ant_count)
 	{
-		if (get_next_line(0, str))
+		if (get_next_line(0, str) == 1)
 		{
 			if (**str == '#')
 			{
@@ -85,7 +94,9 @@ int		read_ant_count(t_farm *res, char **str)
 				return (0);
 		}
 		else
+		{
 			return (-1);
+		}
 	}
 	return (1);
 }

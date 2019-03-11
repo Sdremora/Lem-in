@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   farm_cleaner.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/11 14:04:57 by hharvey           #+#    #+#             */
+/*   Updated: 2019/03/11 14:05:00 by hharvey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
@@ -30,7 +41,6 @@ void	room_cleaner(t_room *room)
 {
 	free(room->name);
 	list_half_cleaner(room->link_list);
-	list_half_cleaner(room->pre_list);
 	free(room);
 }
 
