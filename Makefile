@@ -18,7 +18,7 @@ VPATH := $(SRC_DIR) $(OBJ_DIR) $(INCLUDES)
 all: $(NAME)
 
 $(NAME): $(LIB) $(OBJ)
-		gcc -g $(OBJ) $(LIB) $(addprefix -I,$(INCLUDES)) -o $@
+		gcc $(OBJ) $(LIB) $(addprefix -I,$(INCLUDES)) -o $@
 
 $(OBJ_DIR)%.o: %.c
 	gcc $(FLAGS) -c $(addprefix -I,$(INCLUDES)) $< -o $@
@@ -38,9 +38,11 @@ val:
 	valgrind --leak-check=full ./lem-in < maps/1.map
 
 clean:
+	$(MAKE) -C $(LIB_DIR) clean
 	/bin/rm -f $(OBJ)
 
 fclean: clean
+	$(MAKE) -C $(LIB_DIR) fclean
 	/bin/rm -f $(NAME)
 
 re: fclean all

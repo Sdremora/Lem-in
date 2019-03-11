@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   solver_print_res.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/11 14:06:55 by hharvey           #+#    #+#             */
+/*   Updated: 2019/03/11 14:06:57 by hharvey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
@@ -73,13 +84,11 @@ void	print_res(t_resolve *res, int ant_count)
 	int		i;
 	int		j;
 	t_ant	*ant;
-	int		step;
 	int		is_fst;
 
-	step = step_counter(res, ant_count);
 	ant = ant_init(res, ant_count);
 	i = 0;
-	while (i < step - 1)
+	while (1)
 	{
 		j = 0;
 		is_fst = 1;
