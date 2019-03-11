@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:06:55 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/11 14:06:57 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/11 15:09:13 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	print_res(t_resolve *res, int ant_count)
 	t_ant	*ant;
 	int		is_fst;
 
+	path_max_size(res);
 	ant = ant_init(res, ant_count);
 	i = 0;
 	while (1)

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   solver.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/11 15:10:57 by hharvey           #+#    #+#             */
+/*   Updated: 2019/03/11 15:10:59 by hharvey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef SOLVER_H
 # define SOLVER_H
@@ -17,5 +28,6 @@ int				step_counter(t_resolve *res, int ant_count);
 
 void			print_resolve(t_resolve *res);
 void			print_all_resolves(t_list *resolve);
+void			path_max_size(t_resolve *res);
 
 #endif

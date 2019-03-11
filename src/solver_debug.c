@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:06:43 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/11 14:06:45 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/11 15:09:17 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,17 @@ void	print_all_resolves(t_list *resolve)
 		ft_putendl("res:");
 		print_resolve(resolve->content);
 		resolve = resolve->next;
+	}
+}
+
+void	path_max_size(t_resolve *res)
+{
+	int	i;
+
+	i = 0;
+	while (i < res->flow_count)
+	{
+		res->path_ar[i]->max_size = res->path_ar[i]->size;
+		i++;
 	}
 }
