@@ -17,8 +17,11 @@ VPATH := $(SRC_DIR) $(OBJ_DIR) $(INCLUDES)
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJ)
+$(NAME): $(OBJ_DIR) $(LIB) $(OBJ)
 		gcc $(OBJ) $(LIB) $(addprefix -I,$(INCLUDES)) -o $@
+
+$(OBJ_DIR):
+		mkdir out
 
 $(OBJ_DIR)%.o: %.c
 	gcc $(FLAGS) -c $(addprefix -I,$(INCLUDES)) $< -o $@
