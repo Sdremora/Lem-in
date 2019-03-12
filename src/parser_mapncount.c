@@ -20,6 +20,8 @@ void	room_init(t_room *room, char **split)
 	room->link_list = 0;
 	room->is_empty = 1;
 	room->hash = 0;
+	room->start_count = -1;
+	room->end_count = -1;
 	ft_bzero(room->is_visited, 100);
 	free(split[1]);
 	free(split[2]);

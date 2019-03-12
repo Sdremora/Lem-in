@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   path_gen.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/10 11:22:46 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/11 15:36:26 by sdremora         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "lem_in.h"
 
@@ -39,7 +28,13 @@ static t_queue	*add_first_room(t_farm *farm, int *is_first_call)
 
 static int		check_path_loop(t_path *path, t_room *room)
 {
+	t_room	*cur_room;
+
 	if (room->is_visited[path->id] && room->type != R_END)
+		return (-1);
+	cur_room = path->ar[path->size - 1];
+	if (cur_room->start_count > room->start_count &&
+		cur_room->end_count < room->end_count)
 		return (-1);
 	return (0);
 }
