@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 12:03:17 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/11 13:47:36 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/12 16:53:38 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void		state_fill(t_state *state, t_farm *farm)
 			continue;
 		}
 		path = path_getnew(farm);
-		if (state->res_count > 150000)
+		if (state->res_count > 250000)
 			break ;
 		if (!path)
 			break ;

@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/10 11:22:46 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/11 13:45:59 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/12 16:53:46 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,13 @@ static t_queue	*add_first_room(t_farm *farm, int *is_first_call)
 
 static int		check_path_loop(t_path *path, t_room *room)
 {
+	t_room	*cur_room;
+
 	if (room->is_visited[path->id] && room->type != R_END)
+		return (-1);
+	cur_room = path->ar[path->size - 1];
+	if (cur_room->start_count > room->start_count &&
+		cur_room->end_count < room->end_count)
 		return (-1);
 	return (0);
 }
@@ -92,7 +98,7 @@ t_path			*path_getnew(t_farm *farm)
 	}
 	if (!is_first_call)
 		path_qu = add_first_room(farm, &is_first_call);
-	if (path_qu->size > 100000)
+	if (path_qu->size > 200000)
 		return (NULL);
 	result = NULL;
 	while (!result)

@@ -20,6 +20,8 @@ typedef struct	s_room
 	int				step;
 	int				type;
 	int				is_empty;
+	int				start_count;
+	int				end_count;
 	char			is_visited[100];
 	unsigned int	hash;
 }				t_room;
@@ -44,5 +46,6 @@ typedef enum	e_room_types
 void			printer(char *result);
 void			error_handle(int error_index);
 t_room			*get_room(t_list *farm);
+void			marker(t_farm *farm);
 
 #endif
