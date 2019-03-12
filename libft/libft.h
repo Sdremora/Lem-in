@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:04:27 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/11 14:04:30 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/12 18:29:45 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,5 +208,6 @@ t_arrnum			*ft_ltan_free(t_list *lst);
 void				ft_lstsetnb(t_list *lst, int nb);
 
 t_list				*ft_lstput(void const *content, size_t content_size);
+t_list				*ft_lstfnd(t_list *lst, void *content);
 
 #endif
