@@ -37,11 +37,16 @@ static void		state_fill(t_state *state, t_farm *farm)
 			continue;
 		}
 		path = path_getnew(farm);
-		if (path && state->cur_flow > 0 && step_counter(state->res_ar[state->cur_flow
+		if ((path && state->cur_flow > 0 && step_counter(state->res_ar[state->cur_flow
 					- 1]->content, farm->ant_count) < path->size)
+					|| state->res_count > 200000)
+		{
+			free(path->ar);
+			free(path);
 			break ;
-		if (state->res_count > 200000)
-			break ;
+		}
+//		if (state->res_count > 200000)
+//			break ;
 		if (!path)
 			break ;
 		resolve_mixer(state, path);

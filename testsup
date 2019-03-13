@@ -1,0 +1,1 @@
+time ./generator --big-superposition | ./lem-in > testa0
