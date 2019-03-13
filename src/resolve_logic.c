@@ -32,12 +32,13 @@ static void		state_fill(t_state *state, t_farm *farm)
 		if (resolve_isbest(state))
 		{
 			state->cur_flow++;
-			// if (state->cur_flow > 7)
-			// 	state->deep_count = 2;
+			 if (state->cur_flow > 7)
+			 	state->deep_count = 2;
 			continue;
 		}
 		path = path_getnew(farm);
-		if (step_counter(state->res_ar[state->cur_flow]->content, farm->ant_count) < path->size)
+		if (path && state->cur_flow > 0 && step_counter(state->res_ar[state->cur_flow
+					- 1]->content, farm->ant_count) < path->size)
 			break ;
 		if (state->res_count > 200000)
 			break ;
