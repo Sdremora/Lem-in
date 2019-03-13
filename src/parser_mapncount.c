@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_mapncount.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:07:23 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/11 14:47:34 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/13 11:43:32 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ char	*add_comms(char *map, char *str)
 			return (map);
 		}
 	}
+	printf("%s\n", str);
 	return (add_map(map, str, 1));
 }
 

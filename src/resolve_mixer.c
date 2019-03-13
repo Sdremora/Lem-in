@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 12:08:29 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/11 12:18:58 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/13 13:12:28 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void		resolve_mixer(t_state *state, t_path *path)
 	t_resolve	*resolve;
 
 	flow = state->max_flow;
-	while (flow >= 0)
+	while (flow >= 0 && flow > state->cur_flow - 2)
 	{
 		res_node = state->res_ar[flow];
 		while (res_node)

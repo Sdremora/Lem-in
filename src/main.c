@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:07:55 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/11 14:07:57 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/13 10:32:25 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+int	flags[5];
 
 void		error_handle(int error_index)
 {
@@ -46,12 +48,19 @@ static void	farm_free(t_farm *farm, t_list *res_lst)
 static void	flags_handle(int argc, char **argv, int *flags)
 {
 	int i;
+	int	n;
 
 	i = 1;
 	while (i < argc && i < 5)
 	{
 		if (ft_strequ(argv[i], "-pr"))
 			flags[F_PR] = 1;
+		if (ft_strequ(argv[i], "-a"))
+		{
+			i++;
+			n = ft_atoi(argv[i]);
+			flags[F_ALG] = n;
+		}
 		i++;
 	}
 }
@@ -89,9 +98,11 @@ int			main(int argc, char **argv)
 {
 	t_farm	*farm;
 	t_list	*resolve_lst;
-	int		flags[5];
+
 
 	ft_bzero(flags, 5);
+	if (argc != 1)
+		flags_handle(argc, argv, flags);
 	farm = parser();
 	marker(farm);
 	resolve_lst = resolve_finder(farm);
@@ -100,9 +111,8 @@ int			main(int argc, char **argv)
 		farm_free(farm, resolve_lst);
 		error_handle(E_NOPATH);
 	}
-	print_map(farm);
-	if (argc != 1)
-		flags_handle(argc, argv, flags);
+	//print_map(farm);
+
 	if (flags[F_PR])
 		print_res_lst(resolve_lst);
 	solver(resolve_lst, farm->ant_count);

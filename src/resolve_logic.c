@@ -32,10 +32,12 @@ static void		state_fill(t_state *state, t_farm *farm)
 		if (resolve_isbest(state))
 		{
 			state->cur_flow++;
+			// if (state->cur_flow > 7)
+			// 	state->deep_count = 2;
 			continue;
 		}
 		path = path_getnew(farm);
-		if (state->res_count > 250000)
+		if (state->res_count > 200000)
 			break ;
 		if (!path)
 			break ;

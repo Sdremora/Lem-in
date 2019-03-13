@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:20:49 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/11 12:29:26 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/13 12:43:22 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct	s_state
 	int			max_flow;
 	int			target_flow;
 	int			res_count;
+	int			deep_count;
 }				t_state;
 
 /*
