@@ -37,6 +37,8 @@ static void		state_fill(t_state *state, t_farm *farm)
 			continue;
 		}
 		path = path_getnew(farm);
+		if (step_counter(state->res_ar[state->cur_flow]->content, farm->ant_count) < path->size)
+			break ;
 		if (state->res_count > 200000)
 			break ;
 		if (!path)
