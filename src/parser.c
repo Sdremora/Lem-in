@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:05:26 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/13 14:10:34 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/14 18:19:07 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,9 @@ void	read_connection(char *str, t_list *farm)
 			farm = farm->next;
 		}
 		if (!lst1 || !lst2)
-			error_handle(E_BADMAP);
+			error_handle(E_BADROOM);
 		if (!ft_lstfnd(((t_room*)lst1->content)->link_list, lst2->content))
-		{
-			ft_lstadd(&((t_room*)lst1->content)->link_list,
-					ft_lstput(lst2->content, lst2->content_size));
-			ft_lstadd(&((t_room*)lst2->content)->link_list,
-					ft_lstput(lst1->content, lst1->content_size));
-		}
+			rooms_to_links(lst1, lst2);
 	}
 	ft_arrstrdel(split);
 }

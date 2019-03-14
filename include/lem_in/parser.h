@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 15:07:19 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/10 16:52:55 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/14 18:19:37 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void			room_init(t_room *room, char **split);
 
 void			farm_printer(t_farm *res);
 void			end_start_conn_printer(t_farm *res);
+void			rooms_to_links(t_list *parent_room_lst, t_list *child_room_lst);
 
 int				deadend_remover_farm(t_farm *farm);
 

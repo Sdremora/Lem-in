@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 15:10:44 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/14 11:05:40 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/14 18:02:54 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define E_BADMAP -3
 # define E_NOMEM -4
 # define E_NOPATH -5
+# define E_BADROOM -6
 
 # define F_PR 0
 
