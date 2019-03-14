@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 15:10:44 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/11 15:10:46 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/14 11:05:40 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ typedef struct	s_room
 	t_list			*link_list;
 	int				type;
 	int				is_empty;
-	int				start_count;
-	int				end_count;
 	char			is_visited[100];
 	unsigned int	hash;
 }				t_room;
@@ -55,6 +53,5 @@ typedef enum	e_room_types
 void			printer(char *result);
 void			error_handle(int error_index);
 t_room			*get_room(t_list *farm);
-void			marker(t_farm *farm);
 
 #endif

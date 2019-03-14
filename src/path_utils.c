@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:09:01 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/11 12:21:05 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/14 11:03:43 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,10 @@ void	path_resize(t_path *path, int new_ar_size)
 	free(path->ar);
 	path->ar = temp;
 	path->max_size = new_ar_size;
+}
+
+void	path_free(void *content)
+{
+	free(((t_path *)content)->ar);
+	free(content);
 }

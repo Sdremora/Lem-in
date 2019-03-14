@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   resolve_logic.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/14 11:02:13 by sdremora          #+#    #+#             */
+/*   Updated: 2019/03/14 11:03:12 by sdremora         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
@@ -32,21 +43,19 @@ static void		state_fill(t_state *state, t_farm *farm)
 		if (resolve_isbest(state))
 		{
 			state->cur_flow++;
-			 if (state->cur_flow > 7)
-			 	state->deep_count = 2;
+			if (state->cur_flow > 7)
+				state->deep_count = 2;
 			continue;
 		}
 		path = path_getnew(farm);
-		if ((path && state->cur_flow > 0 && step_counter(state->res_ar[state->cur_flow
-					- 1]->content, farm->ant_count) < path->size)
-					|| state->res_count > 200000)
+		if ((path && state->cur_flow > 0 &&
+			step_counter(state->res_ar[state->cur_flow - 1]->content,
+			farm->ant_count) < path->size) ||
+			state->res_count > 200000)
 		{
-			free(path->ar);
-			free(path);
+			path_free(path);
 			break ;
 		}
-//		if (state->res_count > 200000)
-//			break ;
 		if (!path)
 			break ;
 		resolve_mixer(state, path);

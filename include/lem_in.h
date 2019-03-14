@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:47:07 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/13 10:28:59 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/14 10:06:06 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,4 @@
 # include "libft.h"
 # include "lem_in/queue.h"
 
-#include <stdio.h> // <=========== Удалить !
-extern int	flags[5];
-#define F_ALG 1
 #endif

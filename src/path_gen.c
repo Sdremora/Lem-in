@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path_gen.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/14 11:02:32 by sdremora          #+#    #+#             */
+/*   Updated: 2019/03/14 11:02:33 by sdremora         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
@@ -28,42 +39,8 @@ static t_queue	*add_first_room(t_farm *farm, int *is_first_call)
 
 static int		check_path_loop(t_path *path, t_room *room)
 {
-	int		pos;
-	t_room	*cur_room;
-	t_room	*prev_room;
-	static int	stat = 0;
-
-	if (flags[F_ALG] == 0)
-	{
-		if (room->is_visited[path->id] && room->type != R_END)
-			return (-1);
-	}
-	else if (flags[F_ALG] == 1)
-	{
-		if (room->is_visited[path->id] && room->type != R_END)
-			return (-1);
-		cur_room = path->ar[path->size - 1];
-		pos = path->size - 2;
-		while (pos >= 0)
-		{
-			prev_room = path->ar[pos];
-			if (ft_lstfnd(prev_room->link_list, room))
-			{
-				stat++;
-				//printf("путей удалено--->%d\n", stat);
-				return (-1);
-			}
-			pos--;
-		}
-	}
-	else if (flags[F_ALG] == 2)
-	{
-		if (room->is_visited[path->id] && room->type != R_END)
-			return (-1);
-		if (cur_room->start_count > room->start_count &&
-			cur_room->end_count < room->end_count)
-			return (-1);
-	}
+	if (room->is_visited[path->id] && room->type != R_END)
+		return (-1);
 	return (0);
 }
 
@@ -95,12 +72,6 @@ static t_path	*add_new_links(t_path *path, t_queue *path_qu)
 	return (result);
 }
 
-static void		path_free(void *content)
-{
-	free(((t_path *)content)->ar);
-	free(content);
-}
-
 t_path			*path_getnew(t_farm *farm)
 {
 	static int		is_first_call;
@@ -115,11 +86,8 @@ t_path			*path_getnew(t_farm *farm)
 	}
 	if (!is_first_call)
 		path_qu = add_first_room(farm, &is_first_call);
-	if (path_qu->size > 10000)
-	{
-		printf("==> вышел по max path <==\n");
+	if (path_qu->size > 15000)
 		return (NULL);
-	}
 	result = NULL;
 	while (!result)
 	{
@@ -127,8 +95,7 @@ t_path			*path_getnew(t_farm *farm)
 		if (path == NULL)
 			return (NULL);
 		result = add_new_links(path, path_qu);
-		free(path->ar);
-		free(path);
+		path_free(path);
 	}
 	return (result);
 }

@@ -12,8 +12,12 @@ OBJ := $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))
 FLAGS := -Wall -Wextra -Werror
 DEBUG_FLAGS := -g -O0
 
+GREEN=\033[0;32m
+YELLOW=\033[0;33m
+NC=\033[0m # No Color
+
 VPATH := $(SRC_DIR) $(OBJ_DIR) $(INCLUDES)
-.PHONY: all run debug add_dflags clean fclean re echo
+.PHONY: all run debug add_dflags clean fclean re echo check_leak
 
 all: $(NAME)
 
@@ -27,7 +31,7 @@ $(OBJ_DIR)%.o: %.c
 	gcc $(FLAGS) -c $(addprefix -I,$(INCLUDES)) $< -o $@
 
 $(LIB):
-	$(MAKE) -C $(LIB_DIR) all
+	@$(MAKE) -C $(LIB_DIR) all
 
 debug: add_dflags all
 
@@ -37,18 +41,30 @@ add_dflags:
 run:
 	./lem-in < maps/1.map
 
-val:
-	valgrind --leak-check=full ./lem-in < maps/1.map
-
 clean:
-	$(MAKE) -C $(LIB_DIR) clean
-	/bin/rm -f $(OBJ)
+	@$(MAKE) -C $(LIB_DIR) clean
+	@printf "$(NAME) clean: $(GREEN)done$(NC)\n"
+	@/bin/rm -f $(OBJ)
 
 fclean: clean
-	$(MAKE) -C $(LIB_DIR) fclean
-	/bin/rm -f $(NAME)
+	@$(MAKE) -C $(LIB_DIR) fclean
+	@printf "$(NAME) fclean: $(GREEN)done$(NC)\n"
+	@/bin/rm -f $(NAME)
 
 re: fclean all
+
+check_leak: $(NAME)
+	valgrind ./lem-in < maps/1.map 2>&1 | grep lost
+	@printf "\n"
+	valgrind ./lem-in < maps/hard1.map 2>&1 | grep lost
+	@printf "\n"
+	valgrind ./lem-in < maps/hard_1k.map 2>&1 | grep lost
+	@printf "\n"
+	valgrind ./lem-in < maps/inv_no_ants.map 2>&1 | grep lost
+	@printf "\n"
+	valgrind ./lem-in < maps/inv_no_possible_solution.map 2>&1 | grep lost
+	@printf "\n"
+	valgrind ./lem-in < maps/inv_no_rooms_1.map 2>&1 | grep lost
 
 echo:
 	@echo $(SRC)
