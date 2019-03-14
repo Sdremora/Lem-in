@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:07:55 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/14 11:04:08 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/14 11:10:52 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void	farm_free(t_farm *farm, t_list *res_lst)
 static void	flags_handle(int argc, char **argv, int *flags)
 {
 	int i;
-	int	n;
 
 	i = 1;
 	while (i < argc && i < 5)
@@ -96,7 +95,6 @@ int			main(int argc, char **argv)
 	if (argc != 1)
 		flags_handle(argc, argv, flags);
 	farm = parser();
-	marker(farm);
 	resolve_lst = resolve_finder(farm);
 	if (resolve_lst == NULL)
 	{
