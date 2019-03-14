@@ -22,13 +22,15 @@ VPATH := $(SRC_DIR) $(OBJ_DIR) $(INCLUDES)
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(LIB) $(OBJ)
-		gcc $(OBJ) $(LIB) $(addprefix -I,$(INCLUDES)) -o $@
+		@gcc $(OBJ) $(LIB) $(addprefix -I,$(INCLUDES)) -o $@
+		@printf "\r$(NAME) $(GREEN)✔$(NC)                                        \n"
 
 $(OBJ_DIR):
-		mkdir out
+		@mkdir out
 
 $(OBJ_DIR)%.o: %.c
-	gcc $(FLAGS) -c $(addprefix -I,$(INCLUDES)) $< -o $@
+	@printf "\rCompiling $<                 "
+	@gcc $(FLAGS) -c $(addprefix -I,$(INCLUDES)) $< -o $@
 
 $(LIB):
 	@$(MAKE) -C $(LIB_DIR) all
@@ -43,12 +45,13 @@ run:
 
 clean:
 	@$(MAKE) -C $(LIB_DIR) clean
-	@printf "$(NAME) clean: $(GREEN)done$(NC)\n"
+	@printf "$(NAME) clean: $(YELLOW)✔$(NC)\n"
+	@rm -rf $(OBJ_DIR)
 	@/bin/rm -f $(OBJ)
 
 fclean: clean
 	@$(MAKE) -C $(LIB_DIR) fclean
-	@printf "$(NAME) fclean: $(GREEN)done$(NC)\n"
+	@printf "$(NAME) fclean: $(YELLOW)✔$(NC)\n"
 	@/bin/rm -f $(NAME)
 
 re: fclean all
