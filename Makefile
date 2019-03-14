@@ -1,5 +1,6 @@
 
 NAME := lem-in
+VIS := vis
 INCLUDES := include/ libft/
 SRC_DIR := src/
 OBJ_DIR := out/
@@ -12,6 +13,10 @@ OBJ := $(patsubst %.c, $(OBJ_DIR)%.o, $(SRC))
 FLAGS := -Wall -Wextra -Werror
 DEBUG_FLAGS := -g -O0
 
+MLX_FL = -lmlx -framework OpenGl -framework AppKit
+INCLMLX = /usr/local/include
+MLXLIB = /usr/local/lib/
+
 VPATH := $(SRC_DIR) $(OBJ_DIR) $(INCLUDES)
 .PHONY: all run debug add_dflags clean fclean re echo
 
@@ -20,6 +25,9 @@ all: $(NAME)
 $(NAME): $(OBJ_DIR) $(LIB) $(OBJ)
 		gcc $(OBJ) $(LIB) $(addprefix -I,$(INCLUDES)) -o $@
 
+$(VIS): $(LIB)
+		gcc -o $(VIS) $(MLX_FL) $(addprefix -I,$(INCLUDES)) -I $(INCLMLX) ./vis_src/*.c  -L $(MLXLIB) $(LIB)
+		
 $(OBJ_DIR):
 		mkdir out
 

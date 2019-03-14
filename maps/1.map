@@ -1,13 +1,13 @@
 4
-one 0 2
+one 100 200
 ##start
-zero 2 0
+zero 200 400
 ##end
-four 2 6
-two 4 2
-three 4 4
-five 9 1
-six 9 9
+four 200 600
+two 400 200
+three 400 400
+five 900 100
+six 900 900
 seven 9 9
 nine 9 9 
 zero-one

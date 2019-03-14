@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 10:47:07 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/13 10:28:59 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/13 15:55:46 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "lem_in/solver.h"
 # include "libft.h"
 # include "lem_in/queue.h"
+# include "lem_in/graphic.h"
 
 #include <stdio.h> // <=========== Удалить !
 extern int	flags[5];

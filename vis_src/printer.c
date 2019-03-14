@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pntset.c                                        :+:      :+:    :+:   */
+/*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/10 17:16:35 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/13 16:25:37 by hharvey          ###   ########.fr       */
+/*   Created: 2019/03/11 14:07:10 by hharvey           #+#    #+#             */
+/*   Updated: 2019/03/11 14:07:12 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lem_in.h"
 
-t_point	ft_pntset(t_point *p, int x, int y)
+void	printer(char *str)
 {
-	p->x = x;
-	p->y = y;
-	return (*p);
+	write(1, str, ft_strlen(str));
+}
+
+void	print_map(t_farm *farm)
+{
+	printer(farm->map);
+	ft_putendl("");
 }
