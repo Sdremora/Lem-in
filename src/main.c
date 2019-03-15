@@ -6,27 +6,11 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:07:55 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/14 11:10:52 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/15 14:32:53 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-void		error_handle(int error_index)
-{
-	char	*error_str;
-
-	if (error_index == E_NOPATH)
-		error_str = "ERROR: no path.";
-	else if (error_index == E_BADMAP)
-		error_str = "ERROR: invalid map.";
-	else if (error_index == E_NOMEM)
-		error_str = "ERROR: no mem.";
-	else
-		error_str = "ERROR";
-	ft_putendl(error_str);
-	exit(error_index);
-}
 
 static void	farm_free(t_farm *farm, t_list *res_lst)
 {

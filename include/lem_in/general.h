@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 15:10:44 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/14 18:02:54 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/15 12:38:49 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@
 # define E_BADMAP -3
 # define E_NOMEM -4
 # define E_NOPATH -5
-# define E_BADROOM -6
+# define E_INVLINK -6
+# define E_DUPTERM -8
+# define E_DUPROOM -9
+# define E_INVANT -10
+# define E_NOTERM -11
+# define E_INVINP -12
 
 # define F_PR 0
 
@@ -52,7 +57,7 @@ typedef enum	e_room_types
 }				t_room_types;
 
 void			printer(char *result);
-void			error_handle(int error_index);
+void			error_handle(int error_index, ...);
 t_room			*get_room(t_list *farm);
 
 #endif

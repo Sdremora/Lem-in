@@ -17,7 +17,7 @@ YELLOW=\033[0;33m
 NC=\033[0m # No Color
 
 VPATH := $(SRC_DIR) $(OBJ_DIR) $(INCLUDES)
-.PHONY: all run debug add_dflags clean fclean re echo check_leak
+.PHONY: all run debug add_dflags clean fclean re echo
 
 all: $(NAME)
 
@@ -55,19 +55,6 @@ fclean: clean
 	@/bin/rm -f $(NAME)
 
 re: fclean all
-
-check_leak: $(NAME)
-	valgrind ./lem-in < maps/1.map 2>&1 | grep lost
-	@printf "\n"
-	valgrind ./lem-in < maps/hard1.map 2>&1 | grep lost
-	@printf "\n"
-	valgrind ./lem-in < maps/hard_1k.map 2>&1 | grep lost
-	@printf "\n"
-	valgrind ./lem-in < maps/inv_no_ants.map 2>&1 | grep lost
-	@printf "\n"
-	valgrind ./lem-in < maps/inv_no_possible_solution.map 2>&1 | grep lost
-	@printf "\n"
-	valgrind ./lem-in < maps/inv_no_rooms_1.map 2>&1 | grep lost
 
 echo:
 	@echo $(SRC)
