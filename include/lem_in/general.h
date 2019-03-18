@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 15:10:44 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/11 15:10:46 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/15 19:20:49 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ typedef enum	e_room_types
 {
 	R_DEF,
 	R_START,
-	R_END
+	R_END,
+	R_PATH
 }				t_room_types;
 
 void			printer(char *result);

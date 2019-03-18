@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:07:55 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/13 16:49:04 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/18 18:34:26 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,29 +93,3 @@ static void	print_res_lst(t_list *res_lst)
 		res_lst = res_lst->next;
 	}
 }
-/*
-int			main(int argc, char **argv)
-{
-	t_farm	*farm;
-	t_list	*resolve_lst;
-
-
-	ft_bzero(flags, 5);
-	if (argc != 1)
-		flags_handle(argc, argv, flags);
-	farm = parser();
-	marker(farm);
-	resolve_lst = resolve_finder(farm);
-	if (resolve_lst == NULL)
-	{
-		farm_free(farm, resolve_lst);
-		error_handle(E_NOPATH);
-	}
-	//print_map(farm);
-
-	if (flags[F_PR])
-		print_res_lst(resolve_lst);
-	solver(resolve_lst, farm->ant_count);
-	farm_free(farm, resolve_lst);
-	return (0);
-}*/

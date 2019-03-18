@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/18 17:47:55 by hharvey           #+#    #+#             */
+/*   Updated: 2019/03/18 17:53:15 by hharvey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
-int	ft_end(void *param)
+int		ft_end(void *param)
 {
 	(void)param;
 	exit(0);
@@ -19,13 +31,6 @@ void	init(t_mlx *mlx)
 			&mlx->size_line, &mlx->endian);
 }
 
-void	ft_dblpointset(t_dblpoint *p, double x, double y)
-{
-	p->x = x;
-	p->y = y;
-}
-
-
 void	pixel_put(t_mlx mlx, int x, int y, t_3point color)
 {
 	if (x > 0 && y > 0 && x < WD_X && y < WD_Y)
@@ -36,13 +41,30 @@ void	pixel_put(t_mlx mlx, int x, int y, t_3point color)
 	}
 }
 
+void	draw_inner_circle(t_mlx mlx, t_point c, t_point p, t_3point color)
+{
+	t_point p0;
+
+	ft_pntset(&p0, c.x + p.x, c.y + p.y);
+	while (p0.y >= c.y - p.y)
+	{
+		pixel_put(mlx, p0.x, p0.y, color);
+		p0.y--;
+	}
+	ft_pntset(&p0, c.x - p.x, c.y + p.y);
+	while (p0.y >= c.y - p.y)
+	{
+		pixel_put(mlx, p0.x, p0.y, color);
+		p0.y--;
+	}
+}
+
 void	brez_circle(t_mlx mlx, int r, t_point c, t_3point color)
 {
-	int x;
-	int y;
-	int delta;
-	int error;
-	t_point temp;
+	int		x;
+	int		y;
+	int		delta;
+	int		error;
 
 	x = 0;
 	y = r;
@@ -50,10 +72,7 @@ void	brez_circle(t_mlx mlx, int r, t_point c, t_3point color)
 	error = 0;
 	while (y >= 0)
 	{
-		pixel_put(mlx, c.x + x, c.y + y, color);
-		pixel_put(mlx, c.x + x, c.y - y, color);
-		pixel_put(mlx, c.x - x, c.y + y, color);
-		pixel_put(mlx, c.x - x, c.y - y, color);
+		draw_inner_circle(mlx, c, ft_pnt(x, y), color);
 		error = 2 * (delta + y) - 1;
 		if ((delta < 0) && (error <= 0))
 		{

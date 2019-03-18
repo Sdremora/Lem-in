@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:05:50 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/11 14:05:53 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/18 17:03:55 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,41 @@ void		resolve_reverse(t_resolve *res)
 	}
 }
 
-void		solver(t_list *resolve, int ant_count)
+void		fill_types(t_resolve *res)
+{
+	int		i;
+	int		j;
+	t_room	**ar;
+
+	i = 0;
+	while (i < res->flow_count)
+	{
+		j = 0;
+		ar = res->path_ar[i]->ar;
+		while (j < res->path_ar[i]->size)
+		{
+			if (ar[j]->type != R_START && ar[j]->type != R_END)
+				ar[j]->type = R_PATH;
+			j++;
+		}
+		i++;
+	}
+}
+
+t_ant		*solver_vis(t_list *resolve, int ant_count)
 {
 	t_resolve	*res;
+	char		*str;
+	t_ant		*ant;
 
+	str = ft_strdup("");
 	if (resolve)
 	{
 		res = get_path(resolve, ant_count);
-		print_res(res, ant_count);
+		path_max_size(res);
+		ant = ant_init(res, ant_count);
+		fill_types(res);
+		return (ant);
 	}
-	else
-	{
-		ft_error();
-	}
+	return (0);
 }

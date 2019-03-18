@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:04:27 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/13 16:26:06 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/18 18:17:06 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,15 @@ t_arrnum			*ft_arrnumdup(t_arrnum *a);
 int					ft_arrnumfndposnb(t_arrnum *a, int nb);
 
 void				*ft_memmalcpy(void *src, size_t size);
+
 void				ft_3pntset(t_3point *p, int x, int y, int z);
 t_point				ft_pntset(t_point *p, int x, int y);
+t_point				ft_pntplsy(t_point t, int i);
+t_point				ft_pntplsx(t_point t, int i);
+t_point				ft_pnt(int x, int y);
+t_point				ft_pntpls(t_point p0, t_point p1);
+t_3point			ft_3pnt(int x, int y, int z);
+
 int					ft_usage(char *fname);
 int					ft_error(void);
 void				*ft_memrealloc(void *src, size_t src_size, size_t new_size);

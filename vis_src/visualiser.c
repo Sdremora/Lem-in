@@ -1,59 +1,107 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   visualiser.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/18 18:28:02 by hharvey           #+#    #+#             */
+/*   Updated: 2019/03/18 19:40:59 by hharvey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		deal_key(int key, t_all *all)
+void	move_ants(t_all *all)
 {
-	if (key == 53)
-		exit(1);
-	return (0);
+	int		j;
+	t_ant	*ant;
 
-}
-
-void	draw_farm(t_list *room, int r, t_mlx mlx, t_3point clr)
-{
-	t_point	temp;
-	t_list	*link;
-	t_point	link_pt;
-
-
-	while (room)
+	ant = all->ant;
+	j = 0;
+	while (j < all->ant_count)
 	{
-		ft_pntset(&temp, get_room(room)->x, get_room(room)->y);
-//		printf("%s %d, %d\n",get_room(room)->name, get_room(room)->x, get_room(room)->y);
-		brez_circle(mlx, r, temp, clr);
-		link = get_room(room)->link_list;
-		while (link)
+		if (ant->pos[j] + 1 < ant->path[j]->size
+				&& ant->path[j]->ar[ant->pos[j] + 1]->is_empty)
 		{
-			ft_pntset(&link_pt, get_room(link)->x, get_room(link)->y);
-			plotLine(temp, link_pt, clr, mlx);
-			link = link->next;
+			ant->path[j]->ar[ant->pos[j]]->is_empty = 1;
+			if (all->start_count > 0
+				&& ant->path[j]->ar[ant->pos[j]] == all->start)
+				all->start_count--;
+			if (ant->pos[j] + 1 != ant->path[j]->size - 1)
+				ant->path[j]->ar[ant->pos[j] + 1]->is_empty = 0;
+			if (ant->path[j]->ar[ant->pos[j] + 1] == all->end)
+				all->end_count++;
+			ant->pos[j] += 1;
 		}
-		room = room->next;
+		j++;
 	}
 }
 
-int	main(void)
+int		deal_key(int key, t_all *all)
+{
+	t_mlx		mlx;
+	static int	i = 0;
+	char		*str;
+
+	mlx = all->mlx;
+	if (key == 53)
+		exit(1);
+	else if (key == 49 && all->ant->pos[all->ant_count - 1]
+			!= all->ant->path[all->ant_count - 1]->size - 1)
+	{
+		move_ants(all);
+		draw_farm(all->room, 20, all->mlx, all->pic);
+		i++;
+	}
+	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img_ptr, 0, 0);
+	mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, 100, 100, 0xFFFFFFFF, "turn");
+	mlx_putnbr(all->mlx, ft_pnt(150, 100), 0xFFFFFFFF, i);
+	mlx_putnbr(all->mlx, ft_pnt(all->start->x - 20, all->start->y - 20),
+				0xFFFFFFFF, all->start_count);
+	mlx_putnbr(all->mlx, ft_pnt(all->end->x - 20, all->end->y - 20),
+				0xFFFFFFFF, all->end_count);
+	return (0);
+}
+
+char	**read_ant(char *fname)
+{
+	char	temp[2048];
+	int		fd;
+	char	**res;
+	int		ret;
+
+	fd = open(fname, O_RDONLY);
+	ret = read(fd, temp, 2046);
+	temp[2047] = 0;
+	return (ft_strsplit(temp, '\n'));
+}
+
+int		main(void)
 {
 	t_mlx		mlx;
 	t_all		all;
-	t_point		pnt;
-	t_3point	clr;
 	t_farm		*farm;
-	t_point p0;
-	t_point p1;
 
-
+	all.pic = read_ant("ant");
 	farm = parser();
+	all.ant = solver_vis(resolve_finder(farm), farm->ant_count);
+	all.start = farm->start;
+	all.end = farm->end;
+	all.end_count = 0;
 	init(&mlx);
 	all.room = farm->room;
 	all.mlx = mlx;
-	ft_3pntset(&clr, 127,127,127);
-
-
-	draw_farm(all.room, 20, all.mlx, clr);
+	all.ant_count = farm->ant_count;
+	all.start_count = all.ant_count;
+	draw_farm(all.room, 20, all.mlx, all.pic);
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img_ptr, 0, 0);
+	mlx_putnbr(mlx, ft_pnt(all.start->x - 20, all.start->y - 20),
+			0xFFFFFFFF, all.start_count);
+	mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, 100, 100, 0xFFFFFFFF, "turn");
+	mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, 150, 100, 0xFFFFFFFF, "0");
 	mlx_hook(mlx.win_ptr, 2, 1L << 0, deal_key, &all);
 	mlx_hook(mlx.win_ptr, 17, 1L << 17, ft_end, NULL);
 	mlx_loop(mlx.mlx_ptr);
+	ft_arrstrdel(all.pic);
 }
-
