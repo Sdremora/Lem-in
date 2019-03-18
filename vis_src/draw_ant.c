@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 17:58:32 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/18 19:03:11 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/18 20:21:37 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,34 @@ void	draw_links(t_list *room, t_mlx mlx)
 	}
 }
 
+void	draw_names(t_all *all, int i)
+{
+	t_list	*list;
+	t_room	*room;
+	t_mlx	mlx;
+
+	mlx = all->mlx;
+	list = all->room;
+	while (list)
+	{
+		room = get_room(list);
+		mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, room->x - 50,
+			room->y - 50, 0xFFFFFFFF, room->name);
+		list = list->next;
+	}
+	mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, 100, 100, 0xFFFFFFFF, "turn");
+	mlx_putnbr(all->mlx, ft_pnt(150, 100), 0xFFFFFFFF, i);
+	mlx_putnbr(all->mlx, ft_pnt(all->start->x - 20, all->start->y - 20),
+			0xFFFFFFFF, all->start_count);
+	mlx_putnbr(all->mlx, ft_pnt(all->end->x - 20, all->end->y - 20),
+			0xFFFFFFFF, all->end_count);
+}
+
 void	draw_farm(t_list *room, int r, t_mlx mlx, char **ant)
 {
 	t_point		temp;
 	t_list		*link;
 	t_point		link_pt;
-	int			i;
 	t_3point	clr;
 
 	draw_links(room, mlx);

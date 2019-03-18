@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 19:43:46 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/18 19:44:50 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/18 20:21:50 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ t_3point			get_link_color(t_room *r1, t_room *r2);
 void				draw_ant(char **ant, t_point p, t_mlx mlx);
 void				draw_links(t_list *room, t_mlx mlx);
 void				draw_farm(t_list *room, int r, t_mlx mlx, char **ant);
+void				draw_names(t_all *all, int i);
 
 #endif

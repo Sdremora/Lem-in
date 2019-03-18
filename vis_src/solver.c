@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:05:50 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/18 17:03:55 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/18 20:39:51 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,6 @@ void		path_reverse(t_path *path)
 		temp = path->ar[i];
 		path->ar[i] = path->ar[path->size - 1 - i];
 		path->ar[path->size - 1 - i] = temp;
-		i++;
-	}
-}
-
-void		resolve_reverse(t_resolve *res)
-{
-	int i;
-
-	i = 0;
-	while (i < res->flow_count)
-	{
-		res->path_ar[i]->max_size = res->path_ar[i]->size;
-		path_reverse(res->path_ar[i]);
 		i++;
 	}
 }

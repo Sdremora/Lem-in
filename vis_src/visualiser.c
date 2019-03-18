@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 18:28:02 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/18 19:40:59 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/18 20:22:58 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,7 @@ int		deal_key(int key, t_all *all)
 		i++;
 	}
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img_ptr, 0, 0);
-	mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, 100, 100, 0xFFFFFFFF, "turn");
-	mlx_putnbr(all->mlx, ft_pnt(150, 100), 0xFFFFFFFF, i);
-	mlx_putnbr(all->mlx, ft_pnt(all->start->x - 20, all->start->y - 20),
-				0xFFFFFFFF, all->start_count);
-	mlx_putnbr(all->mlx, ft_pnt(all->end->x - 20, all->end->y - 20),
-				0xFFFFFFFF, all->end_count);
+	draw_names(all, 0);
 	return (0);
 }
 
@@ -96,10 +91,7 @@ int		main(void)
 	all.start_count = all.ant_count;
 	draw_farm(all.room, 20, all.mlx, all.pic);
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img_ptr, 0, 0);
-	mlx_putnbr(mlx, ft_pnt(all.start->x - 20, all.start->y - 20),
-			0xFFFFFFFF, all.start_count);
-	mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, 100, 100, 0xFFFFFFFF, "turn");
-	mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, 150, 100, 0xFFFFFFFF, "0");
+	draw_names(&all, 0);
 	mlx_hook(mlx.win_ptr, 2, 1L << 0, deal_key, &all);
 	mlx_hook(mlx.win_ptr, 17, 1L << 17, ft_end, NULL);
 	mlx_loop(mlx.mlx_ptr);
