@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:05:26 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/15 12:43:45 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/18 13:34:31 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ t_farm	*parser(void)
 	t_farm	*res;
 
 	farm = 0;
+	str = NULL;
 	res = (t_farm*)malloc(sizeof(t_farm));
 	res->map = ft_strdup("");
 	res->start = 0;
