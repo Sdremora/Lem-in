@@ -30,8 +30,13 @@ $(NAME): $(OBJ_DIR) $(LIB) $(OBJ)
 		@printf "\r$(NAME) $(GREEN)✔$(NC)                                        \n"
 
 $(VIS): $(LIB)
+<<<<<<< HEAD
 		gcc -o $(VIS) $(FLAGS) $(MLX_FL) $(addprefix -I,$(INCLUDES)) -I $(INCLMLX) ./vis_src/*.c  -L $(MLXLIB) $(LIB)
 		
+=======
+		gcc -o $(VIS) $(MLX_FL) $(addprefix -I,$(INCLUDES)) -I $(INCLMLX) ./vis_src/*.c  -L $(MLXLIB) $(LIB)
+
+>>>>>>> e69e1a6591907fe0d7fbddf3b7a7faf5bcf0693b
 $(OBJ_DIR):
 		@mkdir out
 
