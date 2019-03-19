@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 12:08:29 by sdremora          #+#    #+#             */
-/*   Updated: 2019/03/13 13:12:28 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/18 16:11:45 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,28 @@ static int	resolve_check(t_resolve *resolve, t_path *path)
 static void	resolve_to_state(t_state *state, t_resolve *resolve, int flow)
 {
 	t_list	*node;
-	t_list	*temp;
+	t_list	*prev;
+	t_list	*cur;
 
 	node = ft_lstput(resolve, resolve->move_count);
 	if (!node)
 		error_handle(E_NOMEM);
-	if (state->res_ar[flow] == NULL)
+	prev = NULL;
+	cur = state->res_ar[flow];
+	while (cur && cur->content_size < node->content_size)
+	{
+		prev = cur;
+		cur = cur->next;
+	}
+	if (prev == NULL)
+	{
+		node->next = state->res_ar[flow];
 		state->res_ar[flow] = node;
+	}
 	else
 	{
-		temp = state->res_ar[flow];
-		if (temp->content_size > node->content_size)
-		{
-			state->res_ar[flow] = node;
-			node->next = temp;
-		}
-		else
-		{
-			node->next = temp->next;
-			temp->next = node;
-		}
+		prev->next = node;
+		node->next = cur;
 	}
 }
 
@@ -118,12 +120,14 @@ void		resolve_mixer(t_state *state, t_path *path)
 	int			flow;
 	t_list		*res_node;
 	t_resolve	*resolve;
+	int			count;
 
 	flow = state->max_flow;
-	while (flow >= 0 && flow > state->cur_flow - 2)
+	while (flow >= 0 && flow > state->cur_flow - state->deep_count)
 	{
 		res_node = state->res_ar[flow];
-		while (res_node)
+		count = 0;
+		while (res_node && count < 50)
 		{
 			resolve = (t_resolve *)res_node->content;
 			if (resolve_check(resolve, path))
@@ -132,6 +136,7 @@ void		resolve_mixer(t_state *state, t_path *path)
 				state->res_count++;
 			}
 			res_node = res_node->next;
+			count++;
 		}
 		flow--;
 	}

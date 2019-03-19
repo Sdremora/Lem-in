@@ -50,6 +50,24 @@ void	draw_links(t_list *room, t_mlx mlx)
 	}
 }
 
+void	draw_ant_names(t_all *all)
+{
+	t_list	*list;
+	t_room	*room;
+	t_mlx	mlx;
+
+	mlx = all->mlx;
+	list = all->room;
+	while (list)
+	{
+		room = get_room(list);
+		if (room != all->start && room != all->end && room->ant_name)
+			mlx_string_put(mlx.mlx_ptr, mlx.win_ptr, room->x,
+			room->y, 0xFFFFFFFF, room->ant_name);
+		list = list->next;
+	}
+}
+
 void	draw_names(t_all *all, int i)
 {
 	t_list	*list;
@@ -71,6 +89,7 @@ void	draw_names(t_all *all, int i)
 			0xFFFFFFFF, all->start_count);
 	mlx_putnbr(all->mlx, ft_pnt(all->end->x - 20, all->end->y - 20),
 			0xFFFFFFFF, all->end_count);
+	draw_ant_names(all);
 }
 
 void	draw_farm(t_list *room, int r, t_mlx mlx, char **ant)

@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 15:10:44 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/15 19:20:49 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/19 11:49:48 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_room
 	int				type;
 	int				is_empty;
 	char			is_visited[100];
+	char			*ant_name;
 	unsigned int	hash;
 }				t_room;
 

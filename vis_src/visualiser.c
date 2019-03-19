@@ -32,6 +32,9 @@ void	move_ants(t_all *all)
 				ant->path[j]->ar[ant->pos[j] + 1]->is_empty = 0;
 			if (ant->path[j]->ar[ant->pos[j] + 1] == all->end)
 				all->end_count++;
+			ft_strdel(&(ant->path[j]->ar[ant->pos[j]]->ant_name));
+			ant->path[j]->ar[ant->pos[j] + 1]->
+				ant_name = ft_strjdelsnd("L", ft_itoa(j + 1));
 			ant->pos[j] += 1;
 		}
 		j++;
