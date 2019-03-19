@@ -1,25 +1,30 @@
 
 NAME = libft.a
-
 FLAGS = -Wall -Werror -Wextra
-
 SRCS  = $(wildcard *.c)
-
 OBJECTS = $(SRCS:.c=.o)
+GREEN=\033[0;32m
+YELLOW=\033[0;33m
+NC=\033[0m # No Color
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	ar rcs libft.a $(OBJECTS)
+	@ar rcs libft.a $(OBJECTS)
+	@ranlib $(NAME)
+	@printf "\r$(NAME) $(GREEN)✔                                    $(NC)\n"
 
 $(OBJECTS): %.o:%.c
-	gcc $(FLAGS) -c $< -o $@
+	@printf "\rCompiling $<                 "
+	@gcc $(FLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJECTS)
+	@printf "$(NAME) clean: $(YELLOW)✔$(NC)\n"
+	@rm -f $(OBJECTS)
 
 fclean: clean
-	rm -f $(NAME)
+	@printf "$(NAME) fclean: $(YELLOW)✔$(NC)\n"
+	@rm -f $(NAME)
 
 re: fclean all
 

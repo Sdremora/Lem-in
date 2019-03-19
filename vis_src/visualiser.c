@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 18:28:02 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/18 20:22:58 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/19 11:40:42 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		deal_key(int key, t_all *all)
 		i++;
 	}
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img_ptr, 0, 0);
-	draw_names(all, 0);
+	draw_names(all, i);
 	return (0);
 }
 

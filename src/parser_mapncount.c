@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:07:23 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/13 11:43:32 by sdremora         ###   ########.fr       */
+/*   Updated: 2019/03/14 11:06:04 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	room_init(t_room *room, char **split)
 	room->link_list = 0;
 	room->is_empty = 1;
 	room->hash = 0;
-	room->start_count = -1;
-	room->end_count = -1;
 	ft_bzero(room->is_visited, 100);
 	free(split[1]);
 	free(split[2]);
@@ -71,7 +69,6 @@ char	*add_comms(char *map, char *str)
 			return (map);
 		}
 	}
-	printf("%s\n", str);
 	return (add_map(map, str, 1));
 }
 

@@ -6,7 +6,7 @@
 /*   By: sdremora <sdremora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 14:05:26 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/13 14:10:34 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/18 13:34:31 by sdremora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	read_room(t_list **farm, char *str, int *type, t_farm *res)
 	else if (*type == 2)
 		res->end = room;
 	if (ft_check_duplication(room->name, *farm))
-		error_handle(E_BADMAP);
+		error_handle(E_DUPROOM, room->name);
 	temp_list = (t_list*)malloc(sizeof(t_list));
 	temp_list->content = room;
 	temp_list->content_size = sizeof(*room);
@@ -55,14 +55,9 @@ void	read_connection(char *str, t_list *farm)
 			farm = farm->next;
 		}
 		if (!lst1 || !lst2)
-			error_handle(E_BADMAP);
+			error_handle(E_INVLINK, str);
 		if (!ft_lstfnd(((t_room*)lst1->content)->link_list, lst2->content))
-		{
-			ft_lstadd(&((t_room*)lst1->content)->link_list,
-					ft_lstput(lst2->content, lst2->content_size));
-			ft_lstadd(&((t_room*)lst2->content)->link_list,
-					ft_lstput(lst1->content, lst1->content_size));
-		}
+			rooms_to_links(lst1, lst2);
 	}
 	ft_arrstrdel(split);
 }
@@ -109,7 +104,7 @@ int		read_rooms(t_farm *res, char **str, t_list **farm)
 		else if (**str != 'L' && ft_strwrdcnt(*str, '-') == 2 && *farm)
 			return (read_all_cons(res, str, *farm));
 		else
-			return (0);
+			error_handle(E_INVINP, *str);
 		res->map = add_map(res->map, *str, 0);
 	}
 	return (1);
@@ -123,19 +118,16 @@ t_farm	*parser(void)
 	t_farm	*res;
 
 	farm = 0;
+	str = NULL;
 	res = (t_farm*)malloc(sizeof(t_farm));
 	res->map = ft_strdup("");
 	res->start = 0;
 	res->end = 0;
 	type = 0;
 	res->ant_count = 0;
-	if (read_ant_count(res, &str) <= 0 || !read_rooms(res, &str, &farm))
-	{
-		free(str);
-		free(res->map);
-		free(res);
-		error_handle(E_BADMAP);
-	}
+	if (read_ant_count(res, &str) <= 0)
+		error_handle(E_INVANT);
+	read_rooms(res, &str, &farm);
 	res->room = farm;
 	farm_checker(res);
 	while (deadend_remover_farm(res))

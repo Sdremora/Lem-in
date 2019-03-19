@@ -13,15 +13,14 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
+# include <stdarg.h>
+# include "libft.h"
+# include "lem_in/queue.h"
 # include "lem_in/general.h"
 # include "lem_in/parser.h"
 # include "lem_in/way_finder.h"
 # include "lem_in/solver.h"
-# include "libft.h"
-# include "lem_in/queue.h"
+
 # include "lem_in/graphic.h"
 
-#include <stdio.h> // <=========== Удалить !
-extern int	flags[5];
-#define F_ALG 1
 #endif
