@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 17:40:10 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/18 18:16:46 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/19 14:22:43 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_point	ft_pntplsy(t_point t, int i)
 	return (res);
 }
 
-t_point ft_pntplsx(t_point t, int i)
+t_point	ft_pntplsx(t_point t, int i)
 {
 	t_point res;
 
