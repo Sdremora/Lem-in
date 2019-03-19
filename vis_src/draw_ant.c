@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 17:58:32 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/18 20:21:37 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/19 14:17:01 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	draw_farm(t_list *room, int r, t_mlx mlx, char **ant)
 {
 	t_point		temp;
 	t_list		*link;
-	t_point		link_pt;
 	t_3point	clr;
 
 	draw_links(room, mlx);

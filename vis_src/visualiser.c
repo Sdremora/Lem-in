@@ -6,7 +6,7 @@
 /*   By: hharvey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 18:28:02 by hharvey           #+#    #+#             */
-/*   Updated: 2019/03/19 11:40:42 by hharvey          ###   ########.fr       */
+/*   Updated: 2019/03/19 14:17:29 by hharvey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int		deal_key(int key, t_all *all)
 {
 	t_mlx		mlx;
 	static int	i = 0;
-	char		*str;
 
 	mlx = all->mlx;
 	if (key == 53)
@@ -66,7 +65,6 @@ char	**read_ant(char *fname)
 {
 	char	temp[2048];
 	int		fd;
-	char	**res;
 	int		ret;
 
 	fd = open(fname, O_RDONLY);
