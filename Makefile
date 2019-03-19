@@ -31,7 +31,7 @@ $(NAME): $(OBJ_DIR) $(LIB) $(OBJ)
 
 $(VIS): $(LIB)
 		gcc -o $(VIS) $(MLX_FL) $(addprefix -I,$(INCLUDES)) -I $(INCLMLX) ./vis_src/*.c  -L $(MLXLIB) $(LIB)
-		
+
 $(OBJ_DIR):
 		@mkdir out
 
@@ -60,6 +60,7 @@ fclean: clean
 	@$(MAKE) -C $(LIB_DIR) fclean
 	@printf "$(NAME) fclean: $(YELLOW)✔$(NC)\n"
 	@/bin/rm -f $(NAME)
+	@/bin/rm -f $(VIS)
 
 re: fclean all
 
